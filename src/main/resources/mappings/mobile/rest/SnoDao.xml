@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SnoDao">
+    
+	<sql id="snoColumns">
+		a.id AS "id",
+		a.number AS "number",
+		a.update_date AS "updateDate"
+	</sql>
+	
+	<sql id="snoJoins">
+	</sql>
+    
+	<select id="get" resultType="Sno">
+		SELECT 
+			<include refid="snoColumns"/>
+		FROM sno a
+		<include refid="snoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Sno">
+		SELECT 
+			<include refid="snoColumns"/>
+		FROM sno a
+		<include refid="snoJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Sno">
+		SELECT 
+			<include refid="snoColumns"/>
+		FROM sno a
+		<include refid="snoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sno(
+			id,
+			number,
+			updateDate
+			update_date
+		) VALUES (
+			#{id},
+			#{number},
+			#{updateDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sno SET 	
+			number = #{number},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sno
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

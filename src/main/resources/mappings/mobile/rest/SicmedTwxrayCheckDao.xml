@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedTwxrayCheckDao">
+
+	<sql id="sicmedTwxrayCheckColumns">
+		a.id AS "id",
+		a.check_code AS "checkCode",
+		a.check_name AS "checkName",
+		a.check_name_py AS "checkNamePY",<!-- a.check_price_code AS "checkPriceCode", 
+			a.check_class_code AS "checkClassCode", -->
+		a.check_detail AS "checkDetail",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS
+		"delFlag",
+		a.check_price_code AS "sicmedCheckPrice.id",
+		a.check_class_code AS
+		"sicmedTwxrayClass.id",
+
+		b.class_name AS
+		"sicmedTwxrayClass.className",
+		c.check_price AS
+		"sicmedCheckPrice.checkPrice"
+	</sql>
+
+	<sql id="sicmedTwxrayCheckJoins">
+		LEFT JOIN sicmed_twxray_class b ON b.id =
+		a.check_class_code
+		LEFT JOIN sicmed_check_price c ON c.id =
+		a.check_price_code
+	</sql>
+
+	<select id="get" resultType="SicmedTwxrayCheck">
+		SELECT
+		<include refid="sicmedTwxrayCheckColumns" />
+		FROM sicmed_twxray_check a
+		<include refid="sicmedTwxrayCheckJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getTwxrayCheck" resultType="SicmedTwxrayCheck">
+		SELECT
+		<include refid="sicmedTwxrayCheckColumns" />
+		FROM sicmed_twxray_check a
+		<include refid="sicmedTwxrayCheckJoins" />
+		WHERE a.check_code = #{checkCode}
+	</select>
+
+	<select id="findList" resultType="SicmedTwxrayCheck">
+		SELECT
+		<include refid="sicmedTwxrayCheckColumns" />
+		FROM sicmed_twxray_check a
+		<include refid="sicmedTwxrayCheckJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<!-- <if test="checkCode != null and checkCode != ''">
+				AND a.check_code = #{checkCode}
+			</if>
+			<if test="checkName != null and checkName != ''">
+				AND a.check_name = #{checkName}
+			</if>
+			<if test="checkNamePY != null and checkNamePY != ''">
+				AND a.check_name_py = #{checkNamePY}
+			</if> -->
+			<if test="checkCode != null and checkCode != ''">
+				AND a.check_code LIKE CONCAT('%',#{checkCode},'%')
+			</if>
+			<if test="checkName != null and checkName != ''">
+				AND a.check_name LIKE CONCAT('%',#{checkName},'%')
+			</if>
+			<if test="checkNamePY != null and checkNamePY != ''">
+				AND a.check_name_py LIKE CONCAT('%',#{checkNamePY},'%')
+			</if>
+			<if test="checkDetail != null and checkDetail != ''">
+				AND a.check_detail = #{checkDetail}
+			</if>
+			<if
+				test="sicmedCheckPrice != null and sicmedCheckPrice.id != '' and sicmedCheckPrice.id != null">
+				AND a.check_price_code = #{sicmedCheckPrice.id}
+			</if>
+			<if
+				test="sicmedTwxrayClass != null and sicmedTwxrayClass.id != '' and sicmedTwxrayClass.id != null">
+				AND a.check_class_code = #{sicmedTwxrayClass.id}
+			</if>
+			<if
+				test="sicmedTwxrayClass != null and sicmedTwxrayClass.className != '' and sicmedTwxrayClass.className != null">
+				AND b.class_name = #{sicmedTwxrayClass.className}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="SicmedTwxrayCheck">
+		SELECT
+		<include refid="sicmedTwxrayCheckColumns" />
+		FROM sicmed_twxray_check a
+		<include refid="sicmedTwxrayCheckJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- Max select -->
+	<sql id="sicmedTwxrayCheckColumns2">
+		a.id AS "id",
+		a.check_name AS "checkName"
+	</sql>
+	<!-- 模糊查询检查项目 -->
+	<select id="findListLike" resultType="SicmedTwxrayCheck">
+		SELECT
+		<include refid="sicmedTwxrayCheckColumns2" />
+		FROM sicmed_twxray_check a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedTwxrayClass != null and sicmedTwxrayClass != ''">
+				AND a.check_class_code = #{sicmedTwxrayClass.id}
+			</if>
+			<if test="checkCode != null and checkCode != ''">
+				AND a.check_code like CONCAT('%','${checkCode}','%' )
+			</if>
+			<if test="checkName != null and checkName != ''">
+				AND a.check_name like CONCAT('%','${checkName}','%' )
+			</if>
+			<if test="checkNamePY !=null and checkNamePY !=''">
+				AND a.check_name_py like CONCAT('%','${checkNamePY}','%' )
+			</if>
+		</where>
+		<!-- <choose> <when test="page !=null and page.orderBy != null and page.orderBy 
+			!= ''"> ORDER BY ${page.orderBy} </when> <otherwise> ORDER BY a.update_date 
+			DESC </otherwise> </choose> -->
+	</select>
+
+	<insert id="insert">
+		INSERT INTO sicmed_twxray_check(
+		id,
+		check_code,
+		check_name,
+		check_name_py,
+		check_price_code,
+		check_class_code,
+		check_detail,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{id},
+		#{checkCode},
+		#{checkName},
+		#{checkNamePY},
+		#{sicmedCheckPrice.id},
+		#{sicmedTwxrayClass.id},
+		#{checkDetail},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE sicmed_twxray_check SET
+		check_code =
+		#{checkCode},
+		check_name = #{checkName},
+		check_name_py = #{checkNamePY},
+		check_price_code = #{sicmedCheckPrice.id},
+		check_class_code =
+		#{sicmedTwxrayClass.id},
+		check_detail = #{checkDetail},
+		update_by =
+		#{updateBy.id},
+		update_date = #{updateDate},
+		remarks = #{remarks}
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE sicmed_twxray_check SET
+		del_flag =
+		#{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+</mapper>

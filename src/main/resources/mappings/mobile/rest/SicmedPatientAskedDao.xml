@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedPatientAskedDao">
+    
+	<sql id="sicmedPatientAskedColumns">
+		a.id AS "id",
+		a.patient_code AS "sicmedPatient.id",
+		a.branch_code AS "sicmedBranch.id",
+		a.doctor_code AS "sicmedUser.id",
+		a.asked_code AS "sicmedAsked.id",
+	 	a.medical_group AS "sicmedBaseCode.id", 
+		a.plus_name AS "plusName",
+		a.send_branch AS "sicmedAskedBranch.id",
+		a.medical_code AS "sicmedMedical.id", 
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sicmedPatientAskedJoins">
+		LEFT JOIN sicmed_patient b ON b.id = a.patient_code
+		LEFT JOIN sicmed_branch c ON c.id = a.branch_code
+		LEFT JOIN sicmed_user d ON d.id = a.doctor_code
+		LEFT JOIN sicmed_asked e ON e.id = a.asked_code
+		LEFT JOIN sicmed_base_code f ON f.id = a.medical_group 
+		LEFT JOIN sicmed_asked_branch g ON g.id = a.send_branch
+		LEFT JOIN sicmed_medical h ON h.id = a.medical_code
+	</sql>
+	
+	<select id="get" resultType="SicmedPatientAsked">
+		SELECT 
+			<include refid="sicmedPatientAskedColumns"/>
+		FROM sicmed_patient_asked a
+		<include refid="sicmedPatientAskedJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SicmedPatientAsked">
+		SELECT 
+			<include refid="sicmedPatientAskedColumns"/>
+		FROM sicmed_patient_asked a
+		<include refid="sicmedPatientAskedJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sicmedPatient != null and sicmedPatient != ''">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="sicmedAsked != null and sicmedAsked != ''">
+				AND a.asked_code = #{sicmedAsked.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedPatientAsked">
+		SELECT 
+			<include refid="sicmedPatientAskedColumns"/>
+		FROM sicmed_patient_asked a
+		<include refid="sicmedPatientAskedJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_patient_asked(
+			id,
+			patient_code,
+			branch_code,
+			doctor_code,
+			asked_code,
+			medical_group,
+			plus_name,
+			send_branch,
+			medical_code,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sicmedPatient.id},
+			#{sicmedBranch.id},
+			#{sicmedUser.id},
+			#{sicmedAsked.id},
+			#{sicmedBaseCode.id},
+			#{plusName},
+			#{sicmedAskedBranch.id},
+			#{sicmedMedical.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<insert id="addPatientAsked">
+		INSERT INTO sicmed_patient_asked(
+			 patient_code,
+			 asked_code,
+			 medical_code
+		)VALUES (
+			#{sicmedPatient.id},
+			#{sicmedAsked.id},
+			#{sicmedMedical.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_patient_asked SET 	
+			patient_code = #{sicmedPatient.id},
+			branch_code = #{sicmedBranch.id},
+			doctor_code = #{sicmedUser.id},
+			asked_code = #{sicmedAsked.id},
+			medical_group = #{sicmedBaseCode.id},
+			plus_name = #{plusName},
+			send_branch = #{sicmedAskedBranch.id},
+			medical_code = #{sicmedMedical.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_patient_asked SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

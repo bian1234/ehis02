@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedMedicalClassDao">
+    
+	<sql id="sicmedMedicalClassColumns">
+		a.id AS "id",
+		a.code AS "code",
+		a.name AS "name",
+		a.sort AS "sort",
+		a.pace AS "pace",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.parent_id AS "parent.id",
+		a.parent_ids AS "parentIds"
+	</sql>
+	
+	<sql id="sicmedMedicalClassJoins">
+	LEFT JOIN sicmed_medical_class b ON b.id = a.parent_id
+	</sql>
+    
+	<select id="get" resultType="SicmedMedicalClass">
+		SELECT 
+			<include refid="sicmedMedicalClassColumns"/>
+		FROM sicmed_medical_class a
+		<include refid="sicmedMedicalClassJoins"/>
+		<where>
+				
+				<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+				<if test="name != null and name != ''">
+				AND a.name =#{name}; 
+			</if>
+			</where>
+	</select>
+	
+	<select id="findList" resultType="SicmedMedicalClass">
+		SELECT 
+			<include refid="sicmedMedicalClassColumns"/>
+		FROM sicmed_medical_class a
+		<include refid="sicmedMedicalClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="code != null and code != ''">
+				AND a.code =#{code}
+			</if>
+			<if test="parentIds != null and parentIds != ''">
+				AND a.parent_ids = #{parentIds}
+			</if>
+			<if test="parent != null ">
+				AND a.parent_id = #{parent.id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sort != null and sort != ''">
+				AND a.sort LIKE CONCAT('%',#{sort},'%')  
+			</if>
+			<if test="pace != null and pace != ''">
+				AND a.pace LIKE CONCAT('%', #{pace},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 模糊查询带分页 web-->
+		<select id="findLike" resultType="SicmedMedicalClass">
+		SELECT 
+			<include refid="sicmedMedicalClassColumns"/>
+		FROM sicmed_medical_class a
+		<include refid="sicmedMedicalClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="code != null and code != ''">
+				AND a.code LIKE CONCAT('%',#{code},'%')
+			</if>
+			<if test="parentIds != null and parentIds != ''">
+				AND a.parent_ids LIKE CONCAT('%',#{parentIds},'%') 
+			</if>
+			<if test="parent != null ">
+				AND a.parent_id = #{parent.id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sort != null and sort != ''">
+				AND a.sort LIKE CONCAT('%',#{sort},'%')  
+			</if>
+			<if test="pace != null and pace != ''">
+				AND a.pace LIKE CONCAT('%', #{pace},'%') 
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedMedicalClass">
+		SELECT 
+			<include refid="sicmedMedicalClassColumns"/>
+		FROM sicmed_medical_class a
+		<include refid="sicmedMedicalClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_medical_class(
+			id,
+			code,
+			name,
+			sort,
+			pace,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			parent_id,
+			parent_ids
+		) VALUES (
+			#{id},
+			#{code},
+			#{name},
+			#{sort},
+			#{pace},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{parent.id},
+			#{parentIds}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_medical_class SET 	
+			id = #{id},
+			code = #{code},
+			name = #{name},
+			sort = #{sort},
+			pace = #{pace},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_medical_class SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

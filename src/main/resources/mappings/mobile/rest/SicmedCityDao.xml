@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedCityDao">
+    
+	<sql id="sicmedCityColumns">
+		a.city_id AS "cityId",
+		a.city_parent_id AS "cityParentId",
+		a.city_name AS "cityName",
+		a.city_type AS "cityType",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+		
+		<!-- c.city_parent_id AS "sicmedCityParent.id",
+		c.city_name AS "cityName",
+		c.city_type AS "cityType",
+		c.create_by AS "createBy.id",
+		c.create_date AS "createDate",
+		c.update_by AS "updateBy.id",
+		c.update_date AS "updateDate",
+		c.remarks AS "remarks",
+		c.del_flag AS "delFlag" --> 
+		
+	</sql>
+	
+	<sql id="sicmedCityJoins">
+	<!-- LEFT JOIN sicmed_city c ON c.city_id = a.city_parent_id -->
+	</sql>
+    
+	<select id="getById" resultType="SicmedCity">
+		SELECT 
+			<include refid="sicmedCityColumns"/>
+		FROM sicmed_city a
+		<include refid="sicmedCityJoins"/>
+		WHERE a.city_id = #{cityId}
+	</select>
+	
+	<select id="findList" resultType="SicmedCity">
+		SELECT 
+			<include refid="sicmedCityColumns"/>
+		FROM sicmed_city a
+		<include refid="sicmedCityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="cityId != null and cityId != ''">
+				AND a.city_id = #{cityId}
+			</if>
+			<if test="cityParentId != null and cityParentId != ''">
+				AND a.city_parent_id = #{cityParentId}
+			</if>
+			<if test="cityName != null and cityName != ''">
+				AND a.city_name = #{cityName}
+			</if>
+			<if test="cityType != null and cityType != ''">
+				AND a.city_type = #{cityType}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedCity">
+		SELECT 
+			<include refid="sicmedCityColumns"/>
+		FROM sicmed_city a
+		<include refid="sicmedCityJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_city(
+			city_id,
+			city_parent_id,
+			city_name,
+			city_type,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{cityId},
+			#{cityParentId},
+			#{cityName},
+			#{cityType},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_city SET 	
+			city_id = #{cityId},
+			city_parent_id = #{cityParentId},
+			city_name = #{cityName},
+			city_type = #{cityType},
+			create_by = #{createBy.id},
+			create_date = #{createDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_city SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

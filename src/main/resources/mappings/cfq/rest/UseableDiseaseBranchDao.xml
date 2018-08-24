@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.cfq.rest.dao.UseableDiseaseBranchDao">
+    
+	<sql id="useableDiseaseBranchColumns">
+		a.disease_name_id AS "diseaseNameId",
+		a.branch_id AS "branchId",
+		a.user_id AS "user.id",
+		u3.name AS "user.name"
+	</sql>
+	
+	<sql id="useableDiseaseBranchJoins">
+		LEFT JOIN sys_user u3 ON u3.id = a.user_id
+	</sql>
+    
+	<select id="get" resultType="UseableDiseaseBranch">
+		SELECT 
+			<include refid="useableDiseaseBranchColumns"/>
+		FROM useable_disease_branch a
+		<include refid="useableDiseaseBranchJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="UseableDiseaseBranch">
+		SELECT 
+			<include refid="useableDiseaseBranchColumns"/>
+		FROM useable_disease_branch a
+		<include refid="useableDiseaseBranchJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="UseableDiseaseBranch">
+		SELECT 
+			<include refid="useableDiseaseBranchColumns"/>
+		FROM useable_disease_branch a
+		<include refid="useableDiseaseBranchJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO useable_disease_branch(
+			disease_name_id,
+			branch_id,
+			user_id
+		) VALUES (
+			#{diseaseNameId},
+			#{branchId},
+			#{user.id}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE useable_disease_branch SET 	
+			disease_name_id = #{diseaseNameId},
+			branch_id = #{branchId},
+			user_id = #{user.id}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM useable_disease_branch
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

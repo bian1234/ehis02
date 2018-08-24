@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedAskedClassDao">
+    
+	<sql id="sicmedAskedClassColumns">
+		a.id AS "id",
+		a.class_number AS "classNumber",
+		a.asked_calss AS "askedCalss",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sicmedAskedClassJoins">
+	</sql>
+    
+	<select id="get" resultType="SicmedAskedClass">
+		SELECT 
+			<include refid="sicmedAskedClassColumns"/>
+		FROM sicmed_asked_class a
+		<include refid="sicmedAskedClassJoins"/>
+		<where>
+			<if test="id !=null">
+			a.id = #{id}
+			</if>
+			<if test="classNumber != null and classNumber!=''">
+			AND a.class_number = #{classNumber}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getAskedByAskedClass" resultType="SicmedAskedClass">
+		SELECT 
+			<include refid="sicmedAskedClassColumns"/>
+		FROM sicmed_asked_class a
+		<include refid="sicmedAskedClassJoins"/>
+		WHERE a.asked_calss = #{askedCalss}
+	</select>
+	
+	<select id="findList" resultType="SicmedAskedClass">
+		SELECT 
+			<include refid="sicmedAskedClassColumns"/>
+		FROM sicmed_asked_class a
+		<include refid="sicmedAskedClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="askedCalss != null and askedCalss != ''">
+				AND a.asked_calss = #{askedCalss}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 模糊查询带分页web -->
+	<select id="findLike" resultType="SicmedAskedClass">
+		SELECT 
+			<include refid="sicmedAskedClassColumns"/>
+		FROM sicmed_asked_class a
+		<include refid="sicmedAskedClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="askedCalss != null and askedCalss != ''">
+				AND a.asked_calss LIKE CONCAT ('%',#{askedCalss},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedAskedClass">
+		SELECT 
+			<include refid="sicmedAskedClassColumns"/>
+		FROM sicmed_asked_class a
+		<include refid="sicmedAskedClassJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_asked_class(
+			id,
+			class_number,
+			asked_calss,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{classNumber},
+			#{askedCalss},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_asked_class SET 	
+			class_number = #{classNumber},
+			asked_calss = #{askedCalss},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_asked_class SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

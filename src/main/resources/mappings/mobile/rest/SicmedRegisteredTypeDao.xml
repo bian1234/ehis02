@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedRegisteredTypeDao">
+    
+	<sql id="sicmedRegisteredTypeColumns">
+		a.id AS "id",
+		a.name_china AS "nameChina",
+		a.name_english AS "nameEnglish",
+		a.code_grades AS "codeGrades",
+		a.price_id AS "sicmedRegisteredPrice.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		b.registered_fee AS "sicmedRegisteredPrice.registeredFee",
+		b.clinics_fee AS "sicmedRegisteredPrice.clinicsFee",
+		b.material_fee AS "sicmedRegisteredPrice.materialFee"
+		
+		
+	</sql>
+	
+	<sql id="sicmedRegisteredTypeJoins">
+		LEFT JOIN sicmed_registered_price b ON b.id = a.price_id
+	</sql>
+    
+	<select id="get" resultType="SicmedRegisteredType">
+		SELECT 
+			<include refid="sicmedRegisteredTypeColumns"/>
+		FROM sicmed_registered_type a
+		<include refid="sicmedRegisteredTypeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList1" resultType="SicmedRegisteredType">
+		SELECT 
+			<include refid="sicmedRegisteredTypeColumns"/>
+		FROM sicmed_registered_type a
+		<include refid="sicmedRegisteredTypeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="codeGrades != null and codeGrades != ''">
+				AND a.code_grades &lt;= #{codeGrades}
+			</if>
+			<if test="sicmedRegisteredPrice != null and sicmedRegisteredPrice.id != null and sicmedRegisteredPrice.id != ''">
+				AND a.price_id = #{sicmedRegisteredPrice.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findList2" resultType="SicmedRegisteredType">
+		SELECT 
+			<include refid="sicmedRegisteredTypeColumns"/>
+		FROM sicmed_registered_type a
+		<include refid="sicmedRegisteredTypeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="codeGrades != null and codeGrades != ''">
+				AND a.code_grades &lt;= #{codeGrades}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findList" resultType="SicmedRegisteredType">
+		SELECT 
+			<include refid="sicmedRegisteredTypeColumns"/>
+		FROM sicmed_registered_type a
+		<include refid="sicmedRegisteredTypeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="nameChina != null and nameChina != ''">
+				AND a.name_china = #{nameChina}
+			</if>
+			<if test="nameEnglish != null and nameEnglish != ''">
+				AND a.name_english = #{nameEnglish}
+			</if>
+			<if test="sicmedRegisteredPrice != null and sicmedRegisteredPrice.id != null and sicmedRegisteredPrice.id != ''">
+				AND a.price_id = #{sicmedRegisteredPrice.id}
+			</if>
+			<if test="sicmedRegisteredPrice != null and sicmedRegisteredPrice.materialFee != null and sicmedRegisteredPrice.materialFee != ''">
+				AND a.price_id = #{sicmedRegisteredPrice.materialFee}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedRegisteredType">
+		SELECT 
+			<include refid="sicmedRegisteredTypeColumns"/>
+		FROM sicmed_registered_type a
+		<include refid="sicmedRegisteredTypeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_registered_type(
+			id,
+			name_china,
+			name_english,
+			code_grades,
+			price_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{nameChina},
+			#{nameEnglish},
+			#{codeGrades},
+			#{sicmedRegisteredPrice.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_registered_type SET 	
+			name_china = #{nameChina},
+			name_english = #{nameEnglish},
+			code_grades = #{codeGrades},
+			price_id = #{sicmedRegisteredPrice.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_registered_type SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedDiseaseDao">
+
+	<sql id="sicmedDiseaseColumns">
+		a.id AS "id",
+		a.disease_class_code AS "diseaseClass.id",
+		a.disease_name
+		AS "diseaseName",
+		a.disease_name_english AS "diseaseNameEnglish",
+		a.disease_name_pmpa AS "diseaseNamePmpa",
+		a.disease_code AS
+		"diseaseCode",
+		a.create_by AS "createBy.id",
+		a.create_date AS
+		"createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS
+		"updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		<!-- 疾病类别 -->
+
+		d.disease_class_name AS "diseaseClass.diseaseClassName",
+		d.disease_class_code AS "diseaseClass.diseaseClassCode",
+		d.create_by AS
+		"diseaseClass.createBy.id",
+		d.create_date AS "diseaseClass.createDate",
+		d.update_by AS "diseaseClass.updateBy.id",
+		d.update_date AS
+		"diseaseClass.updateDate",
+		d.remarks AS "diseaseClass.remarks",
+		d.del_flag AS "diseaseClass.delFlag"
+
+	</sql>
+
+	<sql id="sicmedDiseaseJoins">
+		LEFT JOIN sicmed_disease_class d ON d.id =
+		a.disease_class_code
+	</sql>
+
+	<select id="get" resultType="SicmedDisease">
+		SELECT
+		<include refid="sicmedDiseaseColumns" />
+		FROM sicmed_disease a
+		<include refid="sicmedDiseaseJoins" />
+		WHERE a.id = #{id}
+	</select>
+	
+	<!-- 模糊查询带分页web -->
+	<select id="findLike" resultType="SicmedDisease">
+		SELECT
+		<include refid="sicmedDiseaseColumns" />
+		FROM sicmed_disease a
+		<include refid="sicmedDiseaseJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="diseaseClass != null and diseaseClass.id != '' and diseaseClass.id != null">
+				AND a.disease_class_code = #{diseaseClass.id}
+			</if>
+			<if test="diseaseClass != null and diseaseClass.diseaseClassName != '' and diseaseClass.diseaseClassName != null">
+				AND d.disease_class_name = #{diseaseClass.diseaseClassName}
+			</if>
+			<!-- <if test="diseaseName != null and diseaseName != ''">
+				AND a.disease_name = #{diseaseName}
+			</if> -->
+			<if test="diseaseName != null and diseaseName != ''">
+				AND a.disease_name LIKE CONCAT ('%',#{diseaseName},'%') 
+			</if>
+			<if test="diseaseNameEnglish != null and diseaseNameEnglish != ''">
+				AND a.disease_name_english = #{diseaseNameEnglish}
+			</if>
+			<if test="diseaseNamePmpa != null and diseaseNamePmpa != ''">
+				AND a.disease_name_pmpa = #{diseaseNamePmpa}
+			</if>
+			<!-- <if test="diseaseCode != null and diseaseCode != ''">
+				AND a.disease_code = #{diseaseCode}
+			</if> -->
+			<if test="diseaseCode != null and diseaseCode != ''">
+				AND a.disease_code LIKE CONCAT ('%',#{diseaseCode},'%') 
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findList" resultType="SicmedDisease">
+		SELECT
+		<include refid="sicmedDiseaseColumns" />
+		FROM sicmed_disease a
+		<include refid="sicmedDiseaseJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="diseaseClass != null and diseaseClass.id != '' and diseaseClass.id != null">
+				AND a.disease_class_code = #{diseaseClass.id}
+			</if>
+			<if test="diseaseClass != null and diseaseClass.diseaseClassName != '' and diseaseClass.diseaseClassName != null">
+				AND d.disease_class_name = #{diseaseClass.diseaseClassName}
+			</if>
+			<!-- <if test="diseaseName != null and diseaseName != ''">
+				AND a.disease_name = #{diseaseName}
+			</if> -->
+			<if test="diseaseName != null and diseaseName != ''">
+				AND a.disease_name = #{diseaseName}
+			</if>
+			<if test="diseaseNameEnglish != null and diseaseNameEnglish != ''">
+				AND a.disease_name_english = #{diseaseNameEnglish}
+			</if>
+			<if test="diseaseNamePmpa != null and diseaseNamePmpa != ''">
+				AND a.disease_name_pmpa = #{diseaseNamePmpa}
+			</if>
+			<!-- <if test="diseaseCode != null and diseaseCode != ''">
+				AND a.disease_code = #{diseaseCode}
+			</if> -->
+			<if test="diseaseCode != null and diseaseCode != ''">
+				AND a.disease_code = #{diseaseCode} 
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="SicmedDisease">
+		SELECT
+		<include refid="sicmedDiseaseColumns" />
+		FROM sicmed_disease a
+		<include refid="sicmedDiseaseJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 模糊查询 -->
+	<select id="findListLike" resultType="SicmedDisease">
+		SELECT
+		<include refid="sicmedDiseaseColumns" />
+		FROM sicmed_disease a
+		<include refid="sicmedDiseaseJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="diseaseName != null and diseaseName != ''">
+				AND a.disease_name like CONCAT('%','${diseaseName}','%')
+			</if>
+			<if test="diseaseNameEnglish != null and diseaseNameEnglish != ''">
+				AND a.disease_name_english like CONCAT('%','${diseaseNameEnglish}','%')
+			</if>
+			<if test="diseaseNamePmpa != null and diseaseNamePmpa != ''">
+				AND a.disease_name_pmpa like CONCAT('%','${diseaseNamePmpa}','%')
+			</if>
+			<if test="diseaseCode != null and diseaseCode != ''">
+				AND a.disease_code like CONCAT('%','${diseaseCode}','%')
+			</if>
+		</where>
+
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO sicmed_disease(
+		id,
+		disease_class_code,
+		disease_name,
+		disease_name_english,
+		disease_name_pmpa,
+		disease_code,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{id},
+		#{diseaseClass.id},
+		#{diseaseName},
+		#{diseaseNameEnglish},
+		#{diseaseNamePmpa},
+		#{diseaseCode},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE sicmed_disease SET
+		disease_class_code = #{diseaseClass.id},
+		disease_name = #{diseaseName},
+		disease_name_english = #{diseaseNameEnglish},
+		disease_name_pmpa = #{diseaseNamePmpa},
+		disease_code = #{diseaseCode},
+		update_by = #{updateBy.id},
+		update_date = #{updateDate},
+		remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE sicmed_disease SET
+		del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+</mapper>

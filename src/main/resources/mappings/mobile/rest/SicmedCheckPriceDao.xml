@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedCheckPriceDao">
+    
+	<sql id="sicmedCheckPriceColumns">
+		a.id AS "id",
+		a.check_price_cutoff_date AS "checkPriceCutoffDate",
+		a.check_price_insert_date AS "checkPriceInsertDate",
+		a.check_code AS "sicmedTwxrayCheck.id",
+		a.check_price AS "checkPrice",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		b.check_name AS "sicmedTwxrayCheck.checkName"
+	</sql>
+	
+	<sql id="sicmedCheckPriceJoins">
+		LEFT JOIN sicmed_twxray_check b ON b.id = a.check_code
+	</sql>
+    
+	<select id="get" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByEntity" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="beginCheckPriceCutoffDate != null and endCheckPriceCutoffDate != null and beginCheckPriceCutoffDate != '' and endCheckPriceCutoffDate != ''">
+				AND a.check_price_cutoff_date BETWEEN #{beginCheckPriceCutoffDate} AND #{endCheckPriceCutoffDate}
+			</if>
+			<if test="beginCheckPriceInsertDate != null and endCheckPriceInsertDate != null and beginCheckPriceInsertDate != '' and endCheckPriceInsertDate != ''">
+				AND a.check_price_insert_date BETWEEN #{beginCheckPriceInsertDate} AND #{endCheckPriceInsertDate}
+			</if>
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck != ''">
+				AND a.check_code = #{sicmedTwxrayCheck.id}
+			</if>
+			<if test="checkPrice != null and checkPrice != ''">
+				AND a.check_price = #{checkPrice}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findList" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="beginCheckPriceCutoffDate != null and endCheckPriceCutoffDate != null and beginCheckPriceCutoffDate != '' and endCheckPriceCutoffDate != ''">
+				AND a.check_price_cutoff_date BETWEEN #{beginCheckPriceCutoffDate} AND #{endCheckPriceCutoffDate}
+			</if>
+			<if test="beginCheckPriceInsertDate != null and endCheckPriceInsertDate != null and beginCheckPriceInsertDate != '' and endCheckPriceInsertDate != ''">
+				AND a.check_price_insert_date BETWEEN #{beginCheckPriceInsertDate} AND #{endCheckPriceInsertDate}
+			</if>
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.id != '' and sicmedTwxrayCheck.id != null">
+				AND a.check_code = #{sicmedTwxrayCheck.id}
+			</if>
+			<if test="checkPrice != null and checkPrice != ''">
+				AND a.check_price = #{checkPrice}
+			</if>			
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.checkName != '' and sicmedTwxrayCheck.checkName != null">
+				AND b.check_name = #{sicmedTwxrayCheck.checkName}
+			</if>
+			
+			<if test="startDate != null and startDate != ''">
+				AND a.check_price_insert_date &gt; #{startDate}
+			</if> 
+			
+			<if test="endDate != null and endDate != ''">
+				AND a.check_price_cutoff_date &lt; #{endDate}
+			</if> 
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.check_price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findCheckPrice" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.id != '' and sicmedTwxrayCheck.id !=null">
+				AND a.check_code = #{sicmedTwxrayCheck.id}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.check_price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_check_price(
+			id,
+			check_price_cutoff_date,
+			check_price_insert_date,
+			check_code,
+			check_price,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{checkPriceCutoffDate},
+			#{checkPriceInsertDate},
+			#{sicmedTwxrayCheck.id},
+			#{checkPrice},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_check_price SET 	
+			check_price_cutoff_date = #{checkPriceCutoffDate},
+			check_price_insert_date = #{checkPriceInsertDate},
+			check_code = #{sicmedTwxrayCheck.id},
+			check_price = #{checkPrice},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			del_flag = #{delFlag},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_check_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findAllPriceList" resultType="SicmedCheckPrice">
+		SELECT 
+			<include refid="sicmedCheckPriceColumns"/>
+		FROM sicmed_check_price a
+		<include refid="sicmedCheckPriceJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="beginCheckPriceCutoffDate != null and endCheckPriceCutoffDate != null and beginCheckPriceCutoffDate != '' and endCheckPriceCutoffDate != ''">
+				AND a.check_price_cutoff_date BETWEEN #{beginCheckPriceCutoffDate} AND #{endCheckPriceCutoffDate}
+			</if>
+			<if test="beginCheckPriceInsertDate != null and endCheckPriceInsertDate != null and beginCheckPriceInsertDate != '' and endCheckPriceInsertDate != ''">
+				AND a.check_price_insert_date BETWEEN #{beginCheckPriceInsertDate} AND #{endCheckPriceInsertDate}
+			</if>
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.id != '' and sicmedTwxrayCheck.id != null">
+				AND a.check_code = #{sicmedTwxrayCheck.id}
+			</if>
+			<if test="checkPrice != null and checkPrice != ''">
+				AND a.check_price = #{checkPrice}
+			</if>
+			
+			<!-- <if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.checkName != '' and sicmedTwxrayCheck.checkName != null">
+				AND b.check_name = #{sicmedTwxrayCheck.checkName}
+			</if> -->
+			<if test="sicmedTwxrayCheck != null and sicmedTwxrayCheck.checkName != '' and sicmedTwxrayCheck.checkName != null">
+				AND b.check_name LIKE CONCAT('%',#{sicmedTwxrayCheck.checkName},'%')
+			</if>
+			
+			<if test="startDate != null and startDate != ''">
+				AND a.check_price_insert_date &gt; #{startDate}
+			</if> 
+			
+			<if test="endDate != null and endDate != ''">
+				AND a.check_price_cutoff_date &lt; #{endDate}
+			</if> 
+			
+ 			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.check_price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

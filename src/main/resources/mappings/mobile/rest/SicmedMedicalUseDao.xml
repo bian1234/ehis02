@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedMedicalUseDao">
+    
+	<sql id="sicmedMedicalUseColumns">
+		a.id AS "id",
+		a.asked_code AS "askedCode",
+		a.use_group AS "useGroup",
+		a.use_name AS "useName",
+		a.use_bun AS "useBun",
+		a.use_unit AS "useUnit",
+		a.use_amount AS "useAmount",
+		a.use_day AS "useDay",
+		a.use_bout AS "useBout",
+		a.create_user AS "createUser",
+		a.update_user AS "updateUser",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sicmedMedicalUseJoins">
+	</sql>
+    
+	<select id="get" resultType="SicmedMedicalUse">
+		SELECT 
+			<include refid="sicmedMedicalUseColumns"/>
+		FROM sicmed_medical_use a
+		<include refid="sicmedMedicalUseJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SicmedMedicalUse">
+		SELECT 
+			<include refid="sicmedMedicalUseColumns"/>
+		FROM sicmed_medical_use a
+		<include refid="sicmedMedicalUseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="askedCode != null and askedCode != ''">
+				AND a.asked_code = #{askedCode}
+			</if>
+			<if test="useGroup != null and useGroup != ''">
+				AND a.use_group = #{useGroup}
+			</if>
+			<if test="useName != null and useName != ''">
+				AND a.use_name = #{useName}
+			</if>
+			<if test="useBun != null and useBun != ''">
+				AND a.use_bun = #{useBun}
+			</if>
+			<if test="useUnit != null and useUnit != ''">
+				AND a.use_unit = #{useUnit}
+			</if>
+			<if test="useAmount != null and useAmount != ''">
+				AND a.use_amount = #{useAmount}
+			</if>
+			<if test="useDay != null and useDay != ''">
+				AND a.use_day = #{useDay}
+			</if>
+			<if test="useBout != null and useBout != ''">
+				AND a.use_bout = #{useBout}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedMedicalUse">
+		SELECT 
+			<include refid="sicmedMedicalUseColumns"/>
+		FROM sicmed_medical_use a
+		<include refid="sicmedMedicalUseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_medical_use(
+			id,
+			asked_code,
+			use_group,
+			use_name,
+			use_bun,
+			use_unit,
+			use_amount,
+			use_day,
+			use_bout,
+			create_user,
+			update_user,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{askedCode},
+			#{useGroup},
+			#{useName},
+			#{useBun},
+			#{useUnit},
+			#{useAmount},
+			#{useDay},
+			#{useBout},
+			#{createUser},
+			#{updateUser},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_medical_use SET 	
+			asked_code = #{askedCode},
+			use_group = #{useGroup},
+			use_name = #{useName},
+			use_bun = #{useBun},
+			use_unit = #{useUnit},
+			use_amount = #{useAmount},
+			use_day = #{useDay},
+			use_bout = #{useBout},
+			create_user = #{createUser},
+			update_user = #{updateUser},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_medical_use SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

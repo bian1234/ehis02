@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedMedicalDao">
+
+	<sql id="sicmedMedicalColumns">
+		a.id AS "id",
+		a.medical_frdate AS "medicalFrdate",
+		a.medical_todate AS "medicalTodate",
+		a.medical_code AS "medicalCode",
+		a.medical_group AS "medicalGroup",
+		a.medical_name_china AS "medicalNameChina",
+		a.medical_name_english AS "medicalNameEnglish",
+		a.medical_stand AS "medicalStand",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.unit1 AS "unit1",
+		a.unit2 AS "unit2",
+		a.medical_name_pinyin AS "medicalNamePinyin",
+		a.medical_class_id_one AS "medicalClassOne.id",
+		a.medical_class_id_two AS "medicalClassTwo.id",
+		a.medical_class_id_three AS "medicalClassThree.id",
+		a.medical_ingredient AS "medicalIngredient",
+		a.medical_traits AS "medicalTraits",
+		a.medical_indications AS "medicalIndications",
+		a.medical_specification AS "medicalSpecification",
+		a.medical_dosage_usage AS "medicalDosageUsage",
+		a.medical_adverse_reactions AS "medicalAdverseReactions",
+		a.medical_taboo AS "medicalTaboo",
+		a.medical_precautions AS "medicalPrecautions",
+		a.medical_pregnant_women_lactating_women AS "medicalPregnantWomenLactatingWomen",
+		a.medical_pediatric_use AS "medicalPediatricUse",
+		a.medical_elderly_medication AS "medicalElderlyMedication",
+		a.medical_medicine_interactions AS "medicalMedicineInteractions",
+		a.medical_drug_overdose AS "medicalDrugOverdose",
+		a.medical_clinical_trials AS "medicalClinicalTrials",
+		a.medical_pharmacology_toxicology AS "medicalPharmacologyToxicology",
+		a.medical_pharmacokinetics AS "medicalPharmacokinetics",
+		a.medical_package AS "medicalPackage",
+		a.medical_period_validity AS "medicalPeriodValidity",
+		a.medical_implementation_standards AS "medicalImplementationStandards",
+		a.medical_approval_number AS "medicalApprovalNumber",
+		a.medical_manufacturer AS "medicalManufacturer",
+		a.medical_storage AS "medicalStorage",
+		a.medical_detail AS "detail",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.medical_price_id AS "medicalPrice.id",
+		a.medical_use_number AS "medicalUseNumber",
+		a.medical_measure AS "medicalMeasure",
+		a.medical_use AS "medicalUse",
+		a.medical_company AS "medicalCompany",
+
+		<!-- c.name AS "medicalClass.name", -->
+
+	    b.price_sale AS "medicalPrice.priceSale",
+		b.price_enter AS "medicalPrice.priceEnter",
+		d.name AS "medicalClassOne.name"
+	</sql>
+
+	<sql id="sicmedMedicalJoins">
+		LEFT JOIN sicmed_medical_price b ON b.id = a.medical_price_id
+		LEFT JOIN sicmed_medical_class d ON d.id = a.medical_class_id_one
+		LEFT JOIN sicmed_medical_class e ON e.id = a.medical_class_id_two
+		LEFT JOIN sicmed_medical_class f ON f.id = a.medical_class_id_three
+	</sql>
+
+	<select id="get" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getMedicalWithMedical" parameterType="SicmedMedical"
+		resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		WHERE
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="id != null and id != ''">
+			AND a.id = #{id}
+		</if>
+		<if test="medicalNameChina != null and medicalNameChina != ''">
+			AND a.medical_name_china = #{medicalNameChina}
+		</if>
+		<if test="medicalNameEnglish != null and medicalNameEnglish != ''">
+			AND a.medical_name_english = #{medicalNameEnglish}
+		</if>
+		<if test="medicalCode != null and medicalCode != ''">
+			AND a.medical_code = #{medicalCode}
+		</if>
+	</select>
+
+	<!-- 查询，parameter:SicmedMedical return:SicmedMedicalList -->
+	<select id="getMeicalListWithMedical" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="medicalNameChina != null and medicalNameChina != ''">
+				AND a.medical_name_china = #{medicalNameChina}
+			</if>
+			<if test="medicalNameEnglish != null and medicalNameEnglish != ''">
+				AND a.medical_name_english = #{medicalNameEnglish}
+			</if>
+			<if test="medicalCode != null and medicalCode != ''">
+				AND a.medical_code = #{medicalCode}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findList" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="unit2 != null and unit2 != ''">
+				AND a.unit2 = #{unit2}
+			</if>
+			<if test="medicalFrdate != null and medicalFrdate != ''">
+				AND a.medical_frdate = #{medicalFrdate}
+			</if>
+			<if test="medicalTodate != null and medicalTodate != ''">
+				AND a.medical_todate = #{medicalTodate}
+			</if>
+			<if test="medicalCode != null and medicalCode != ''">
+				AND a.medical_code = #{medicalCode}
+			</if>
+			<if test="medicalGroup != null and medicalGroup != ''">
+				AND a.medical_group = #{medicalGroup}
+			</if>
+			<if test="unit1 != null and unit1 != ''">
+				AND a.unit1 = #{unit1}
+			</if>
+			<if test="medicalNameChina != null and medicalNameChina != ''">
+				AND a.medical_name_china = #{medicalNameChina}
+			</if>
+			<if test="medicalNameEnglish != null and medicalNameEnglish != ''">
+				AND a.medical_name_english = #{medicalNameEnglish}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if
+				test="medicalPrice != null and medicalPrice.id != null and medicalPrice.id != ''">
+				AND a.medical_price_id = #{medicalPrice.id}
+			</if>
+			<if
+				test="medicalClassOne != null and medicalClassOne.id != null and medicalClassOne.id != ''">
+				AND a.medical_class_id_one = #{medicalClassOne.id}
+			</if>
+			<if
+				test="medicalClassOne != null and medicalClassOne.name != null and medicalClassOne.name != ''">
+				AND d.name = #{medicalClassOne.name}
+			</if>
+			<if
+				test="medicalClassTwo != null and medicalClassTwo.id != null and medicalClassTwo.id != ''">
+				AND a.medical_class_id_two = #{medicalClassTwo.id}
+			</if>
+			<if
+				test="medicalClassTwo != null and medicalClassTwo.name != null and medicalClassTwo.name != ''">
+				AND e.name = #{medicalClassTwo.name}
+			</if>
+			<if
+				test="medicalClassThree != null and medicalClassThree.id != null and medicalClassThree.id != ''">
+				AND a.medical_class_id_three = #{medicalClassThree.id}
+			</if>
+			<if
+				test="medicalClassThree != null and medicalClassThree.name != null and medicalClassThree.name != ''">
+				AND f.name = #{medicalClassThree.name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.medical_class_id_three DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 模糊查询带分页web -->
+	<select id="findLike" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="unit2 != null and unit2 != ''">
+				AND a.unit2 = #{unit2}
+			</if>
+			<if test="medicalFrdate != null and medicalFrdate != ''">
+				AND a.medical_frdate = #{medicalFrdate}
+			</if>
+			<if test="medicalTodate != null and medicalTodate != ''">
+				AND a.medical_todate = #{medicalTodate}
+			</if>
+			<if test="medicalCode != null and medicalCode != ''">
+				AND a.medical_code LIKE CONCAT('%',#{medicalCode},'%') 
+			</if>
+			<if test="medicalGroup != null and medicalGroup != ''">
+				AND a.medical_group = #{medicalGroup}
+			</if>
+			<if test="unit1 != null and unit1 != ''">
+				AND a.unit1 = #{unit1}
+			</if>
+			<if test="medicalNameChina != null and medicalNameChina != ''">
+				AND a.medical_name_china LIKE CONCAT('%',#{medicalNameChina},'%') 
+			</if>
+			<if test="medicalNameEnglish != null and medicalNameEnglish != ''">
+				AND a.medical_name_english = #{medicalNameEnglish}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if
+				test="medicalPrice != null and medicalPrice.id != null and medicalPrice.id != ''">
+				AND a.medical_price_id = #{medicalPrice.id}
+			</if>
+			<if
+				test="medicalClassOne != null and medicalClassOne.id != null and medicalClassOne.id != ''">
+				AND a.medical_class_id_one = #{medicalClassOne.id}
+			</if>
+			<if
+				test="medicalClassOne != null and medicalClassOne.name != null and medicalClassOne.name != ''">
+				AND d.name = #{medicalClassOne.name}
+			</if>
+			<if
+				test="medicalClassTwo != null and medicalClassTwo.id != null and medicalClassTwo.id != ''">
+				AND a.medical_class_id_two = #{medicalClassTwo.id}
+			</if>
+			<if
+				test="medicalClassTwo != null and medicalClassTwo.name != null and medicalClassTwo.name != ''">
+				AND e.name = #{medicalClassTwo.name}
+			</if>
+			<if
+				test="medicalClassThree != null and medicalClassThree.id != null and medicalClassThree.id != ''">
+				AND a.medical_class_id_three = #{medicalClassThree.id}
+			</if>
+			<if
+				test="medicalClassThree != null and medicalClassThree.name != null and medicalClassThree.name != ''">
+				AND f.name = #{medicalClassThree.name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.medical_class_id_three DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- Max select -->
+	<sql id="sicmedMedicalColumns2">
+		a.id AS "id",
+		a.medical_name_china AS "medicalNameChina"
+	</sql>
+	
+	<!-- 模糊查询 SQL -->
+	<select id="findListLike" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns"/>
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="medicalClassOne != null and  medicalClassOne.id != '' and  medicalClassOne.id != null">
+				AND a.medical_class_id_one = #{medicalClassOne.id}
+			</if>
+			<if test="medicalCode != null and medicalCode != ''">
+				AND a.medical_code like CONCAT('%','${medicalCode}','%' )
+			</if>
+			<if test="medicalNameEnglish != null and medicalNameEnglish != ''">
+				AND a.medical_name_english like CONCAT('%','${medicalNameEnglish}','%' )
+			</if>
+			<if test="medicalNameChina != null and medicalNameChina != ''">
+				AND a.medical_name_china like CONCAT('%','${medicalNameChina}','%' )
+			</if>
+		</where>
+		ORDER BY LENGTH(medical_name_china) ASC
+		<!-- <choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose> -->
+	</select>
+
+
+	<insert id="insert">
+		INSERT INTO sicmed_medical(
+		id,
+		medical_frdate,
+		medical_todate,
+		medical_code,
+		medical_group,
+		medical_name_china,
+		medical_name_pinyin,
+		medical_name_english,
+		medical_price_id,
+		medical_use_number,
+		medical_measure,
+		medical_use,
+		medical_company,
+		medical_detail,
+		medical_stand,
+		medical_class_id_one,
+		medical_class_id_two,
+		medical_class_id_three,
+		unit1,
+		unit2,
+		medical_ingredient,
+		medical_traits,
+		medical_indications,
+		medical_specification,
+		medical_dosage_usage,
+		medical_adverse_reactions,
+		medical_taboo,
+		medical_precautions,
+		medical_pregnant_women_lactating_women,
+		medical_pediatric_use,
+		medical_elderly_medication,
+		medical_medicine_interactions,
+		medical_drug_overdose,
+		medical_clinical_trials,
+		medical_pharmacology_toxicology,
+		medical_pharmacokinetics,
+		medical_package,
+		medical_period_validity,
+		medical_implementation_standards,
+		medical_approval_number,
+		medical_manufacturer,
+		medical_storage,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{id},
+		#{medicalFrdate},
+		#{medicalTodate},
+		#{medicalCode},
+		#{medicalGroup},
+		#{medicalNameChina},
+		#{medicalNamePinyin},
+		#{medicalNameEnglish},
+		#{medicalPrice.id},
+		#{medicalUseNumber},
+		#{medicalMeasure},
+		#{medicalUse},
+		#{medicalCompany},
+		#{detail},
+		#{medicalStand},
+		#{medicalClassOne.id},
+		#{medicalClassTwo.id},
+		#{medicalClassThree.id},
+		#{unit1},
+		#{unit2},
+		#{medicalIngredient},
+		#{medicalTraits},
+		#{medicalIndications},
+		#{medicalSpecification},
+		#{medicalDosageUsage},
+		#{medicalAdverseReactions},
+		#{medicalTaboo},
+		#{medicalPrecautions},
+		#{medicalPregnantWomenLactatingWomen},
+		#{medicalPediatricUse},
+		#{medicalElderlyMedication},
+		#{medicalMedicineInteractions},
+		#{medicalDrugOverdose},
+		#{medicalClinicalTrials},
+		#{medicalPharmacologyToxicology},
+		#{medicalPharmacokinetics},
+		#{medicalPackage},
+		#{medicalPeriodValidity},
+		#{medicalImplementationStandards},
+		#{medicalApprovalNumber},
+		#{medicalManufacturer},
+		#{medicalStorage},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE sicmed_medical SET
+		medical_frdate = #{medicalFrdate},
+		medical_todate = #{medicalTodate},
+		medical_code = #{medicalCode},
+		medical_group = #{medicalGroup},
+		medical_name_china = #{medicalNameChina},
+		medical_name_english = #{medicalNameEnglish},
+		medical_stand = #{medicalStand},
+		medical_price_id = #{medicalPrice.id},
+		medical_detail = #{detail},
+		medical_name_pinyin = #{medicalNamePinyin},
+		medical_class_id_one = #{medicalClassOne.id},
+		medical_class_id_two = #{medicalClassTwo.id},
+		medical_class_id_three = #{medicalClassThree.id},
+		unit1 = #{unit1},
+		unit2 = #{unit2},
+		medical_ingredient = #{medicalIngredient},
+		medical_traits = #{medicalTraits},
+		medical_indications = #{medicalIndications},
+		medical_specification = #{medicalSpecification},
+		medical_dosage_usage = #{medicalDosageUsage},
+		medical_adverse_reactions = #{medicalAdverseReactions},
+		medical_taboo = #{medicalTaboo},
+		medical_precautions = #{medicalPrecautions},
+		medical_pregnant_women_lactating_women = #{medicalPregnantWomenLactatingWomen},
+		medical_pediatric_use = #{medicalPediatricUse},
+		medical_elderly_medication = #{medicalElderlyMedication},
+		medical_medicine_interactions = #{medicalMedicineInteractions},
+		medical_drug_overdose = #{medicalDrugOverdose},
+		medical_clinical_trials = #{medicalClinicalTrials},
+		medical_pharmacology_toxicology = #{medicalPharmacologyToxicology},
+		medical_pharmacokinetics = #{medicalPharmacokinetics},
+		medical_package = #{medicalPackage},
+		medical_period_validity = #{medicalPeriodValidity},
+		medical_implementation_standards = #{medicalImplementationStandards},
+		medical_approval_number = #{medicalApprovalNumber},
+		medical_manufacturer = #{medicalManufacturer},
+		medical_storage = #{medicalStorage},
+		medical_use_number = #{medicalUseNumber},
+		medical_measure = #{medicalMeasure},
+		medical_use = #{medicalUse},
+		medical_company = #{medicalCompany}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE sicmed_medical SET
+		del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+<select id="getAll" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+<!-- 本地数据 药品数据更新 -->
+	<select id="findByVersion" resultType="SicmedMedical">
+		SELECT
+		<include refid="sicmedMedicalColumns" />
+		FROM sicmed_medical a
+		<include refid="sicmedMedicalJoins" />
+		<where>
+			del_flag = #{DEL_FLAG_DELETE}
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date >= ${updateDate} 
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

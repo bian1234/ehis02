@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedAskedBranchDao">
+	<sql id="sicmedAskedBranchColumns">
+		a.id AS "id",
+
+		a.asked_code AS "sicmedAsked.id",
+		a.branch_code AS "sicmedbranch.id",
+		
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		<!-- 医嘱表信息 -->
+		b.asked_code AS "sicmedAsked.askedCode",
+		b.asked_name AS "sicmedAsked.askedName",
+		b.asked_name_extand AS "sicmedAsked.askedNameExtand",
+		b.asked_class_code AS "sicmedAsked.sicmedAskedClass.id",
+		b.order_code AS "sicmedAsked.orderCode",
+		b.asked_case_code AS "sicmedAsked.sicmedCase.id",
+		b.create_by AS "sicmedAsked.createBy.id",
+		b.create_date AS "sicmedAsked.createDate",
+		b.update_by AS "sicmedAsked.updateBy.id",
+		b.update_date AS "sicmedAsked.updateDate",
+		b.remarks AS "sicmedAsked.remarks",
+		b.del_flag AS "sicmedAsked.delFlag",
+		<!-- 科室表信息 -->
+		
+		c.branch_code AS "sicmedBranch.branchCode",
+		c.branch_number AS "sicmedBranch.branchNumber",
+		c.branch_name AS "sicmedBranch.branchName",
+		c.branch_name_english AS "sicmedBranch.branchNameEnglish",
+		c.branch_location AS "sicmedBranch.branchLocation",
+		c.branch_registered AS "sicmedBranch.branchRegistered",
+		c.branch_registered_am AS "sicmedBranch.branchRegisteredAm",
+		c.branch_registered_pm AS "sicmedBranch.branchRegisteredPm",
+		c.branch_ipd AS "sicmedBranch.branchIpd",
+		c.create_by AS "sicmedBranch.createBy.id",
+		c.create_date AS "sicmedBranch.createDate",
+		c.update_by AS "sicmedBranch.updateBy.id",
+		c.update_date AS "sicmedBranch.updateDate",
+		c.remarks AS "sicmedBranch.remarks",
+		c.del_flag AS "sicmedBranch.delFlag"
+	</sql>
+	
+	<sql id="sicmedAskedBranchJoins">
+		LEFT JOIN sicmed_asked b ON b.id = a.asked_code
+		LEFT JOIN sicmed_branch c ON c.id = a.branch_code
+	</sql>
+    
+	<select id="get" resultType="SicmedAskedBranch">
+		SELECT 
+			<include refid="sicmedAskedBranchColumns"/>
+		FROM sicmed_asked_branch a
+		<include refid="sicmedAskedBranchJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SicmedAskedBranch">
+		SELECT 
+			<include refid="sicmedAskedBranchColumns"/>
+		FROM sicmed_asked_branch a
+		<include refid="sicmedAskedBranchJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedAskedBranch">
+		SELECT 
+			<include refid="sicmedAskedBranchColumns"/>
+		FROM sicmed_asked_branch a
+		<include refid="sicmedAskedBranchJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_asked_branch(
+			id,
+			asked_code,
+			branch_code,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sicmedAsked.id},
+			#{sicmedbranch.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_asked_branch SET 	
+			asked_code = #{sicmedAsked.id},
+			branch_code = #{sicmedbranch.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_asked_branch SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

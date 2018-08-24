@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedCurePriceDao">
+    
+	<sql id="sicmedCurePriceColumns">
+		a.id AS "id",
+		a.cure_code AS "sicmedCureCheck.id",
+		a.price AS "price",
+		a.price_cutoff_date AS "priceCutoffDate",
+		a.price_insert_date AS "priceInsertDate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		b.cure_name AS "sicmedCureCheck.cureName"
+	</sql>
+	
+	<sql id="sicmedCurePriceJoins">
+		LEFT JOIN sicmed_cure_check b ON b.id = a.cure_code
+	</sql>
+    <select id="getByEntity" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedCureCheck != null and sicmedCureCheck.id != '' and sicmedCureCheck.id != null">
+				AND a.cure_code = #{sicmedCureCheck.id}
+			</if>
+			<if test="price != null and price != ''">
+				AND a.price = #{price}
+			</if>
+			<if test="priceCutoffDate != null and priceCutoffDate != ''">
+				AND a.price_cutoff_date = #{priceCutoffDate}
+			</if>
+			<if test="priceInsertDate != null and priceInsertDate != ''">
+				AND a.price_insert_date = #{priceInsertDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="get" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="fingCurePrice" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedCureCheck != null and sicmedCureCheck.id != '' and sicmedCureCheck.id !=null">
+				AND a.cure_code = #{sicmedCureCheck.id}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findList" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedCureCheck != null and sicmedCureCheck.id != '' and sicmedCureCheck.id != null">
+				AND a.cure_code = #{sicmedCureCheck.id}
+			</if>
+			<if test="price != null and price != ''">
+				AND a.price = #{price}
+			</if>		
+			<if test="sicmedCureCheck != null and sicmedCureCheck.cureName != '' and sicmedCureCheck.cureName != null">
+				AND b.cure_name = #{sicmedCureCheck.cureName}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_cure_price(
+			id,
+			cure_code,
+			price,
+			price_cutoff_date,
+			price_insert_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sicmedCureCheck.id},
+			#{price},
+			#{priceCutoffDate},
+			#{priceInsertDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_cure_price SET 	
+			cure_code = #{sicmedCureCheck.id},
+			price = #{price},
+			price_cutoff_date = #{priceCutoffDate},
+			price_insert_date = #{priceInsertDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			del_flag = #{delFlag},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_cure_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- <select id="findAllPriceList" resultType="SicmedCurePrice"> -->
+	<!-- 模糊查询带分页web -->
+	<select id="findLike" resultType="SicmedCurePrice">
+		SELECT 
+			<include refid="sicmedCurePriceColumns"/>
+		FROM sicmed_cure_price a
+		<include refid="sicmedCurePriceJoins"/>
+		<where>
+			<if test="sicmedCureCheck != null and sicmedCureCheck.id != '' and sicmedCureCheck.id != null">
+				AND a.cure_code = #{sicmedCureCheck.id}
+			</if>
+			<if test="price != null and price != ''">
+				AND a.price = #{price}
+			</if>		
+			<if test="sicmedCureCheck != null and sicmedCureCheck.cureName != '' and sicmedCureCheck.cureName != null">
+				AND b.cure_name LIKE CONCAT('%',#{sicmedCureCheck.cureName},'%')
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if> 
+			
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

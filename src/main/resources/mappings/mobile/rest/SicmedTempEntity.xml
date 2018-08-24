@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedTempEntityDao">
+    
+	<sql id="sicmedEntityEntityColumns">
+		a.temp_code AS "tempCode",
+		a.first_price AS "firstPrice",
+		a.second_price AS "secondPrice",
+		a.detail_code AS "detailCode"		
+	</sql>
+		
+	<sql id="sicmedEntityEntityJoins">
+	</sql>
+    
+	<select id="get" resultType="SicmedTempEntity">
+		SELECT 
+			<include refid="sicmedEntityEntityColumns"/>
+		FROM sicmed_temp a
+		<include refid="sicmedEntityEntityJoins"/>
+		WHERE a.detail_code = #{detailCode}
+	</select>
+	
+	
+	
+</mapper>

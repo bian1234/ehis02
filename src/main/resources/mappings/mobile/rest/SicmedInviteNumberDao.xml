@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedInviteNumberDao">
+
+	<sql id="sicmedInviteNumberColumns">
+		a.id AS "id",
+		a.user_code AS "sicmedUser.id",
+		a.invite_number AS "inviteNumber",
+		a.invite_status AS "inviteStatus",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks
+		AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		u.user_name AS "sicmedUser.userName",
+		u.user_tel AS "sicmedUser.userTel"
+	</sql>
+
+	<sql id="sicmedInviteNumberJoins">
+		LEFT JOIN sicmed_user u ON u.id = a.user_code
+	</sql>
+
+	<select id="get" resultType="SicmedInviteNumber">
+		SELECT
+		<include refid="sicmedInviteNumberColumns" />
+		FROM sicmed_invite_number a
+		<include refid="sicmedInviteNumberJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getByEntity" resultType="SicmedInviteNumber">
+		SELECT
+		<include refid="sicmedInviteNumberColumns" />
+		FROM sicmed_invite_number a
+		<include refid="sicmedInviteNumberJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sicmedUser != null and sicmedUser != ''">
+				AND a.user_code = #{sicmedUser.id}
+			</if>
+			<if test="inviteNumber != null and inviteNumber != ''">
+				AND a.invite_number = #{inviteNumber}
+			</if>
+			<if test="inviteStatus != null and inviteStatus != ''">
+				AND a.invite_status = #{inviteStatus}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findList" resultType="SicmedInviteNumber">
+		SELECT
+		<include refid="sicmedInviteNumberColumns" />
+		FROM sicmed_invite_number a
+		<include refid="sicmedInviteNumberJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sicmedUser != null and sicmedUser.id != null and sicmedUser.id != ''">
+				AND a.user_code = #{sicmedUser.id}
+			</if>
+			<!-- <if test="sicmedUser != null and sicmedUser.userName != null and sicmedUser.userName != ''">
+				AND u.user_name = #{sicmedUser.userName}
+			</if>
+			<if test="sicmedUser != null and sicmedUser.userTel != null and sicmedUser.userTel != ''">
+				AND u.user_tel = #{sicmedUser.userTel}
+			</if> -->
+			<if test="sicmedUser != null and sicmedUser.userName != null and sicmedUser.userName != ''">
+				AND u.user_name LIKE CONCAT ('%',#{sicmedUser.userName},'%')
+			</if>
+			<if test="sicmedUser != null and sicmedUser.userTel != null and sicmedUser.userTel != ''">
+				AND u.user_tel LIKE CONCAT ('%',#{sicmedUser.userTel},'%')
+			</if>
+			<if test="inviteNumber != null and inviteNumber != ''">
+				AND a.invite_number = #{inviteNumber}
+			</if>
+			<if test="inviteStatus != null and inviteStatus != ''">
+				AND a.invite_status = #{inviteStatus}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAllList" resultType="SicmedInviteNumber">
+		SELECT
+		<include refid="sicmedInviteNumberColumns" />
+		FROM sicmed_invite_number a
+		<include refid="sicmedInviteNumberJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO sicmed_invite_number(
+		id,
+		user_code,
+		invite_number,
+		invite_status,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{id},
+		#{sicmedUser.id},
+		#{inviteNumber},
+		#{inviteStatus},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE sicmed_invite_number SET
+		user_code = #{sicmedUser.id},
+		invite_number = #{inviteNumber},
+		invite_status = #{inviteStatus},
+		update_by = #{updateBy.id},
+		update_date = #{updateDate},
+		remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE sicmed_invite_number SET
+		del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+</mapper>

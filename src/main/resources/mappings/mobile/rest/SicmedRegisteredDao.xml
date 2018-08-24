@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedRegisteredDao">
+
+	<sql id="sicmedRegisteredColumns">
+		a.id AS "id",
+		a.patient_code AS "sicmedPatient.id",
+		a.branch_code AS "sicmedBranch.id",
+		a.registered_status AS "registeredStatus",
+		a.registered_pric AS "registeredPric",
+		a.pric_status AS "pricStatus",
+		<!-- a.bi AS "sicmedBaseCode", -->
+		a.sicmed_registration_type AS "sicmedRegistrationType.id",
+		a.doctor_code AS "sicmedDoctor.id",
+		a.registered_begin_date AS "registeredBeginDate",
+		a.registered_end_date AS "registeredEndDate",
+		a.create_user AS "createUser.id",
+		a.update_user AS "updateUser.id",
+		a.delete_user AS "deleteUser.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+
+		<!-- 患者信息 -->
+		p.patient_number AS "sicmedPatient.patientNumber",
+		p.patient_name AS "sicmedPatient.patientName",
+		p.patient_sex AS "sicmedPatient.patientSex",
+		p.patient_age AS "sicmedPatient.patientAge",
+		p.medicare_type AS "sicmedPatient.medicareType",
+		p.medicare_no AS "sicmedPatient.medicareNo",
+		p.patient_birthday AS "sicmedPatient.patientBirthday",
+		p.patient_card AS "sicmedPatient.patientCard",
+		p.patient_firstdate AS "sicmedPatient.patientFirstdate",
+		p.patient_lastdate AS "sicmedPatient.patientLastdate",
+		p.patient_address AS "sicmedPatient.patientAddress",
+		p.patient_tel AS "sicmedPatient.patientTel",
+		p.branch_code AS "sicmedPatient.sicmedBranch.id",
+		p.doctor_code AS "sicmedPatient.sicmedDoctor.id",
+		p.create_user As "sicmedPatient.createUser.id",
+		p.update_user As "sicmedPatient.updateUser.id",
+		p.create_by AS "sicmedPatient.createBy.id",
+		p.create_date AS "sicmedPatient.createDate",
+		p.update_by AS "sicmedPatient.updateBy.id",
+		p.update_date AS "sicmedPatient.updateDate",
+		p.remarks AS "sicmedPatient.remarks",
+		p.del_flag AS "sicmedPatient.delFlag",
+
+		<!-- 科室信息 -->
+
+		b.branch_code AS "sicmedBranch.branchCode",
+		b.branch_number AS "sicmedBranch.branchNumber",
+		b.branch_name AS "sicmedBranch.branchName",
+		b.branch_name_english AS "sicmedBranch.branchNameEnglish",
+		b.branch_location AS "sicmedBranch.branchLocation",
+		b.branch_registered AS "sicmedBranch.branchRegistered",
+		b.branch_registered_am AS "sicmedBranch.branchRegisteredAm",
+		b.branch_registered_pm AS "sicmedBranch.branchRegisteredPm",
+		b.branch_ipd AS "sicmedBranch.branchIpd",
+		b.create_by AS "sicmedBranch.createBy.id",
+		b.create_date AS "sicmedBranch.createDate",
+		b.update_by AS "sicmedBranch.updateBy.id",
+		b.update_date AS "sicmedBranch.updateDate",
+		b.remarks AS "sicmedBranch.remarks",
+		b.del_flag AS "sicmedBranch.delFlag",
+
+		u.user_name AS "sicmedDoctor.userName",
+
+		t.name_china AS "sicmedRegistrationType.nameChina",
+		
+		r.material_fee AS "sicmedRegistrationType.sicmedRegisteredPrice.materialFee",
+		r.clinics_fee AS "sicmedRegistrationType.sicmedRegisteredPrice.clinicsFee",
+		r.registered_fee AS "sicmedRegistrationType.sicmedRegisteredPrice.registeredFee",
+		
+		s.user_name AS "createUser.userName"
+	</sql>
+
+	<sql id="sicmedRegisteredJoins">
+		LEFT JOIN sicmed_patient p ON p.id = a.patient_code
+		LEFT JOIN sicmed_branch b ON b.id = a.branch_code
+		LEFT JOIN sicmed_user u ON u.id = a.doctor_code
+		LEFT JOIN sicmed_user s ON s.id = a.create_user
+		LEFT JOIN (sicmed_registered_type t LEFT JOIN sicmed_registered_price r  ON r.id = t.price_id) ON t.id = a.sicmed_registration_type
+	</sql>
+
+	<select id="get" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getByP" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient != null and sicmedPatient.id != '' and sicmedPatient.id != null ">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+		</where>
+	</select>
+
+	<select id="findList1" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedBranch != null and sicmedBranch != ''">
+				AND a.branch_code = #{sicmedBranch.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findList2" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.registered_begin_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.registered_end_date &lt; #{registeredEndDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 模糊查询带分页web -->
+	<select id="findLike" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			<if test="registeredStatus != 2 ">
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			</if>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if
+				test="sicmedPatient != null and sicmedPatient.id != '' and sicmedPatient.id != null">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<!-- <if
+				test="sicmedPatient != null and sicmedPatient.patientNumber != '' and sicmedPatient.patientNumber != null">
+				AND p.patient_number = #{sicmedPatient.patientNumber}
+			</if> -->
+			<if
+				test="sicmedPatient != null and sicmedPatient.patientNumber != '' and sicmedPatient.patientNumber != null">
+				AND p.patient_number LIKE CONCAT('%',#{sicmedPatient.patientNumber},'%')
+			</if>
+			<!-- <if
+				test="sicmedPatient != null and sicmedPatient.patientName != '' and sicmedPatient.patientName != null">
+				AND p.patient_name = #{sicmedPatient.patientName}
+			</if> -->
+			<if
+				test="sicmedPatient != null and sicmedPatient.patientName != '' and sicmedPatient.patientName != null">
+				AND p.patient_name LIKE CONCAT ('%',#{sicmedPatient.patientName},'%')
+			</if>
+			<if test="sicmedDoctor != null and sicmedDoctor.id != '' and sicmedDoctor.id !=null ">
+				AND a.doctor_code = #{sicmedDoctor.id}
+			</if>
+			<if test="sicmedBranch != null and sicmedBranch.id != '' and sicmedBranch.id != null ">
+				AND a.branch_code = #{sicmedBranch.id}
+			</if>
+			<!-- <if
+				test="sicmedBranch != null and sicmedBranch.branchName != '' and sicmedBranch.branchName != null">
+				AND b.branch_name = #{sicmedBranch.branchName}
+			</if> -->
+			<if
+				test="sicmedBranch != null and sicmedBranch.branchName != '' and sicmedBranch.branchName != null">
+				AND b.branch_name LIKE CONCAT ('%',#{sicmedBranch.branchName},'%')
+			</if>
+			<if
+				test="sicmedBaseCode != null and sicmedBaseCode.id != '' and sicmedBaseCode.id != null">
+				AND a.bi = #{sicmedBaseCode.id}
+			</if>
+			<!-- <if test="registeredStatus != null and registeredStatus != ''">
+				AND a.registered_status = #{registeredStatus}
+			</if> -->
+			<if test="registeredStatus != 0 and registeredStatus == 1 and registeredStatus == 2 ">
+				AND a.create_user is not null
+			</if>
+			<!-- <if test="sicmedRegistrationType != null and sicmedRegistrationType.nameChina != null and sicmedRegistrationType.nameChina != ''">
+				AND t.name_china = #{sicmedRegistrationType.nameChina}
+			</if> -->
+			<if test="sicmedRegistrationType != null and sicmedRegistrationType.nameChina != null and sicmedRegistrationType.nameChina != ''">
+				AND t.name_china LIKE CONCAT ('%',#{sicmedRegistrationType.nameChina},'%')
+			</if>
+			<if test="registeredStatus == 0 ">
+				AND a.create_user is not null AND a.update_user is null AND a.delete_user is null
+			</if>
+			<if test="registeredStatus == 1 ">
+				AND a.update_user is not null
+			</if>
+			<if test="registeredStatus == 2 ">
+				AND a.delete_user is not null AND a.del_flag = #{DEL_FLAG_DELETE}
+			</if>
+			<if test="registeredPric != null and registeredPric != ''">
+				AND a.registered_pric = #{registeredPric}
+			</if>
+			<if test="pricStatus != null and pricStatus != ''">
+				AND a.pric_status = #{pricStatus}
+			</if>
+			<if
+				test="sicmedDoctor != null and sicmedDoctor.id != '' and sicmedDoctor.id != null">
+				AND a.doctor_code = #{sicmedDoctor.id}
+			</if>
+			<if
+				test="sicmedDoctor != null and sicmedDoctor.userName != '' and sicmedDoctor.userName != null">
+				AND u.user_name LIKE CONCAT ('%',#{sicmedDoctor.userName},'%')
+			</if>
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.registered_begin_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.registered_end_date &lt; #{registeredEndDate}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser.id}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findList" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			<if test="registeredStatus != 2 ">
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			</if>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if
+				test="sicmedPatient != null and sicmedPatient.id != '' and sicmedPatient.id != null">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if
+				test="sicmedPatient != null and sicmedPatient.patientNumber != '' and sicmedPatient.patientNumber != null">
+				AND p.patient_number = #{sicmedPatient.patientNumber}
+			</if>
+			<!-- <if
+				test="sicmedPatient != null and sicmedPatient.patientName != '' and sicmedPatient.patientName != null">
+				AND p.patient_name = #{sicmedPatient.patientName}
+			</if> -->
+			<if
+				test="sicmedPatient != null and sicmedPatient.patientName != '' and sicmedPatient.patientName != null">
+				AND p.patient_name = #{sicmedPatient.patientName}
+			</if>
+			<if test="sicmedDoctor != null and sicmedDoctor.id != '' and sicmedDoctor.id !=null ">
+				AND a.doctor_code = #{sicmedDoctor.id}
+			</if>
+			<if test="sicmedBranch != null and sicmedBranch.id != '' and sicmedBranch.id != null ">
+				AND a.branch_code = #{sicmedBranch.id}
+			</if>
+			<!-- <if
+				test="sicmedBranch != null and sicmedBranch.branchName != '' and sicmedBranch.branchName != null">
+				AND b.branch_name = #{sicmedBranch.branchName}
+			</if> -->
+			<if
+				test="sicmedBranch != null and sicmedBranch.branchName != '' and sicmedBranch.branchName != null">
+				AND b.branch_name = #{sicmedBranch.branchName}
+			</if>
+			<if
+				test="sicmedBaseCode != null and sicmedBaseCode.id != '' and sicmedBaseCode.id != null">
+				AND a.bi = #{sicmedBaseCode.id}
+			</if>
+			<!-- <if test="registeredStatus != null and registeredStatus != ''">
+				AND a.registered_status = #{registeredStatus}
+			</if> -->
+			<if test="registeredStatus != 0 and registeredStatus == 1 and registeredStatus == 2 ">
+				AND a.create_user is not null
+			</if>
+			<!-- <if test="sicmedRegistrationType != null and sicmedRegistrationType.nameChina != null and sicmedRegistrationType.nameChina != ''">
+				AND t.name_china = #{sicmedRegistrationType.nameChina}
+			</if> -->
+			<if test="sicmedRegistrationType != null and sicmedRegistrationType.nameChina != null and sicmedRegistrationType.nameChina != ''">
+				AND t.name_china = #{sicmedRegistrationType.nameChina}
+			</if>
+			<if test="registeredStatus == 0 ">
+				AND a.create_user is not null AND a.update_user is null AND a.delete_user is null
+			</if>
+			<if test="registeredStatus == 1 ">
+				AND a.update_user is not null
+			</if>
+			<if test="registeredStatus == 2 ">
+				AND a.delete_user is not null AND a.del_flag = #{DEL_FLAG_DELETE}
+			</if>
+			<if test="registeredPric != null and registeredPric != ''">
+				AND a.registered_pric = #{registeredPric}
+			</if>
+			<if test="pricStatus != null and pricStatus != ''">
+				AND a.pric_status = #{pricStatus}
+			</if>
+			<if
+				test="sicmedDoctor != null and sicmedDoctor.id != '' and sicmedDoctor.id != null">
+				AND a.doctor_code = #{sicmedDoctor.id}
+			</if>
+			<if
+				test="sicmedDoctor != null and sicmedDoctor.userName != '' and sicmedDoctor.userName != null">
+				AND u.user_name = #{sicmedDoctor.userName}
+			</if>
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.registered_begin_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.registered_end_date &lt; #{registeredEndDate}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser.id}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getByEntity" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient != null and sicmedPatient!= ''">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="findAllList" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO sicmed_registered(
+		id,
+		patient_code,
+		branch_code,
+		<!-- bi, -->
+		registered_status,
+		registered_pric,
+		<!-- pric_status, -->
+		doctor_code,
+		sicmed_registration_type,
+		registered_begin_date,
+		registered_end_date,
+		update_user,
+		create_user,
+		delete_user,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES (
+		#{id},
+		#{sicmedPatient.id},
+		#{sicmedBranch.id},
+		<!-- #{sicmedBaseCode.id}, -->
+		#{registeredStatus},
+		#{registeredPric},
+		<!-- #{pricStatus}, -->
+		#{sicmedDoctor.id},
+		#{sicmedRegistrationType.id},
+		#{registeredBeginDate},
+		#{registeredEndDate},
+		#{updateUser.id},
+		#{createUser.id},
+		#{deleteUser.id},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE sicmed_registered SET
+		patient_code = #{sicmedPatient.id},
+		branch_code = #{sicmedBranch.id},
+		<!-- bi = #{sicmedBaseCode.id}, -->
+		registered_status = #{registeredStatus},
+		registered_pric =
+		#{registeredPric},
+		sicmed_registration_type =
+		#{sicmedRegistrationType.id},
+		pric_status = #{pricStatus},
+		doctor_code =
+		#{sicmedDoctor.id},
+		registered_begin_date = #{registeredBeginDate},
+		registered_end_date = #{registeredEndDate},
+		update_user =
+		#{updateUser.id},
+		create_user = #{createUser.id},
+		delete_user = #{deleteUser.id},
+		update_by =
+		#{updateBy.id},
+		update_date = #{updateDate},
+		remarks = #{remarks}
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE sicmed_registered SET
+		del_flag =
+		#{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<!-- Max select -->
+	<!-- 需要查询的字段 -->
+	<sql id="sicmedRegisteredColumns2">
+		a.id AS "id",
+		a.patient_code AS "sicmedPatient.id",
+		a.create_date AS "createDate",
+
+		<!-- 患者信息 -->
+		p.patient_number AS "sicmedPatient.patientNumber",
+		p.patient_name AS "sicmedPatient.patientName",
+		p.patient_sex AS "sicmedPatient.patientSex",
+		p.patient_age AS "sicmedPatient.patientAge",
+		
+		b.branch_name AS "sicmedBranch.branchName"
+		
+	</sql>
+	<!-- 表连接 查询条件 -->
+	<sql id="sicmedRegisteredJoins2">
+		LEFT JOIN sicmed_patient p ON p.id = a.patient_code
+		LEFT JOIN sicmed_branch b ON b.id = a.branch_code
+
+		LEFT JOIN sicmed_user u ON u.id = a.doctor_code
+		LEFT JOIN sicmed_registered_type t ON t.id = a.sicmed_registration_type
+	</sql>
+	<!-- 医生查询可在本科室就诊患者的挂号信息 -->
+	<select id="findByDAndB" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns2" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<!-- <if test="sicmedDoctor != null and sicmedDoctor!= ''"> AND a.doctor_code 
+				= #{sicmedDoctor.id} </if> -->
+			<if test="sicmedBranch != null and sicmedBranch != ''">
+				AND a.branch_code = #{sicmedBranch.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 医生模糊查询可就诊的患者信息 -->
+	<select id="findByParamAndD" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns2" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient != null and sicmedPatient.patientName != ''">
+			 AND p.patient_name LIKE CONCAT('%','${sicmedPatient.patientName}','%' )
+			 </if>
+			 <if test="sicmedPatient != null and sicmedPatient.patientNumber != ''">
+			 AND p.patient_number LIKE CONCAT('%','${sicmedPatient.patientNumber}','%' )
+			 </if>
+			<if test="sicmedBranch != null and sicmedBranch != ''">
+				AND a.branch_code = #{sicmedBranch.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 挂号查询可退号或者改号患者的挂号信息 -->
+	<select id="findRefuntOrChange" resultType="SicmedRegistered">
+		SELECT 
+		<include refid="sicmedRegisteredColumns2" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="registeredStatus != null and registeredStatus !=''">
+				AND registered_status &lt;= #{registeredStatus}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 需要查询的字段 -->
+	<sql id="sicmedRegisteredColumns3">
+		a.id AS "id",
+		a.patient_code AS "sicmedPatient.id",
+		<!-- 患者信息 -->
+		p.patient_number AS "sicmedPatient.patientNumber",
+		p.patient_name AS "sicmedPatient.patientName",
+		p.patient_sex AS "sicmedPatient.patientSex",
+		p.patient_age AS "sicmedPatient.patientAge"
+
+	</sql>
+	<!-- 查询方法 -->
+	<select id="findHistoryListByUpdateUser" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.update_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.update_date &lt; #{registeredEndDate}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findHistoryListByDeleteUser" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.update_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.update_date &lt; #{registeredEndDate}
+			</if>
+			<if test="deleteUser != null and deleteUser != ''">
+				AND a.delete_user = #{deleteUser.id}
+			</if>
+
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findHistoryListByCreateUser" resultType="SicmedRegistered">
+		SELECT
+		<include refid="sicmedRegisteredColumns" />
+		FROM sicmed_registered a
+		<include refid="sicmedRegisteredJoins" />
+		<where>
+			<if test="registeredBeginDate != null and registeredBeginDate != ''">
+				AND a.create_date &gt; #{registeredBeginDate}
+			</if>
+			<if test="registeredEndDate != null and registeredEndDate != ''">
+				AND a.create_date &lt; #{registeredEndDate}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND a.create_user = #{createUser.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

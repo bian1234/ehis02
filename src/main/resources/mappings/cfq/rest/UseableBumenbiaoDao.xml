@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.cfq.rest.dao.UseableBumenbiaoDao">
+    
+	<sql id="useableBumenbiaoColumns">
+		a.id AS "id",
+		a.fuleiid AS "fuleiid",
+		a.biaoma AS "biaoma",
+		a.mingzi AS "mingzi",
+		a.jiancheng AS "jiancheng",
+		a.adress AS "adress",
+		a.moji AS "moji",
+		a.jiandangshijian AS "jiandangshijian",
+		a.chedanshijian AS "chedanshijian",
+		a.huanjingleixing AS "huanjingleixing",
+		a.bumenfuzeren AS "bumenfuzeren",
+		a.zhandian AS "zhandian"
+	</sql>
+	
+	<sql id="useableBumenbiaoJoins">
+	</sql>
+    
+	<select id="get" resultType="UseableBumenbiao">
+		SELECT 
+			<include refid="useableBumenbiaoColumns"/>
+		FROM useable_bumenbiao a
+		<include refid="useableBumenbiaoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="UseableBumenbiao">
+		SELECT 
+			<include refid="useableBumenbiaoColumns"/>
+		FROM useable_bumenbiao a
+		<include refid="useableBumenbiaoJoins"/>
+		<where>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="UseableBumenbiao">
+		SELECT 
+			<include refid="useableBumenbiaoColumns"/>
+		FROM useable_bumenbiao a
+		<include refid="useableBumenbiaoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO useable_bumenbiao(
+			id,
+			fuleiid,
+			biaoma,
+			mingzi,
+			jiancheng,
+			adress,
+			moji,
+			jiandangshijian,
+			chedanshijian,
+			huanjingleixing,
+			bumenfuzeren,
+			zhandian
+		) VALUES (
+			#{id},
+			#{fuleiid},
+			#{biaoma},
+			#{mingzi},
+			#{jiancheng},
+			#{adress},
+			#{moji},
+			#{jiandangshijian},
+			#{chedanshijian},
+			#{huanjingleixing},
+			#{bumenfuzeren},
+			#{zhandian}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE useable_bumenbiao SET 	
+			fuleiid = #{fuleiid},
+			biaoma = #{biaoma},
+			mingzi = #{mingzi},
+			jiancheng = #{jiancheng},
+			adress = #{adress},
+			moji = #{moji},
+			jiandangshijian = #{jiandangshijian},
+			chedanshijian = #{chedanshijian},
+			huanjingleixing = #{huanjingleixing},
+			bumenfuzeren = #{bumenfuzeren},
+			zhandian = #{zhandian}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM useable_bumenbiao
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

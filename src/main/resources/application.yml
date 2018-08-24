@@ -1,0 +1,32 @@
+#数据库配置
+server:
+  port: 9000
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://www.sicmed.cn:3306/jeesite?characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: 123456
+    password: admin
+  mvc:
+    view:
+      prefix: /WEB-INF/views
+      suffix: .jsp
+      index: /a              #这是什么意思？详见源码jeesite.properties文件
+mybatis:
+  mapper-locations: mappings/mobile/rest/*Dao.xml
+  typeAliasesPackage: com.thinkgem.jeesite.cfq.**.**.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+#redis:
+#  host: 192.168.0.226
+#  port: 6379
+#  timeout: 3
+##  password:
+#  poolMaxTotal: 10
+#  poolMaxIdle: 10
+#  poolMaxWait: 3
+

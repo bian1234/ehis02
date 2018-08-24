@@ -1,0 +1,501 @@
+<html><head>
+    <meta charset="utf-8">
+    <!--共用CSS，JS-->
+    <!--列表样式，列表JS-->
+
+
+    <title>远程医疗中心-远程医疗云平台</title>
+    <script type="text/javascript" src="../js/document/base.js"></script>
+    <script type="text/javascript" src="../js/document/innerTranstion.js"></script>
+    <link rel="stylesheet" href="../css/document/doc.css">
+</head>
+<body>
+<!--头部 -->
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../plugins/bootstrap-3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/iconfont/iconfont.css">
+<link rel="stylesheet" href="../plugins/fileupload/jquery.fileupload.css">
+<link rel="stylesheet" href="../css/common/common.css">
+<link rel="stylesheet" href="../css/common/jquery.Jcrop.css">
+
+<script type="text/javascript" src="../js/common/jquery1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/common/common.js"></script>
+<script type="text/javascript" src="../plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../js/common/Validata.js"></script>
+
+<script type="text/javascript" src="../js/common/jquery.PrintArea.js"></script>
+<script type="text/javascript" src="../js/common/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/common/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="../plugins/fileupload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="../plugins/fileupload/jquery.fileupload.js"></script>
+
+
+<link rel="stylesheet" href="../plugins/time/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="../plugins/time/js/bootstrap-datetimepicker.js"></script>
+
+<script type="text/javascript" src="../js/common/getPatientsFromFile.js"></script>
+
+<script type="text/javascript" src="../js/jquery-qrcode-master/jquery.qrcode.min.js"></script>
+
+<script type="text/javascript" src="../js/remote/html2canvas.js"></script>
+
+
+
+
+<script type="text/javascript">
+    var sysCtx = '..';
+    var fileServiceAddr = 'http://222.240.219.229:11601/data';
+    var userDepts = '';
+    var userId = '88A65CF323194756A869F5ABB7742A7F';
+    var pacsSrc = 'liexplorer://ws://222.240.219.229:6060../message/88A65CF323194756A869F5ABB7742A7F/托马斯/';
+    var orgServerAddr = 'http://222.240.219.229:11601/data';
+    var httpUploadService = 'http://p.zxyilian.com:6060../system/upload_uploadFile.action';
+    var httpDeleteService = 'http://p.zxyilian.com:6060../system/upload_deleteFile.action';
+</script>
+
+
+
+
+
+<!-- websocket -->
+<script type="text/javascript" src="../js/common/reconnecting-websocket.js"></script>
+<script type="text/javascript" src="../js/common/websocket.js"></script>
+<script type="text/javascript">
+    var userId = '88A65CF323194756A869F5ABB7742A7F';
+    websocketUrl = 'ws://222.240.219.229:6060../message/88A65CF323194756A869F5ABB7742A7F/托马斯/';
+</script>
+
+<script type="text/javascript">
+    var fileServiceAddr = 'http://222.240.219.229:11601/data';
+    var userDepts = '';
+    //全局变量//再转诊不能出现始发医院选项
+    var referFirstOrg = "initail";
+
+    //全局参数,用于文献详细页面返回
+    var backDocListParam={};
+    backDocListParam['pager.pageChecked'] =0;
+    backDocListParam['pager.pageUrl'] =null;
+    backDocListParam['pager.pageNo']=1;
+    backDocListParam['pager.pageSize'] = 4;
+    backDocListParam['pager.pageBodyId'] = null;
+    backDocListParam['pager.pageDeptName'] = null;
+    backDocListParam['pager.pageCurindex'] = 0;
+    backDocListParam['pager.pageKeyword'] = null;
+
+
+    $(function () {
+        loadMessageCount();
+        //退出平台
+        $("#btn_logout").click(function(){
+            common.decide("是否退出平台", function () {
+                if(typeof lotusObject !== 'undefined'){
+                    try {
+                        lotusObject.shutdown();
+                    }catch (e){
+                        console.log(e)
+                    }
+                }else{
+                    location.href="../login_userLogout.action";
+                }
+            });
+        });
+
+        //个人资料
+        $("#showSelfInfo").click(function(){
+            location.href="../permissions/sysUser_showSelfInfo.action";
+        });
+
+        //收件箱
+        $("#messageCenter").click(function(){
+            location.href="../apply/message_listMessageDetail.action";
+        });
+
+        //修改密码
+        $("#changePass").click(function(){
+            $('#change_pass').modal('show');
+        });
+
+        //修改密码
+        $("#saveResetPwd").click(function(){
+            var param = {};
+            param["newPwd"] = $("#newPwd").val();
+            param["oldPwd"] = $("#oldPwd").val();
+            var surePwd = $("#surePwd").val();
+            if($("#oldPwd").val()==""){
+                common.mMessege("0","请填写旧密码");
+                return false;
+            }
+            if($("#newPwd").val()==""){
+                common.mMessege("0","请填写新密码");
+                return false;
+            }
+            if($("#surePwd").val()==""){
+                common.mMessege("0","请填写确认密码");
+                return false;
+            }
+            if($("#surePwd").val()!=$("#newPwd").val()){
+                common.mMessege("0","新密码与重复密码不一致!");
+                return false;
+            }
+            //加载右侧的表格信息=======
+            $.post("../login_resetPwd.action",param,
+                    function(data){
+                        if(data.flag==1){
+                            common.mMessege("1",data.message);
+                            $('#change_pass').modal('hide');
+                        }else{
+                            common.mMessege("0",data.message);
+                        }
+                    });
+        });
+
+    });
+
+
+    function loadMessageCount(){
+        if( $("#messageCountI") && $("#messageCountNew") && userId != ''){
+            if('2'!='1'){
+                $.get(sysCtx+'/apply/message_loadMessageCount.action',function(data){
+                    data = JSON.parse(data);
+                    if(parseInt(data)>0){
+                        if(parseInt(data)>99){
+                            //$("#messageCount").text(99);
+                            $("#messageCountI").show();
+                            $("#messageCountNew").text(99);
+                            $("#messageCountSelf").text(99);
+                            $("#messageCountSelf").addClass('hasMessege');
+                        }else{
+                            //$("#messageCount").text(data);
+                            $("#messageCountI").show();
+                            $("#messageCountNew").text(data);
+                            $("#messageCountSelf").text(data);
+                            $("#messageCountSelf").addClass('hasMessege');
+                        }
+                    }else{
+                        //$("#messageCount").text('');
+                        $("#messageCountI").hide();
+                        $("#messageCountNew").hide();
+                    }
+                });
+            } else {
+                $("#messageCountI").hide();
+                $("#messageCountNew").hide();
+                $("#messageCountSelf").hide();
+            }
+
+        }
+    }
+
+
+</script>
+<div class="header">
+
+
+    <div class="commonWidth clearfix">
+        <div class="userInfo">
+            <div class="userInfo_dt clearfix">
+                <i class="jlfont pull-right"></i>
+                <div class="userInfo_dtPic">
+
+
+
+                    <img src="../images/doctor_Dpic.png" alt="" class="doctorImg">
+
+
+                    <span class="hasxx" style="" id="messageCountI"></span>
+                </div>
+                <div class="userInfo_dtName">托马斯</div>
+            </div>
+            <div class="userInfo_dd">
+                <a href="javascript:;" id="showSelfInfo"><i class="jlfont"></i>修改个人资料</a>
+                <a href="javascript:;" id="messageCenter"><span id="messageCountNew">16</span><i class="jlfont"></i>收件箱</a>
+                <a href="javascript:;" id="changePass"><i class="jlfont"></i>修改密码</a>
+                <a href="javascript:;" id="btn_logout"><i class="jlfont"></i>退出平台</a>
+            </div>
+        </div>
+        <div class="logo">
+            <a href="../">
+                <h1 title="远程医疗云平台"><img src="../images/logo.png"></h1>
+                <p title="北京大学深圳医院">北京大学深圳医院</p>
+            </a>
+        </div>
+        <div class="nav">
+            <ul class="clearfix">
+
+
+                <!--<li><a href="../home_goRemote.action" id="head_remote_medical"><i class="jlfont"></i>远程医疗</a></li>-->
+
+
+                <!--<li><a href="../apply/simple_goSimpleCenter.action" id="head_simple_center"><i class="jlfont"></i>病历中心</a></li>-->
+
+
+                <!--<li><a href="../patient/patient_listInPatient.action" id="head_patient_center"><i class="jlfont"></i>患者中心</a></li>-->
+
+                <!--<li><a href="../home_goDocumentPage.action" id="head_medical_literature" class="cur"><i class="jlfont"></i>医学文献</a></li>-->
+
+
+                <!--<li><a href="../home_goStat.action" id="head_stat_center"><i class="jlfont"></i>数据统计</a></li>-->
+
+
+                <!--<li><a href="../home_goHelpPage.action" id="head_help_center"><i class="jlfont"></i>帮助中心</a></li>-->
+                <li><a href="../template/first.html" id="head_remote_medical"><i class="jlfont"></i>远程医疗</a></li>
+
+
+                <li><a href="../template2/病历中心.html" id="head_simple_center"><i class="jlfont"></i>病历中心</a></li>
+
+
+                <li><a href="../template3/患者中心.html" id="head_patient_center"><i class="jlfont"></i>患者中心</a></li>
+
+                <li><a href="../home_goDocumentPage.action" id="head_medical_literature" class="cur"><i class="jlfont"></i>医学文献</a></li>
+
+
+                <li><a href="../template5/01数据统计.html" id="head_stat_center"><i class="jlfont"></i>数据统计</a></li>
+
+
+                <li><a href="../template6/01帮助中心.html" id="head_help_center"><i class="jlfont"></i>帮助中心</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<!-- 修改密码 -->
+
+<div class="modal fade" id="change_pass">
+    <div class="modal-dialog small-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title"><span class="left">修改密码</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="logbox clearfix">
+                    <table class="login_logbox noborderable">
+                        <input type="hidden" id="subid">
+                        <tbody><tr>
+                            <td class="text_right" style="width:50%;" align="right">旧密码：</td>
+                            <td><input style="width: 200px;" class="form-control" type="password" name="oldPwd" id="oldPwd"></td>
+                        </tr>
+                        <tr>
+                            <td class="text_right" align="right"><span>新密码：</span></td>
+                            <td><input style="width: 200px;" class="form-control" type="password" name="newPwd" id="newPwd"></td>
+                        </tr>
+                        <tr>
+                            <td class="text_right" align="right"><span>重复新密码：</span></td>
+                            <td><input style="width: 200px;" class="form-control" type="password" name="surePwd" id="surePwd"></td>
+                        </tr>
+
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary save" id="saveResetPwd">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    $(".doctorImg").error(function(){
+        $(this).attr('src','../images/doctor_Dpic.png');
+    });
+</script>
+
+
+<script type="text/javascript">
+    backDocListParam['pager.pageNo']=1;//初始化页码
+</script>
+<!--中间-->
+<div class="containt has-bg commonWidth clearfix">
+    <!--左边标题-->
+
+
+
+    <script>
+        $(function () {
+            $('.containtLeft a').click(function () {
+                backDocListParam['pager.pageDeptName'] = null;
+                $('.containtLeft a').removeClass("cur");
+                $(this).addClass("cur");
+            });
+            var menu2='0';
+            if (menu2 != '0') {
+                if (menu2 == document_const.YXWX_JINDIANBINLI) {
+                    $('#left_classic_medical_case').trigger('click');
+                }
+                if (menu2 == document_const.YXWX_BINLISOUSUO) {
+                    $('#left_medical_case_search').trigger('click');
+                }
+                if (menu2 == document_const.YXWX_WODESHOUCANG) {
+                    $('#left_my_collection').trigger('click');
+                }
+            }else{
+                $('#left_classic_medical_case').trigger('click');
+            }
+        });
+    </script>
+
+    <div class="containtLeft">
+        <h2>医学文献</h2>
+        <ul>
+            <!--<li><a onclick="pageUrl('../document/doc_docListMain.action')" id="left_classic_medical_case" class=""><i class="jlfont"></i>经典病例</a></li>
+           -->
+            <li><a href="医学文献.html">经典病例</a></li>
+            <li><a onclick="pageUrl('../document/doc_searchMain.action')" id="left_medical_case_search" class="cur"><i class="jlfont"></i>病例搜索</a></li>
+            <li><a href="医学文献-我的收藏.html">我的收藏</a></li>
+            <!--<li><a onclick="pageUrl('../document/doc_mydocMain.action')" id="left_my_collection" class=""><i class="jlfont"></i>我的收藏</a></li>-->
+        </ul>
+    </div>
+
+    <div class="containtRight" id="pt-main">
+
+
+
+
+
+        <script type="text/javascript">
+            $(function(){
+                //搜索输入框获取焦点
+                $("#keyword").focus();
+                //搜索
+                $("#searchBtn").click(function(){
+                    if($("#keyword").val()==""){
+                        common.mMessege('0',"请输入查询内容");
+                        return;
+                    }
+                    //goUrl('../document/doc_searchMainData.action?keyword='+$("#keyword").val());
+                    var param = {};
+                    param['keyword'] = $("#keyword").val();
+                    //返回功能保存参数
+                    backDocListParam['pager.pageNo'] =1;
+                    backDocListParam['pager.pageKeyword'] = $("#keyword").val();
+                    pageUrlParam("../document/doc_searchMainData.action",param);
+                });
+                //关键字搜索
+                $(".searchKeyword").click(function(){
+                    var keyword = $(this).attr("data-key");
+                    //goUrl('../document/doc_searchMainData.action?keyword='+keyword);
+                    var param = {};
+                    param['keyword'] = keyword;
+                    //返回功能保存参数
+                    backDocListParam['pager.pageNo'] =1;
+                    backDocListParam['pager.pageKeyword'] = keyword;
+                    pageUrlParam("../document/doc_searchMainData.action",param);
+                });
+                //回车
+                document.onkeydown = function(e){
+                    var ev = document.all ? window.event : e;
+                    if(ev.keyCode==13) {// 如（ev.ctrlKey && ev.keyCode==13）为ctrl+Center 触发
+                        $("#searchBtn").trigger("click");
+                    }
+                }
+
+            });
+        </script>
+        <div id="content">
+
+            <div class="literature" style="min-height:480px;">
+                <div class="literature_search_index">
+                    <div class="literature_search clearfix">
+                        <input type="text" value="" class="form-control pull-left" id="keyword">
+                        <input type="button" value="搜索" class="btn btn-jlself pull-left" id="searchBtn">
+                    </div>
+                    <div class="hot_spot left">
+                        <h3>热点关键词</h3>
+                        <p>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="腹痛" title="腹痛">腹痛</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="发热" title="发热">发热</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="误诊" title="误诊">误诊</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="咳嗽" title="咳嗽">咳嗽</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="糖尿病" title="糖尿病">糖尿病</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="诊断" title="诊断">诊断</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="腹泻" title="腹泻">腹泻</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="精神分裂症" title="精神分裂症">精神分裂症</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="高血压" title="高血压">高血压</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="呕吐" title="呕吐">呕吐</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="麻醉" title="麻醉">麻醉</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="腹胀" title="腹胀">腹胀</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="治疗" title="治疗">治疗</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="2型糖尿病" title="2型糖尿病">2型糖尿病</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="胸痛" title="胸痛">胸痛</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="精神障碍" title="精神障碍">精神障碍</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="头痛" title="头痛">头痛</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="CT" title="CT">CT</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="肝硬化" title="肝硬化">肝硬化</a>
+
+                            <a href="javascript:;" class="searchKeyword" data-key="乏力" title="乏力">乏力</a>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div class="footer">深圳市众信医联科技有限公司 版权所有  V5.0.0</div>
+
+
+<script>
+    var ctx = '..';
+    function pageUrl(url) {
+  //      $(".containtRight").html('<div class="loadingDiv"><img src="'+ctx+'/images/loading.gif" /><p>数据载入中...</p></div>');
+        $(".containtRight").load(url);
+    }
+    function pageUrlParam(url, param) {
+        $(".containtRight").load(url, param);
+    }
+    function toModelUrl(url, div) {
+        $("div[class='" + div + "']").load(url);
+    }
+    $(function () {
+        //跳转到医学文献页面
+        $(".nav a").removeClass("cur");
+        $("#head_medical_literature").addClass("cur");
+    });
+    //全局参数,用于文献详细页面返回
+    var backDocListParam = {};
+    backDocListParam['pager.pageChecked'] = 0;
+    backDocListParam['pager.pageUrl'] = null;
+    backDocListParam['pager.pageNo'] = 1;
+    backDocListParam['pager.pageSize'] = 4;
+    backDocListParam['pager.pageBodyId'] = null;
+    backDocListParam['pager.pageDeptName'] = null;
+    backDocListParam['pager.pageCurindex'] = 0;
+    backDocListParam['pager.pageKeyword'] = null;
+    //hospitalTaskManager页面搜索参数
+    //  backDocListParam['pager.pageTaskName'] = null;
+    //  backDocListParam['pager.pageOrgCode'] = null;
+    //  backDocListParam['pager.pageIsTopTask'] = 0;
+</script><div class="toTopBtn" style="display: none;"><i class="jlfont"></i>回顶部</div></body></html>

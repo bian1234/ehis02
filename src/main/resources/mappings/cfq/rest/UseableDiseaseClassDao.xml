@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.cfq.rest.dao.UseableDiseaseClassDao">
+    
+	<sql id="useableDiseaseClassColumns">
+		a.id AS "id",
+		a.parent_id AS "parent",
+		a.disease_class_code AS "diseaseClassCode",
+		a.disease_class_name AS "diseaseClassName",
+		a.disease_class_papm AS "diseaseClassPapm",
+		a.leibie AS "leibie"
+	</sql>
+	
+	<sql id="useableDiseaseClassJoins">
+	</sql>
+    
+	<select id="get" resultType="UseableDiseaseClass">
+		SELECT 
+			<include refid="useableDiseaseClassColumns"/>
+		FROM useable_disease_class a
+		<include refid="useableDiseaseClassJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="UseableDiseaseClass">
+		SELECT 
+			<include refid="useableDiseaseClassColumns"/>
+		FROM useable_disease_class a
+		<include refid="useableDiseaseClassJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="UseableDiseaseClass">
+		SELECT 
+			<include refid="useableDiseaseClassColumns"/>
+		FROM useable_disease_class a
+		<include refid="useableDiseaseClassJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO useable_disease_class(
+			id,
+			parent_id,
+			disease_class_code,
+			disease_class_name,
+			disease_class_papm,
+			leibie
+		) VALUES (
+			#{id},
+			#{parent},
+			#{diseaseClassCode},
+			#{diseaseClassName},
+			#{diseaseClassPapm},
+			#{leibie}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE useable_disease_class SET 	
+			parent_id = #{parent},
+			disease_class_code = #{diseaseClassCode},
+			disease_class_name = #{diseaseClassName},
+			disease_class_papm = #{diseaseClassPapm},
+			leibie = #{leibie}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM useable_disease_class
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

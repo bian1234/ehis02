@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedMedicalPriceDao">
+    
+	<sql id="sicmedMedicalPriceColumns">
+		a.id AS "id",
+		a.price_cutoff_date AS "priceCutoffDate",
+		a.price_insert_date AS "priceInsertDate",
+		a.medical_code AS "sicmedMedical.id",
+		a.price_enter AS "priceEnter",
+		a.price_sale AS "priceSale",
+		a.insert_user AS "insertUser",
+		a.insert_dept AS "insertDept",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		b.medical_name_china AS "sicmedMedical.medicalNameChina",
+		b.medical_code AS "sicmedMedical.medicalCode"
+		
+	</sql>
+	
+	<sql id="sicmedMedicalPriceJoins">
+		 LEFT JOIN sicmed_medical b ON b.id = a.medical_code
+	</sql>
+    
+	<select id="get" resultType="SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id = "getMedicalPrice" resultType = "SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="priceCutoffDate != null and priceCutoffDate != ''">
+				AND a.price_cutoff_date = #{priceCutoffDate}
+			</if>
+			<if test="priceInsertDate != null and priceInsertDate != ''">
+				AND a.price_insert_date = #{priceInsertDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical != ''">
+				AND a.medical_code = #{sicmedMedical.id}
+			</if>
+			<if test="priceEnter != null and priceEnter != ''">
+				AND a.price_enter = #{priceEnter}
+			</if>
+			<if test="priceSale != null and priceSale != ''">
+				AND a.price_sale = #{priceSale}
+			</if>
+			<if test="insertUser != null and insertUser != ''">
+				AND a.insert_user = #{insertUser}
+			</if>
+			<if test="insertDept != null and insertDept != ''">
+				AND a.insert_dept = #{insertDept}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.medicalNameChina != null and sicmedMedical.medicalNameChina != ''">
+				AND b.medical_name_china = #{sicmedMedical.medicalNameChina}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	
+	</select>
+	
+	<select id="findList" resultType="SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="priceCutoffDate != null and priceCutoffDate != ''">
+				AND a.price_cutoff_date = #{priceCutoffDate}
+			</if>
+			<if test="priceInsertDate != null and priceInsertDate != ''">
+				AND a.price_insert_date = #{priceInsertDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.id != '' and sicmedMedical.id != null">
+				AND a.medical_code = #{sicmedMedical.id}
+			</if>
+			<if test="priceEnter != null and priceEnter != ''">
+				AND a.price_enter = #{priceEnter}
+			</if>
+			<if test="priceSale != null and priceSale != ''">
+				AND a.price_sale = #{priceSale}
+			</if>
+			<if test="insertUser != null and insertUser != ''">
+				AND a.insert_user = #{insertUser}
+			</if>
+			<if test="insertDept != null and insertDept != ''">
+				AND a.insert_dept = #{insertDept}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+				<if test="sicmedMedical != null and sicmedMedical.medicalNameChina != null and sicmedMedical.medicalNameChina != ''">
+				AND b.medical_name_china = #{sicmedMedical.medicalNameChina}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 模糊查询带分页 web -->
+	<select id="findLike" resultType="SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="priceCutoffDate != null and priceCutoffDate != ''">
+				AND a.price_cutoff_date = #{priceCutoffDate}
+			</if>
+			<if test="priceInsertDate != null and priceInsertDate != ''">
+				AND a.price_insert_date = #{priceInsertDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.id != '' and sicmedMedical.id != null">
+				AND a.medical_code = #{sicmedMedical.id}
+			</if>
+			<if test="priceEnter != null and priceEnter != ''">
+				AND a.price_enter = #{priceEnter}
+			</if>
+			<if test="priceSale != null and priceSale != ''">
+				AND a.price_sale = #{priceSale}
+			</if>
+			<if test="insertUser != null and insertUser != ''">
+				AND a.insert_user = #{insertUser}
+			</if>
+			<if test="insertDept != null and insertDept != ''">
+				AND a.insert_dept = #{insertDept}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.medicalNameChina != null and sicmedMedical.medicalNameChina != ''">
+				AND b.medical_name_china LIKE CONCAT('%',#{sicmedMedical.medicalNameChina},'%') 
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.medicalCode != null and sicmedMedical.medicalCode != ''">
+				AND b.medical_code LIKE CONCAT('%',#{sicmedMedical.medicalCode},'%')  
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="fingMedicalPrice" resultType="SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedMedical != null and sicmedMedical.id != '' and sicmedMedical.id = null">
+				AND a.medical_code = #{sicmedMedical.id}
+			</if>
+		</where>		
+		<choose>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_medical_price(
+			id,
+			price_cutoff_date,
+			price_insert_date,
+			medical_code,
+			price_enter,
+			price_sale,
+			insert_user,
+			insert_dept,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{priceCutoffDate},
+			#{priceInsertDate},
+			#{sicmedMedical.id},
+			#{priceEnter},
+			#{priceSale},
+			#{insertUser},
+			#{insertDept},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_medical_price SET 	
+			price_cutoff_date = #{priceCutoffDate},
+			price_insert_date = #{priceInsertDate},
+			medical_code = #{sicmedMedical.id},
+			price_enter = #{priceEnter},
+			price_sale = #{priceSale},
+			insert_user = #{insertUser},
+			insert_dept = #{insertDept},
+			del_flag = #{delFlag},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_medical_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findAllPriceList" resultType="SicmedMedicalPrice">
+		SELECT 
+			<include refid="sicmedMedicalPriceColumns"/>
+		FROM sicmed_medical_price a
+		<include refid="sicmedMedicalPriceJoins"/>
+		<where>
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="priceCutoffDate != null and priceCutoffDate != ''">
+				AND a.price_cutoff_date = #{priceCutoffDate}
+			</if>
+			<if test="priceInsertDate != null and priceInsertDate != ''">
+				AND a.price_insert_date = #{priceInsertDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.id != '' and sicmedMedical.id != null">
+				AND a.medical_code = #{sicmedMedical.id}
+			</if>
+			<if test="priceEnter != null and priceEnter != ''">
+				AND a.price_enter = #{priceEnter}
+			</if>
+			<if test="priceSale != null and priceSale != ''">
+				AND a.price_sale = #{priceSale}
+			</if>
+			<if test="insertUser != null and insertUser != ''">
+				AND a.insert_user = #{insertUser}
+			</if>
+			<if test="insertDept != null and insertDept != ''">
+				AND a.insert_dept = #{insertDept}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.medicalNameChina != null and sicmedMedical.medicalNameChina != ''">
+				AND b.medical_name_china LIKE CONCAT('%',#{sicmedMedical.medicalNameChina},'%') 
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND a.price_insert_date &gt; #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND a.price_insert_date &lt; #{endDate}
+			</if>
+			<if test="sicmedMedical != null and sicmedMedical.medicalCode != null and sicmedMedical.medicalCode != ''">
+				AND b.medical_code LIKE CONCAT('%',#{sicmedMedical.medicalCode},'%')  
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.price_insert_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

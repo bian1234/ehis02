@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedAskedDao">
+    
+	<sql id="sicmedAskedColumns">
+		a.id AS "id",
+		a.asked_code AS "askedCode",
+		a.asked_name AS "askedName",
+		a.medical_use_code AS "sicmedMedicalUse.id",
+		a.asked_class_code AS "sicmedAskedClass.id",
+		a.patient_price AS "sicmedPatientPrice.id",
+		a.print_type AS "printType",
+		
+		b.class_number AS "sicmedAskedClass.classNumber",
+		b.asked_calss AS "sicmedAskedClass.askedCalss",
+		b.create_by AS "sicmedAskedClass.createBy.id",
+		b.create_date AS "sicmedAskedClass.createDate",
+		b.update_by AS "sicmedAskedClass.updateBy.id",
+		b.update_date AS "sicmedAskedClass.updateDate",
+		b.remarks AS "sicmedAskedClass.remarks",
+		b.del_flag AS "sicmedAskedClass.delFlag",
+		
+		a.order_code AS "orderCode",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		
+		<!-- 获取病历信息 -->
+		a.asked_case_code AS "sicmedCase.id",
+		
+		c.case_tell AS "sicmedCase.caseTell",
+		c.patient_code AS "sicmedCase.patientCode",
+		c.case_history AS "sicmedCase.caseHistory",
+		c.past_history AS "sicmedCase.pastHistory",
+		c.case_allergy AS "sicmedCase.caseAllergy",
+		c.family_allergy AS "sicmedCase.familyAllergy",
+		c.check_code_body AS "sicmedCase.checkCodeBody",
+		c.check_code_aid AS "sicmedCase.checkCodeAid",
+		c.diagnosis_disease_initial AS "sicmedCase.diagnosisDiseaseInitial.id",
+		c.diagnosis_disease_sure AS "sicmedCase.diagnosisDiseaseSure.id",
+		c.create_by AS "sicmedCase.createBy.id",
+		c.create_date AS "sicmedCase.createDate",
+		c.update_by AS "sicmedCase.updateBy.id",
+		c.update_date AS "sicmedCase.updateDate",
+		c.remarks AS "sicmedCase.remarks" ,
+		c.del_flag AS "sicmedCase.delFlag",
+		
+		e.use_group AS "sicmedMedicalUse.useGroup",
+		e.use_name AS "sicmedMedicalUse.useName",
+		e.use_bun AS "sicmedMedicalUse.useBun",
+		e.use_unit AS "sicmedMedicalUse.useUnit",
+		e.use_amount AS "sicmedMedicalUse.useAmount",
+		e.use_day AS "sicmedMedicalUse.useDay",
+		e.use_bout AS "sicmedMedicalUse.useBout"
+	</sql>
+	
+	<sql id="sicmedAskedJoins">
+		LEFT JOIN sicmed_patient_price p ON p.id = a.patient_price
+		LEFT JOIN sicmed_asked_class b ON b.id = a.asked_class_code
+		LEFT JOIN sicmed_case c ON c.id = a.asked_case_code
+		LEFT JOIN sicmed_medical_use e ON e.id = a.medical_use_code
+		
+	</sql>
+    
+    
+	<select id="get" resultType="SicmedAsked">
+		SELECT 
+			<include refid="sicmedAskedColumns"/>
+		FROM sicmed_asked a
+		<include refid="sicmedAskedJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getOnly" resultType="SicmedAsked">
+		SELECT 
+			<include refid="sicmedAskedColumns"/>
+		FROM sicmed_asked a
+		<include refid="sicmedAskedJoins"/>
+		<where>
+		a.del_flag = #{DEL_FLAG_NORMAL}
+		 <if test="sicmedCase != null and sicmedCase != ''">
+				AND a.asked_case_code = #{sicmedCase.id}
+			</if>
+			<if test="sicmedAskedClass != null and sicmedAskedClass != '' ">
+				AND a.asked_class_code = #{sicmedAskedClass.id}
+			</if>
+			<if test="orderCode != null and orderCode != ''">
+				AND a.order_code = #{orderCode}
+			</if>
+		</where>
+	</select>
+	
+	<select id="get1" resultType="SicmedAsked">
+		SELECT 
+			<include refid="sicmedAskedColumns"/>
+		FROM sicmed_asked a
+		<include refid="sicmedAskedJoins"/>
+		WHERE a.asked_name = #{askedName}
+	</select>
+	
+	<!-- 根据医嘱类别找医嘱 -->
+	
+	<select id="findList" resultType="SicmedAsked">
+		SELECT 
+			<include refid="sicmedAskedColumns"/>
+		FROM sicmed_asked a
+		<include refid="sicmedAskedJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="askedCode != null and askedCode != ''">
+				AND a.asked_code = #{askedCode}
+			</if>
+			<if test="askedName != null and askedName != ''">
+				AND a.asked_name = #{askedName}
+			</if>
+			<if test="sicmedPatientPrice != null and sicmedPatientPrice.id != '' and sicmedPatientPrice.id !=null">
+				AND a.patient_price = #{sicmedPatientPrice.id}
+			</if>
+			 <if test="sicmedCase != null and sicmedCase.id != '' and sicmedCase.id !=null">
+				AND a.asked_case_code = #{sicmedCase.id}
+			</if>
+			<if test="sicmedAskedClass != null and sicmedAskedClass.id != '' and sicmedAskedClass.id !=null">
+				AND a.asked_class_code = #{sicmedAskedClass.id}
+			</if>
+			<if test="sicmedAskedClass != null and sicmedAskedClass.askedCalss != '' and sicmedAskedClass.askedCalss !=null">
+				AND b.asked_calss = #{sicmedAskedClass.askedCalss}
+			</if>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedAsked">
+		SELECT 
+			<include refid="sicmedAskedColumns"/>
+		FROM sicmed_asked a
+		<include refid="sicmedAskedJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_asked(
+			id,
+			asked_code,
+			asked_name,
+			medical_use_code,
+			patient_price,
+			asked_class_code,
+			asked_case_code,
+			order_code,
+			print_type,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{askedCode},
+			#{askedName},
+			#{sicmedMedicalUse.id},
+			#{sicmedPatientPrice.id},
+			#{sicmedAskedClass.id},
+			#{sicmedCase.id},
+			#{orderCode},
+			#{printType},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_asked SET 	
+			asked_code = #{askedCode},
+			asked_name = #{askedName},
+			amedical_use_code = #{sicmedMedicalUse.id},
+			patient_price = #{sicmedPatientPrice.id},
+			asked_class_code = #{sicmedAskedClass.id},
+			asked_case_code = #{sicmedCase.id},
+			order_code = #{orderCode},
+			print_type = #{printType},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_asked SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedPatientPriceDao">
+    
+	<sql id="sicmedPatientPriceColumns">
+		a.id AS "id",
+		a.number AS "number",
+		a.patient_code AS "sicmedPatient.id",
+		a.price_class_type AS "priceClassType",
+	 	a.price_code AS "priceCode",
+		<!--a.price AS "price", -->
+		a.isPay AS "isPay",
+		a.create_user AS "createUser.id",
+		a.update_user AS "updateUser.id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.doctor_id AS "doctorId",
+		
+		b.patient_name AS "sicmedPatient.patientName",
+		b.patient_card AS "sicmedPatient.patientCard",
+		b.patient_number AS "sicmedPatient.patientNumber",
+		
+		c.user_name AS "createUser.userName"
+	</sql>
+	
+	<sql id="sicmedPatientPriceJoins">
+		LEFT JOIN sicmed_patient b ON b.id = a.patient_code
+		LEFT JOIN sicmed_user c ON c.id = a.create_user
+	</sql>
+    
+	<select id="get" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByEntity" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient != null and sicmedPatient.id != '' and sicmedPatient.id != null ">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="priceClassType != null and priceClassType != ''">
+				AND a.price_class_type = #{priceClassType}
+			</if>
+			<if test="priceCode != null and priceCode != ''">
+				AND a.price_code = #{priceCode}
+			</if>
+			<if test="price != null and price != ''">
+				AND a.price = #{price}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- -->
+	<select id = "getPatientPrice" resultType = "SicmedPatientPrice" parameterType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+			<include refid="sicmedPatientPriceJoins"/>
+		WHERE a.patient_code = #{sicmedPatient.id}
+			<if test="priceCode != null and priceCode != ''">
+				AND a.price_code = #{priceCode}
+			</if>
+			<!-- <if test="price != null and price != ''">
+				AND a.price = #{price}
+			</if> -->
+			<if test="priceClassType != null and priceClassType != ''">
+				AND a.price_class_type = #{priceClassType}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>			     
+	</select>
+	
+	<!-- 通过患者ID找到对应的数据 -->
+	<select id="findListWithPatient" resultType="SicmedPatientPrice" parameterType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient!= null and sicmedPatient.id!= '' and sicmedPatient.id!= null ">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="priceClassType != null and priceClassType != ''">
+				AND a.price_class_type = #{priceClassType}
+			</if>
+			<if test="priceCode != null and priceCode != ''">
+				AND a.price_code = #{priceCode}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>	
+		</where>
+		<choose>
+			<otherwise>
+				ORDER BY a.price_class_type ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 模糊搜索带分页web -->
+	<select id="findLike" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient!= null and sicmedPatient.id!= '' and sicmedPatient.id!= null ">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="priceClassType != null and priceClassType != ''">
+				AND a.price_class_type = #{priceClassType}
+			</if>
+			<if test="priceCode != null and priceCode != ''">
+				AND a.price_code = #{priceCode}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>
+			<if test="sicmedPatient!= null and sicmedPatient.patientCard!= '' and sicmedPatient.patientCard!= null ">
+				AND b.patient_card = #{sicmedPatient.patientCard}
+			</if>
+			<!-- <if test="sicmedPatient!= null and sicmedPatient.patientName!= '' and sicmedPatient.patientName!= null ">
+				AND b.patient_name = #{sicmedPatient.patientName}
+			</if> -->
+			<if test="sicmedPatient!= null and sicmedPatient.patientName!= '' and sicmedPatient.patientName!= null ">
+				AND b.patient_name LIKE CONCAT('%',#{sicmedPatient.patientName},'%')
+			</if>
+			<if test="sicmedPatient!= null and sicmedPatient.patientNumber!= '' and sicmedPatient.patientNumber!= null ">
+				AND b.patient_number LIKE CONCAT('%',#{sicmedPatient.patientNumber},'%')
+			</if>
+			<if test="createUser != null and createUser.userName!= '' and createUser.userName!= null ">
+				AND c.user_name = #{createUser.userName}
+			</if>
+			<if test="startDate != null and startDate!= ''">
+				AND a.create_date  &gt; #{startDate}
+			</if>
+			 <if test="endDate != null and endDate!= ''">
+				AND a.create_date &lt; #{endDate}
+			</if>
+			<if test="sicmedPatient!= null and sicmedPatient.searchContent!= '' and sicmedPatient.searchContent!= null">
+				AND b.patient_name = #{sicmedPatient.searchContent} OR b.patient_number = #{sicmedPatient.searchContent}
+			</if>
+			<if test="isWebUserList == true">
+				GROUP BY a.patient_code
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.patient_code DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="findList" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient!= null and sicmedPatient.id!= '' and sicmedPatient.id!= null ">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="priceClassType != null and priceClassType != ''">
+				AND a.price_class_type = #{priceClassType}
+			</if>
+			<if test="priceCode != null and priceCode != ''">
+				AND a.price_code = #{priceCode}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>
+			<if test="sicmedPatient!= null and sicmedPatient.patientCard!= '' and sicmedPatient.patientCard!= null ">
+				AND b.patient_card = #{sicmedPatient.patientCard}
+			</if>
+			<!-- <if test="sicmedPatient!= null and sicmedPatient.patientName!= '' and sicmedPatient.patientName!= null ">
+				AND b.patient_name = #{sicmedPatient.patientName}
+			</if> -->
+			<if test="sicmedPatient!= null and sicmedPatient.patientName!= '' and sicmedPatient.patientName!= null ">
+				AND b.patient_name = #{sicmedPatient.patientName}
+			</if>
+			<if test="createUser != null and createUser.userName!= '' and createUser.userName!= null ">
+				AND c.user_name = #{createUser.userName}
+			</if>
+			<if test="startDate != null and startDate!= ''">
+				AND a.create_date  &gt; #{startDate}
+			</if>
+			 <if test="endDate != null and endDate!= ''">
+				AND a.create_date &lt; #{endDate}
+			</if>
+			<if test="sicmedPatient!= null and sicmedPatient.searchContent!= '' and sicmedPatient.searchContent!= null">
+				AND b.patient_name = #{sicmedPatient.searchContent} OR b.patient_number = #{sicmedPatient.searchContent}
+			</if>
+			<if test="isWebUserList == true">
+				GROUP BY a.patient_code
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.patient_code DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sicmed_patient_price(
+			id,
+			number,
+			patient_code,
+			price_class_type,
+			price_code,
+<!-- 			price, -->
+			isPay,
+			create_user,
+			update_user,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			doctor_id,
+			del_flag
+		) VALUES (
+			#{id},
+			#{number},
+			#{sicmedPatient.id},
+			#{priceClassType},
+			#{priceCode},
+<!-- 			#{price}, -->
+			#{isPay},
+			#{createUser.id},
+			#{updateUser.id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{doctorId},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sicmed_patient_price SET 
+			number = #{number},
+			patient_code = #{sicmedPatient.id},
+			price_class_type = #{priceClassType},
+			price_code = #{priceCode},
+<!-- 			price = #{price}, -->
+			isPay = #{isPay},
+			create_user = #{createUser.id},
+			update_user = #{updateUser.id},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			doctor_id = #{doctorId},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 退号同时删除挂号费 -->
+	<update id="deletePrice">
+		UPDATE sicmed_patient_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE price_class_type = #{priceClassType}
+			AND patient_code = #{sicmedPatient.id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sicmed_patient_price SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+<!--   	<update id="copyTable" parameterType="SicmedPatientPrice">	
+		CREATE TABLE ${copyTableName} 
+		LIKE sicmed_patient_price;
+			INSERT INTO ${copyTableName} 
+			SELECT * 
+			FROM sicmed_patient_price
+	</update>  -->
+	
+	
+	
+	<!-- Max select -->
+	<!-- 需要查询的字段 -->
+	<sql id="sicmedPatientPriceColumns2">
+		a.id AS "id"
+	</sql>
+	<!-- 查询方法 -->
+	<select id="findListUUID" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns2"/>
+		FROM sicmed_patient_price a
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sicmedPatient!= null and sicmedPatient!= ''">
+				AND a.patient_code = #{sicmedPatient.id}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 需要查询的字段 -->
+	<sql id="sicmedPatientPriceColumns3">
+		a.id AS "id",
+		a.patient_code AS "sicmedPatient.id",
+		a.price_class_type AS "priceClassType",
+	 	a.price_code AS "priceCode"
+	</sql>
+	
+	<!-- 查询方法 -->
+	<select id="findHistoryList" resultType="SicmedPatientPrice">
+		SELECT 
+			<include refid="sicmedPatientPriceColumns3"/>
+		FROM sicmed_patient_price a
+		<include refid="sicmedPatientPriceJoins"/>
+		<where>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+			<if test="isPay != null and isPay != ''">
+				AND a.isPay = #{isPay}
+			</if>
+			<if test="createUser != null and createUser.id != ''">
+				AND a.create_user = #{createUser.id}
+			</if>
+			<if test="updateUser != null and updateUser != ''">
+				AND a.update_user = #{updateUser.id}
+			</if>
+			<if test="startDate != null and startDate!= ''">
+				AND a.update_date  &gt; #{startDate}
+			</if>
+			 <if test="endDate != null and endDate!= ''">
+				AND a.update_date &lt; #{endDate}
+			</if>		
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
