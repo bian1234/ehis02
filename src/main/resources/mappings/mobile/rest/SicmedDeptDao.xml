@@ -19,7 +19,7 @@
 	<sql id="sicmedDeptJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedDept">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDept">
 		SELECT 
 			<include refid="sicmedDeptColumns"/>
 		FROM sicmed_dept a
@@ -27,7 +27,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedDept">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDept">
 		SELECT 
 			<include refid="sicmedDeptColumns"/>
 		FROM sicmed_dept a
@@ -61,7 +61,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页 -->
-	<select id="findLike" resultType="SicmedDept">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDept">
 		SELECT 
 			<include refid="sicmedDeptColumns"/>
 		FROM sicmed_dept a
@@ -94,7 +94,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedDept">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDept">
 		SELECT 
 			<include refid="sicmedDeptColumns"/>
 		FROM sicmed_dept a

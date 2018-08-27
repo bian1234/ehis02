@@ -24,7 +24,7 @@
 		LEFT JOIN sicmed_user u ON u.id = a.user_code
 	</sql>
 
-	<select id="get" resultType="SicmedInviteNumber">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInviteNumber">
 		SELECT
 		<include refid="sicmedInviteNumberColumns" />
 		FROM sicmed_invite_number a
@@ -32,7 +32,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getByEntity" resultType="SicmedInviteNumber">
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInviteNumber">
 		SELECT
 		<include refid="sicmedInviteNumberColumns" />
 		FROM sicmed_invite_number a
@@ -77,7 +77,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedInviteNumber">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInviteNumber">
 		SELECT
 		<include refid="sicmedInviteNumberColumns" />
 		FROM sicmed_invite_number a
@@ -131,7 +131,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedInviteNumber">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInviteNumber">
 		SELECT
 		<include refid="sicmedInviteNumberColumns" />
 		FROM sicmed_invite_number a

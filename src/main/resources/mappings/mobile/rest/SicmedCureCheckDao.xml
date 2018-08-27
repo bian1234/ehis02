@@ -31,7 +31,7 @@
 		LEFT JOIN sicmed_cure_class c ON c.id=a.cure_class_code
 	</sql>
 
-	<select id="get" resultType="SicmedCureCheck">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns" />
 		FROM sicmed_cure_check a
@@ -39,7 +39,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getCureCheck" resultType="SicmedCureCheck">
+	<select id="getCureCheck" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns" />
 		FROM sicmed_cure_check a
@@ -52,7 +52,7 @@
 		</where>
 	</select>
 
-	<select id="findList" resultType="SicmedCureCheck">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns" />
 		FROM sicmed_cure_check a
@@ -84,7 +84,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedCureCheck">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns" />
 		FROM sicmed_cure_check a
@@ -115,7 +115,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedCureCheck">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns" />
 		FROM sicmed_cure_check a
@@ -139,7 +139,7 @@
 		a.cure_name AS "cureName"
 	</sql>
 	<!-- 模糊查询 -->
-	<select id="findListLike" resultType="SicmedCureCheck">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureCheck">
 		SELECT
 		<include refid="sicmedCureCheckColumns2" />
 		FROM sicmed_cure_check a

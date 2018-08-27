@@ -101,7 +101,7 @@
 		<!-- RIGHT JOIN sicmed_invite_number f ON f.user_code = a.id -->
 	</sql>
 
-	<select id="getById" resultType="SicmedUser">
+	<select id="getById" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -109,7 +109,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="get" resultType="SicmedUser">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -118,7 +118,7 @@
 	</select>
 
 	<!-- 用户登陆查询 -->
-	<select id="login" resultType="SicmedUser">
+	<select id="login" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -135,7 +135,7 @@
 	</select>
 
 	<!-- 根据电话号获取用户信息 -->
-	<select id="getByTel" resultType="SicmedUser">
+	<select id="getByTel" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -144,7 +144,7 @@
 		a.user_tel = #{userTel}
 	</select>
 	<!-- 根据部门获取用户信息 -->
-	<select id="findByBranch" resultType="SicmedUser">
+	<select id="findByBranch" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -157,7 +157,7 @@
 	</select>
 	
 	<!-- 根据患者挂号类型和科室获取 医生信息 -->
-	<select id="findDoctorByTypeAndBranch" resultType="SicmedUser">
+	<select id="findDoctorByTypeAndBranch" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -183,7 +183,7 @@
 	</select>
 	
 	<!-- 模糊搜索带分页web -->
-	<select id="findLike" resultType="SicmedUser">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -291,7 +291,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedUser">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -399,7 +399,7 @@
 		</choose>
 	</select>
 	
-	<select id="findList1" resultType="SicmedUser">
+	<select id="findList1" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a
@@ -424,7 +424,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedUser">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedUser">
 		SELECT
 		<include refid="sicmedUserColumns" />
 		FROM sicmed_user a

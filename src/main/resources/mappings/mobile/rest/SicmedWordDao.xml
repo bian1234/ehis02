@@ -26,7 +26,7 @@
 		LEFT JOIN sicmed_patient p ON p.id = a.patient_id
 	</sql>
 
-	<select id="get" resultType="Sicmedword">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sicmedword">
 		SELECT
 		<include refid="sicmedWordColumns" />
 		FROM sicmed_word a
@@ -34,7 +34,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="get2" resultType="Sicmedword">
+	<select id="get2" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sicmedword">
 		SELECT
 		<include refid="sicmedWordColumns" />
 		FROM sicmed_word a
@@ -51,7 +51,7 @@
 	</select>
 	
 
-	<select id="findList" resultType="Sicmedword">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sicmedword">
 		SELECT
 		<include refid="sicmedWordColumns" />
 		FROM sicmed_word a
@@ -88,7 +88,7 @@
 	</select>
 	
 
-	<select id="findAllList" resultType="Sicmedword">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sicmedword">
 		SELECT
 		<include refid="sicmedWordColumns" />
 		FROM sicmed_word a

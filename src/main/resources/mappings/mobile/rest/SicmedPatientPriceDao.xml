@@ -32,16 +32,16 @@
 		LEFT JOIN sicmed_user c ON c.id = a.create_user
 	</sql>
     
-	<select id="get" resultType="SicmedPatientPrice">
-		SELECT 
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
-	<select id="getByEntity" resultType="SicmedPatientPrice">
-		SELECT 
+
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
@@ -70,8 +70,8 @@
 		</choose>
 	</select>
 	<!-- -->
-	<select id = "getPatientPrice" resultType = "SicmedPatientPrice" parameterType="SicmedPatientPrice">
-		SELECT 
+	<select id = "getPatientPrice" resultType = "com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice" parameterType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 			<include refid="sicmedPatientPriceJoins"/>
@@ -87,12 +87,12 @@
 			</if>
 			<if test="isPay != null and isPay != ''">
 				AND a.isPay = #{isPay}
-			</if>			     
+			</if>
 	</select>
-	
+
 	<!-- 通过患者ID找到对应的数据 -->
-	<select id="findListWithPatient" resultType="SicmedPatientPrice" parameterType="SicmedPatientPrice">
-		SELECT 
+	<select id="findListWithPatient" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice" parameterType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
@@ -109,7 +109,7 @@
 			</if>
 			<if test="isPay != null and isPay != ''">
 				AND a.isPay = #{isPay}
-			</if>	
+			</if>
 		</where>
 		<choose>
 			<otherwise>
@@ -117,10 +117,10 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+
 	<!-- 模糊搜索带分页web -->
-	<select id="findLike" resultType="SicmedPatientPrice">
-		SELECT 
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
@@ -175,10 +175,10 @@
 			</otherwise>
 		</choose>
 	</select>
-	
-	
-	<select id="findList" resultType="SicmedPatientPrice">
-		SELECT 
+
+
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
@@ -230,15 +230,15 @@
 			</otherwise>
 		</choose>
 	</select>
-	
-	<select id="findAllList" resultType="SicmedPatientPrice">
-		SELECT 
+
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns"/>
 		FROM sicmed_patient_price a
 		<include refid="sicmedPatientPriceJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-		</where>		
+		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
@@ -248,7 +248,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+
 	<insert id="insert">
 		INSERT INTO sicmed_patient_price(
 			id,
@@ -286,9 +286,9 @@
 			#{delFlag}
 		)
 	</insert>
-	
+
 	<update id="update">
-		UPDATE sicmed_patient_price SET 
+		UPDATE sicmed_patient_price SET
 			number = #{number},
 			patient_code = #{sicmedPatient.id},
 			price_class_type = #{priceClassType},
@@ -303,39 +303,39 @@
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>
-	
+
 	<!-- 退号同时删除挂号费 -->
 	<update id="deletePrice">
-		UPDATE sicmed_patient_price SET 
+		UPDATE sicmed_patient_price SET
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE price_class_type = #{priceClassType}
 			AND patient_code = #{sicmedPatient.id}
 	</update>
-	
+
 	<update id="delete">
-		UPDATE sicmed_patient_price SET 
+		UPDATE sicmed_patient_price SET
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-	
-<!--   	<update id="copyTable" parameterType="SicmedPatientPrice">	
-		CREATE TABLE ${copyTableName} 
+
+<!--   	<update id="copyTable" parameterType="SicmedPatientPrice">
+		CREATE TABLE ${copyTableName}
 		LIKE sicmed_patient_price;
-			INSERT INTO ${copyTableName} 
-			SELECT * 
+			INSERT INTO ${copyTableName}
+			SELECT *
 			FROM sicmed_patient_price
 	</update>  -->
-	
-	
-	
+
+
+
 	<!-- Max select -->
 	<!-- 需要查询的字段 -->
 	<sql id="sicmedPatientPriceColumns2">
 		a.id AS "id"
 	</sql>
 	<!-- 查询方法 -->
-	<select id="findListUUID" resultType="SicmedPatientPrice">
-		SELECT 
+	<select id="findListUUID" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
+		SELECT
 			<include refid="sicmedPatientPriceColumns2"/>
 		FROM sicmed_patient_price a
 		<where>
@@ -363,9 +363,9 @@
 		a.price_class_type AS "priceClassType",
 	 	a.price_code AS "priceCode"
 	</sql>
-	
+
 	<!-- 查询方法 -->
-	<select id="findHistoryList" resultType="SicmedPatientPrice">
+	<select id="findHistoryList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatientPrice">
 		SELECT 
 			<include refid="sicmedPatientPriceColumns3"/>
 		FROM sicmed_patient_price a

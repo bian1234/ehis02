@@ -22,7 +22,7 @@
 		LEFT JOIN sicmed_inspect b ON b.id = a.inspect_code
 	</sql>
     
-	<select id="get" resultType="SicmedInspectPrice">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a
@@ -30,7 +30,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="fingInspectPrice" resultType="SicmedInspectPrice">
+	<select id="fingInspectPrice" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a
@@ -49,7 +49,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<select id="getByEntity" resultType="SicmedInspectPrice">
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a
@@ -85,7 +85,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<select id="findList" resultType="SicmedInspectPrice">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a
@@ -131,7 +131,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedInspectPrice">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a
@@ -196,9 +196,9 @@
 		WHERE id = #{id}
 	</update>
 	
-	<!-- <select id="findAllPricePage" resultType="SicmedInspectPrice"> -->
+	<!-- <select id="findAllPricePage" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice"> -->
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedInspectPrice">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectPrice">
 		SELECT 
 			<include refid="sicmedInspectPriceColumns"/>
 		FROM sicmed_inspect_price a

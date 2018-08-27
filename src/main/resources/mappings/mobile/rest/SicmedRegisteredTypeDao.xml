@@ -26,7 +26,7 @@
 		LEFT JOIN sicmed_registered_price b ON b.id = a.price_id
 	</sql>
     
-	<select id="get" resultType="SicmedRegisteredType">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegisteredType">
 		SELECT 
 			<include refid="sicmedRegisteredTypeColumns"/>
 		FROM sicmed_registered_type a
@@ -34,7 +34,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList1" resultType="SicmedRegisteredType">
+	<select id="findList1" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegisteredType">
 		SELECT 
 			<include refid="sicmedRegisteredTypeColumns"/>
 		FROM sicmed_registered_type a
@@ -58,7 +58,7 @@
 		</choose>
 	</select>
 	
-	<select id="findList2" resultType="SicmedRegisteredType">
+	<select id="findList2" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegisteredType">
 		SELECT 
 			<include refid="sicmedRegisteredTypeColumns"/>
 		FROM sicmed_registered_type a
@@ -79,7 +79,7 @@
 		</choose>
 	</select>
 	
-	<select id="findList" resultType="SicmedRegisteredType">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegisteredType">
 		SELECT 
 			<include refid="sicmedRegisteredTypeColumns"/>
 		FROM sicmed_registered_type a
@@ -109,7 +109,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedRegisteredType">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegisteredType">
 		SELECT 
 			<include refid="sicmedRegisteredTypeColumns"/>
 		FROM sicmed_registered_type a

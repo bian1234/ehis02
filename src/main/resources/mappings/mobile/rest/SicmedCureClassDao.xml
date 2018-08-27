@@ -19,7 +19,7 @@
 	<sql id="sicmedCureClassJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedCureClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureClass">
 		SELECT 
 			<include refid="sicmedCureClassColumns"/>
 		FROM sicmed_cure_class a
@@ -27,7 +27,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedCureClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureClass">
 		SELECT 
 			<include refid="sicmedCureClassColumns"/>
 		FROM sicmed_cure_class a
@@ -57,7 +57,7 @@
 		</choose>
 	</select>
 	
-	<select id="findLike" resultType="SicmedCureClass">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureClass">
 		SELECT 
 			<include refid="sicmedCureClassColumns"/>
 		FROM sicmed_cure_class a
@@ -87,7 +87,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedCureClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCureClass">
 		SELECT 
 			<include refid="sicmedCureClassColumns"/>
 		FROM sicmed_cure_class a

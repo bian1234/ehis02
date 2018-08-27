@@ -27,7 +27,7 @@
 		 LEFT JOIN sicmed_medical b ON b.id = a.medical_code
 	</sql>
     
-	<select id="get" resultType="SicmedMedicalPrice">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a
@@ -35,7 +35,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id = "getMedicalPrice" resultType = "SicmedMedicalPrice">
+	<select id = "getMedicalPrice" resultType = "com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a
@@ -87,7 +87,7 @@
 	
 	</select>
 	
-	<select id="findList" resultType="SicmedMedicalPrice">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a
@@ -148,7 +148,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页 web -->
-	<select id="findLike" resultType="SicmedMedicalPrice">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a
@@ -213,7 +213,7 @@
 		</choose>
 	</select>
 	
-	<select id="fingMedicalPrice" resultType="SicmedMedicalPrice">
+	<select id="fingMedicalPrice" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a
@@ -285,7 +285,7 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="findAllPriceList" resultType="SicmedMedicalPrice">
+	<select id="findAllPriceList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalPrice">
 		SELECT 
 			<include refid="sicmedMedicalPriceColumns"/>
 		FROM sicmed_medical_price a

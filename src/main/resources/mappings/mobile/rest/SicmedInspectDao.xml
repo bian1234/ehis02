@@ -35,7 +35,7 @@
 		a.inspect_price_code
 	</sql>
 
-	<select id="get" resultType="SicmedInspect">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns" />
 		FROM sicmed_inspect a
@@ -43,7 +43,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getInspect" resultType="SicmedInspect">
+	<select id="getInspect" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns" />
 		FROM sicmed_inspect a
@@ -55,7 +55,7 @@
 		</where>
 	</select>
 
-	<select id="findList" resultType="SicmedInspect">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns" />
 		FROM sicmed_inspect a
@@ -110,7 +110,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedInspect">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns" />
 		FROM sicmed_inspect a
@@ -155,7 +155,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedInspect">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns" />
 		FROM sicmed_inspect a
@@ -179,7 +179,7 @@
 		a.inspect_name AS "inspectName"
 	</sql>
 	<!-- 模糊查询 -->
-	<select id="findListLike" resultType="SicmedInspect">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspect">
 		SELECT
 		<include refid="sicmedInspectColumns2" />
 		FROM sicmed_inspect a

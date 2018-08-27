@@ -86,7 +86,7 @@
 		LEFT JOIN (sicmed_registered_type t LEFT JOIN sicmed_registered_price r  ON r.id = t.price_id) ON t.id = a.sicmed_registration_type
 	</sql>
 
-	<select id="get" resultType="SicmedRegistered">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -94,7 +94,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getByP" resultType="SicmedRegistered">
+	<select id="getByP" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -107,7 +107,7 @@
 		</where>
 	</select>
 
-	<select id="findList1" resultType="SicmedRegistered">
+	<select id="findList1" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -129,7 +129,7 @@
 		</choose>
 	</select>
 	
-	<select id="findList2" resultType="SicmedRegistered">
+	<select id="findList2" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -155,7 +155,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedRegistered">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -263,7 +263,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedRegistered">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -367,7 +367,7 @@
 		</choose>
 	</select>
 
-	<select id="getByEntity" resultType="SicmedRegistered">
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -390,7 +390,7 @@
 	</select>
 
 
-	<select id="findAllList" resultType="SicmedRegistered">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -513,7 +513,7 @@
 		LEFT JOIN sicmed_registered_type t ON t.id = a.sicmed_registration_type
 	</sql>
 	<!-- 医生查询可在本科室就诊患者的挂号信息 -->
-	<select id="findByDAndB" resultType="SicmedRegistered">
+	<select id="findByDAndB" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns2" />
 		FROM sicmed_registered a
@@ -536,7 +536,7 @@
 		</choose>
 	</select>
 	<!-- 医生模糊查询可就诊的患者信息 -->
-	<select id="findByParamAndD" resultType="SicmedRegistered">
+	<select id="findByParamAndD" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns2" />
 		FROM sicmed_registered a
@@ -563,7 +563,7 @@
 		</choose>
 	</select>
 	<!-- 挂号查询可退号或者改号患者的挂号信息 -->
-	<select id="findRefuntOrChange" resultType="SicmedRegistered">
+	<select id="findRefuntOrChange" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT 
 		<include refid="sicmedRegisteredColumns2" />
 		FROM sicmed_registered a
@@ -595,7 +595,7 @@
 
 	</sql>
 	<!-- 查询方法 -->
-	<select id="findHistoryListByUpdateUser" resultType="SicmedRegistered">
+	<select id="findHistoryListByUpdateUser" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -621,7 +621,7 @@
 		</choose>
 	</select>
 	
-	<select id="findHistoryListByDeleteUser" resultType="SicmedRegistered">
+	<select id="findHistoryListByDeleteUser" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a
@@ -648,7 +648,7 @@
 		</choose>
 	</select>
 	
-	<select id="findHistoryListByCreateUser" resultType="SicmedRegistered">
+	<select id="findHistoryListByCreateUser" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedRegistered">
 		SELECT
 		<include refid="sicmedRegisteredColumns" />
 		FROM sicmed_registered a

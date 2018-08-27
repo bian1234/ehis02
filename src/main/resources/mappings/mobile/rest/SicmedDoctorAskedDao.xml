@@ -21,7 +21,7 @@
 		LEFT JOIN sicmed_asked d ON d.id = a.asked_code
 	</sql>
     
-	<select id="get" resultType="SicmedDoctorAsked">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDoctorAsked">
 		SELECT 
 			<include refid="sicmedDoctorAskedColumns"/>
 		FROM sicmed_doctor_asked a
@@ -29,7 +29,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedDoctorAsked">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDoctorAsked">
 		SELECT 
 			<include refid="sicmedDoctorAskedColumns"/>
 		FROM sicmed_doctor_asked a
@@ -47,7 +47,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedDoctorAsked">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDoctorAsked">
 		SELECT 
 			<include refid="sicmedDoctorAskedColumns"/>
 		FROM sicmed_doctor_asked a

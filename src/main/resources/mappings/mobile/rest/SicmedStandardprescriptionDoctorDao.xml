@@ -24,7 +24,7 @@
 		LEFT JOIN sicmed_standerprescription_disease d ON d.id = a.standerprescription_disease_code
 	</sql>
     
-	<select id="get" resultType="SicmedStandardprescriptionDoctor">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStandardprescriptionDoctor">
 		SELECT 
 			<include refid="sicmedStandardprescriptionDoctorColumns"/>
 		FROM sicmed_standardprescription_doctor a
@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 根据医生id,医嘱类型查找标准处方中的医嘱 -->
-	<select id="getDoctorid" resultType="SicmedStandardprescriptionDoctor">
+	<select id="getDoctorid" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStandardprescriptionDoctor">
 		SELECT 
 			<include refid="sicmedStandardprescriptionDoctorColumns"/>
 		FROM sicmed_standardprescription_doctor a
@@ -42,7 +42,7 @@
 			AND a.asked_code = #{askedClass.id}
 	</select>
 	
-	<select id="findList" resultType="SicmedStandardprescriptionDoctor">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStandardprescriptionDoctor">
 		SELECT 
 			<include refid="sicmedStandardprescriptionDoctorColumns"/>
 		FROM sicmed_standardprescription_doctor a
@@ -60,7 +60,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedStandardprescriptionDoctor">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStandardprescriptionDoctor">
 		SELECT 
 			<include refid="sicmedStandardprescriptionDoctorColumns"/>
 		FROM sicmed_standardprescription_doctor a

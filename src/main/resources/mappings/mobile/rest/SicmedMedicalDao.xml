@@ -67,7 +67,7 @@
 		LEFT JOIN sicmed_medical_class f ON f.id = a.medical_class_id_three
 	</sql>
 
-	<select id="get" resultType="SicmedMedical">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -75,8 +75,8 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getMedicalWithMedical" parameterType="SicmedMedical"
-		resultType="SicmedMedical">
+	<select id="getMedicalWithMedical" parameterType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical"
+		resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -98,7 +98,7 @@
 	</select>
 
 	<!-- 查询，parameter:SicmedMedical return:SicmedMedicalList -->
-	<select id="getMeicalListWithMedical" resultType="SicmedMedical">
+	<select id="getMeicalListWithMedical" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -125,7 +125,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedMedical">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -205,7 +205,7 @@
 	</select>
 
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedMedical">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -284,7 +284,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedMedical">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -309,7 +309,7 @@
 	</sql>
 	
 	<!-- 模糊查询 SQL -->
-	<select id="findListLike" resultType="SicmedMedical">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns"/>
 		FROM sicmed_medical a
@@ -494,7 +494,7 @@
 		del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-<select id="getAll" resultType="SicmedMedical">
+<select id="getAll" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a
@@ -513,7 +513,7 @@
 	
 	
 <!-- 本地数据 药品数据更新 -->
-	<select id="findByVersion" resultType="SicmedMedical">
+	<select id="findByVersion" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedical">
 		SELECT
 		<include refid="sicmedMedicalColumns" />
 		FROM sicmed_medical a

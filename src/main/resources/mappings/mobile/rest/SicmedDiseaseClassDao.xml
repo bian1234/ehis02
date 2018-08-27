@@ -20,7 +20,7 @@
 	LEFT JOIN sicmed_disease_class d ON d.id = a.pid
 	</sql>
     
-	<select id="get" resultType="SicmedDiseaseClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseClass">
 		SELECT 
 			<include refid="sicmedDiseaseClassColumns"/>
 		FROM sicmed_disease_class a
@@ -36,7 +36,7 @@
 			</where>
 	</select>
 	
-	<select id="findList" resultType="SicmedDiseaseClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseClass">
 		SELECT 
 			<include refid="sicmedDiseaseClassColumns"/>
 		FROM sicmed_disease_class a
@@ -88,7 +88,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedDiseaseClass">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseClass">
 		SELECT 
 			<include refid="sicmedDiseaseClassColumns"/>
 		FROM sicmed_disease_class a
@@ -139,7 +139,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedDiseaseClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseClass">
 		SELECT 
 			<include refid="sicmedDiseaseClassColumns"/>
 		FROM sicmed_disease_class a

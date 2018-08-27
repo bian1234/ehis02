@@ -22,7 +22,7 @@
 	LEFT JOIN sicmed_medical_class b ON b.id = a.parent_id
 	</sql>
     
-	<select id="get" resultType="SicmedMedicalClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalClass">
 		SELECT 
 			<include refid="sicmedMedicalClassColumns"/>
 		FROM sicmed_medical_class a
@@ -38,7 +38,7 @@
 			</where>
 	</select>
 	
-	<select id="findList" resultType="SicmedMedicalClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalClass">
 		SELECT 
 			<include refid="sicmedMedicalClassColumns"/>
 		FROM sicmed_medical_class a
@@ -78,7 +78,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页 web-->
-		<select id="findLike" resultType="SicmedMedicalClass">
+		<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalClass">
 		SELECT 
 			<include refid="sicmedMedicalClassColumns"/>
 		FROM sicmed_medical_class a
@@ -117,7 +117,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedMedicalClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalClass">
 		SELECT 
 			<include refid="sicmedMedicalClassColumns"/>
 		FROM sicmed_medical_class a

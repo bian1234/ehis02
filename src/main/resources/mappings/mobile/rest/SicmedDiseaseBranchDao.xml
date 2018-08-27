@@ -63,7 +63,7 @@
 		LEFT JOIN sicmed_disease e ON e.id = a.disease_code
 	</sql>
     
-	<select id="get" resultType="SicmedDiseaseBranch">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseBranch">
 		SELECT 
 			<include refid="sicmedDiseaseBranchColumns"/>
 		FROM sicmed_disease_branch a
@@ -71,7 +71,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedDiseaseBranch">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseBranch">
 		SELECT 
 			<include refid="sicmedDiseaseBranchColumns"/>
 		FROM sicmed_disease_branch a
@@ -119,7 +119,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedDiseaseBranch">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDiseaseBranch">
 		SELECT 
 			<include refid="sicmedDiseaseBranchColumns"/>
 		FROM sicmed_disease_branch a

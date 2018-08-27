@@ -12,7 +12,7 @@
 	<sql id="sicmedEntityEntityJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedTempEntity">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTempEntity">
 		SELECT 
 			<include refid="sicmedEntityEntityColumns"/>
 		FROM sicmed_temp a

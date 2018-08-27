@@ -40,7 +40,7 @@
 		a.disease_class_code
 	</sql>
 
-	<select id="get" resultType="SicmedDisease">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDisease">
 		SELECT
 		<include refid="sicmedDiseaseColumns" />
 		FROM sicmed_disease a
@@ -49,7 +49,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedDisease">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDisease">
 		SELECT
 		<include refid="sicmedDiseaseColumns" />
 		FROM sicmed_disease a
@@ -109,7 +109,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedDisease">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDisease">
 		SELECT
 		<include refid="sicmedDiseaseColumns" />
 		FROM sicmed_disease a
@@ -169,7 +169,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedDisease">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDisease">
 		SELECT
 		<include refid="sicmedDiseaseColumns" />
 		FROM sicmed_disease a
@@ -188,7 +188,7 @@
 	</select>
 
 	<!-- 模糊查询 -->
-	<select id="findListLike" resultType="SicmedDisease">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedDisease">
 		SELECT
 		<include refid="sicmedDiseaseColumns" />
 		FROM sicmed_disease a

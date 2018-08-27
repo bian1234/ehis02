@@ -19,7 +19,7 @@
 	<sql id="sicmedTwxrayClassJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedTwxrayClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayClass">
 		SELECT 
 			<include refid="sicmedTwxrayClassColumns"/>
 		FROM sicmed_twxray_class a
@@ -27,7 +27,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedTwxrayClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayClass">
 		SELECT 
 			<include refid="sicmedTwxrayClassColumns"/>
 		FROM sicmed_twxray_class a
@@ -72,7 +72,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedTwxrayClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayClass">
 		SELECT 
 			<include refid="sicmedTwxrayClassColumns"/>
 		FROM sicmed_twxray_class a

@@ -36,7 +36,7 @@
 		LEFT JOIN sicmed_user s ON s.id = a.update_user
 	</sql>
     
-	<select id="get" resultType="SicmedStanderprescriptionDisease">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStanderprescriptionDisease">
 		SELECT 
 			<include refid="sicmedStanderprescriptionDiseaseColumns"/>
 		FROM sicmed_standerprescription_disease a
@@ -44,7 +44,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedStanderprescriptionDisease">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStanderprescriptionDisease">
 		SELECT 
 			<include refid="sicmedStanderprescriptionDiseaseColumns"/>
 		FROM sicmed_standerprescription_disease a
@@ -71,7 +71,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedStanderprescriptionDisease">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStanderprescriptionDisease">
 		SELECT 
 			<include refid="sicmedStanderprescriptionDiseaseColumns"/>
 		FROM sicmed_standerprescription_disease a
@@ -91,7 +91,7 @@
 	
 	
 	<!-- 模糊查询 -->
-	<select id="findListLike" resultType="SicmedStanderprescriptionDisease">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedStanderprescriptionDisease">
 		SELECT 
 			<include refid="sicmedStanderprescriptionDiseaseColumns"/>
 		FROM sicmed_standerprescription_disease a

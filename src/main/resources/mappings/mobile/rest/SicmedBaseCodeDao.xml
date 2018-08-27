@@ -22,7 +22,7 @@
 	<sql id="sicmedBaseCodeJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedBaseCode">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBaseCode">
 		SELECT 
 			<include refid="sicmedBaseCodeColumns"/>
 		FROM sicmed_base_code a
@@ -30,7 +30,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedBaseCode">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBaseCode">
 		SELECT 
 			<include refid="sicmedBaseCodeColumns"/>
 		FROM sicmed_base_code a
@@ -72,7 +72,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedBaseCode">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBaseCode">
 		SELECT 
 			<include refid="sicmedBaseCodeColumns"/>
 		FROM sicmed_base_code a

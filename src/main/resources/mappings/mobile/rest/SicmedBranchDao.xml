@@ -24,7 +24,7 @@
 	<sql id="sicmedBranchJoins">
 	</sql>
 	
-    <select id="get" resultType="SicmedBranch">
+    <select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranch">
 		SELECT 
 			<include refid="sicmedBranchColumns"/>
 		FROM sicmed_branch a
@@ -32,7 +32,7 @@
 		where a.id = #{id}
 	</select>
     
-	<!-- <select id="get" resultType="SicmedBranch">
+	<!-- <select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranch">
 		SELECT 
 			<include refid="sicmedBranchColumns"/>
 		FROM sicmed_branch a
@@ -48,7 +48,7 @@
 		</where>
 	</select> -->
 	
-	<select id="findList" resultType="SicmedBranch">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranch">
 		SELECT 
 			<include refid="sicmedBranchColumns"/>
 		FROM sicmed_branch a
@@ -91,7 +91,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedBranch">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranch">
 		SELECT 
 			<include refid="sicmedBranchColumns"/>
 		FROM sicmed_branch a
@@ -134,7 +134,7 @@
 	</select>
 	
 	
-	<select id="findAllList" resultType="SicmedBranch">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranch">
 		SELECT 
 			<include refid="sicmedBranchColumns"/>
 		FROM sicmed_branch a

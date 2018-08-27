@@ -17,7 +17,7 @@
 	<sql id="sicmedInspectClassJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedInspectClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectClass">
 		SELECT 
 			<include refid="sicmedInspectClassColumns"/>
 		FROM sicmed_inspect_class a
@@ -25,7 +25,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedInspectClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectClass">
 		SELECT 
 			<include refid="sicmedInspectClassColumns"/>
 		FROM sicmed_inspect_class a
@@ -59,7 +59,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedInspectClass">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectClass">
 		SELECT 
 			<include refid="sicmedInspectClassColumns"/>
 		FROM sicmed_inspect_class a
@@ -86,7 +86,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedInspectClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedInspectClass">
 		SELECT 
 			<include refid="sicmedInspectClassColumns"/>
 		FROM sicmed_inspect_class a

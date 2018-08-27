@@ -17,7 +17,7 @@
 	<sql id="sicmedMedicalAskedJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedMedicalAsked">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalAsked">
 		SELECT 
 			<include refid="sicmedMedicalAskedColumns"/>
 		FROM sicmed_medical_asked a
@@ -25,7 +25,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedMedicalAsked">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalAsked">
 		SELECT 
 			<include refid="sicmedMedicalAskedColumns"/>
 		FROM sicmed_medical_asked a
@@ -52,7 +52,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedMedicalAsked">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedMedicalAsked">
 		SELECT 
 			<include refid="sicmedMedicalAskedColumns"/>
 		FROM sicmed_medical_asked a

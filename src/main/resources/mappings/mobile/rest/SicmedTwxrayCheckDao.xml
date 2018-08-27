@@ -34,7 +34,7 @@
 		a.check_price_code
 	</sql>
 
-	<select id="get" resultType="SicmedTwxrayCheck">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayCheck">
 		SELECT
 		<include refid="sicmedTwxrayCheckColumns" />
 		FROM sicmed_twxray_check a
@@ -42,7 +42,7 @@
 		WHERE a.id = #{id}
 	</select>
 
-	<select id="getTwxrayCheck" resultType="SicmedTwxrayCheck">
+	<select id="getTwxrayCheck" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayCheck">
 		SELECT
 		<include refid="sicmedTwxrayCheckColumns" />
 		FROM sicmed_twxray_check a
@@ -50,7 +50,7 @@
 		WHERE a.check_code = #{checkCode}
 	</select>
 
-	<select id="findList" resultType="SicmedTwxrayCheck">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayCheck">
 		SELECT
 		<include refid="sicmedTwxrayCheckColumns" />
 		FROM sicmed_twxray_check a
@@ -104,7 +104,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedTwxrayCheck">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayCheck">
 		SELECT
 		<include refid="sicmedTwxrayCheckColumns" />
 		FROM sicmed_twxray_check a
@@ -127,7 +127,7 @@
 		a.check_name AS "checkName"
 	</sql>
 	<!-- 模糊查询检查项目 -->
-	<select id="findListLike" resultType="SicmedTwxrayCheck">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedTwxrayCheck">
 		SELECT
 		<include refid="sicmedTwxrayCheckColumns2" />
 		FROM sicmed_twxray_check a

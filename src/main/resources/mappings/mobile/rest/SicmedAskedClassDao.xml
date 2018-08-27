@@ -17,7 +17,7 @@
 	<sql id="sicmedAskedClassJoins">
 	</sql>
     
-	<select id="get" resultType="SicmedAskedClass">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedAskedClass">
 		SELECT 
 			<include refid="sicmedAskedClassColumns"/>
 		FROM sicmed_asked_class a
@@ -32,7 +32,7 @@
 		</where>
 	</select>
 	
-	<select id="getAskedByAskedClass" resultType="SicmedAskedClass">
+	<select id="getAskedByAskedClass" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedAskedClass">
 		SELECT 
 			<include refid="sicmedAskedClassColumns"/>
 		FROM sicmed_asked_class a
@@ -40,7 +40,7 @@
 		WHERE a.asked_calss = #{askedCalss}
 	</select>
 	
-	<select id="findList" resultType="SicmedAskedClass">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedAskedClass">
 		SELECT 
 			<include refid="sicmedAskedClassColumns"/>
 		FROM sicmed_asked_class a
@@ -62,7 +62,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<select id="findLike" resultType="SicmedAskedClass">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedAskedClass">
 		SELECT 
 			<include refid="sicmedAskedClassColumns"/>
 		FROM sicmed_asked_class a
@@ -83,7 +83,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedAskedClass">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedAskedClass">
 		SELECT 
 			<include refid="sicmedAskedClassColumns"/>
 		FROM sicmed_asked_class a

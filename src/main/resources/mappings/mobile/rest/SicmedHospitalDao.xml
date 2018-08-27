@@ -30,7 +30,7 @@
 	LEFT JOIN sicmed_city c ON c.city_id = a.city_code
 	</sql>
     
-	<select id="get" resultType="SicmedHospital">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedHospital">
 		SELECT 
 			<include refid="sicmedHospitalColumns"/>
 		FROM sicmed_hospital a
@@ -38,7 +38,7 @@
 		WHERE a.hospital_id = #{hospitalId}
 	</select>
 	
-	<select id="findList" resultType="SicmedHospital">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedHospital">
 		SELECT 
 			<include refid="sicmedHospitalColumns"/>
 		FROM sicmed_hospital a
@@ -89,7 +89,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedHospital">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedHospital">
 		SELECT 
 			<include refid="sicmedHospitalColumns"/>
 		FROM sicmed_hospital a

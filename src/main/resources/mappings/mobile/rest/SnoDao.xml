@@ -11,7 +11,7 @@
 	<sql id="snoJoins">
 	</sql>
     
-	<select id="get" resultType="Sno">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sno">
 		SELECT 
 			<include refid="snoColumns"/>
 		FROM sno a
@@ -19,7 +19,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="Sno">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sno">
 		SELECT 
 			<include refid="snoColumns"/>
 		FROM sno a
@@ -39,7 +39,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="Sno">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.Sno">
 		SELECT 
 			<include refid="snoColumns"/>
 		FROM sno a

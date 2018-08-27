@@ -22,7 +22,7 @@
 		LEFT JOIN sicmed_twxray_check b ON b.id = a.check_code
 	</sql>
     
-	<select id="get" resultType="SicmedCheckPrice">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a
@@ -30,7 +30,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="getByEntity" resultType="SicmedCheckPrice">
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a
@@ -63,7 +63,7 @@
 		</choose>
 	</select>
 	
-	<select id="findList" resultType="SicmedCheckPrice">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a
@@ -107,7 +107,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedCheckPrice">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a
@@ -125,7 +125,7 @@
 		</choose>
 	</select>
 	
-	<select id="findCheckPrice" resultType="SicmedCheckPrice">
+	<select id="findCheckPrice" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a
@@ -190,7 +190,7 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="findAllPriceList" resultType="SicmedCheckPrice">
+	<select id="findAllPriceList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedCheckPrice">
 		SELECT 
 			<include refid="sicmedCheckPriceColumns"/>
 		FROM sicmed_check_price a

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedPatientDao">
+<mapper namespace="com.thinkgem.jeesite.cfq.mobile.rest.dao.SicmedPatientDao">
 
 	<sql id="sicmedPatientColumns">
 		a.id AS "id",
@@ -40,7 +39,7 @@
 		LEFT JOIN sicmed_registered r ON r.patient_code = a.id
 		LEFT JOIN sicmed_branch e ON e.id = r.branch_code 
 	</sql>
-	<select id="get" resultType="SicmedPatient">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -49,7 +48,7 @@
 	</select>
 	
 	<!-- 模糊查询带分页web -->
-	<!-- <select id="findLike" resultType="SicmedPatient">
+	<!-- <select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -141,7 +140,7 @@
 		</choose>
 	</select> -->
 
-	<select id="getByEntity" resultType="SicmedPatient">
+	<select id="getByEntity" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -213,7 +212,7 @@
 		</choose>
 	</select>
 
-	<select id="findList" resultType="SicmedPatient">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -305,7 +304,7 @@
 		</choose>
 	</select>
 
-	<select id="findAllList" resultType="SicmedPatient">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -325,7 +324,7 @@
 
 	<!-- 模糊查询 sql -->
 
-	<select id="findListLike" resultType="SicmedPatient">
+	<select id="findListLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -358,7 +357,7 @@
 		</choose>
 	</select>
 
-	<select id="findLike" resultType="SicmedPatient">
+	<select id="findLike" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a
@@ -489,7 +488,7 @@
 	</sql>
 	<!-- 查询方法 -->
 	
-<select id="findListByDoctor" resultType="SicmedPatient">
+<select id="findListByDoctor" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient">
 		SELECT
 		<include refid="sicmedPatientColumns" />
 		FROM sicmed_patient a

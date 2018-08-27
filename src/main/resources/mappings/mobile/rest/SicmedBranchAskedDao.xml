@@ -60,7 +60,7 @@
 		LEFT JOIN sicmed_asked_class d ON d.id = a.asked_class_code
 	</sql>
     
-	<select id="get" resultType="SicmedBranchAsked">
+	<select id="get" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranchAsked">
 		SELECT 
 			<include refid="sicmedBranchAskedColumns"/>
 		FROM sicmed_branch_asked a
@@ -68,7 +68,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="SicmedBranchAsked">
+	<select id="findList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranchAsked">
 		SELECT 
 			<include refid="sicmedBranchAskedColumns"/>
 		FROM sicmed_branch_asked a
@@ -86,7 +86,7 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="SicmedBranchAsked">
+	<select id="findAllList" resultType="com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedBranchAsked">
 		SELECT 
 			<include refid="sicmedBranchAskedColumns"/>
 		FROM sicmed_branch_asked a
