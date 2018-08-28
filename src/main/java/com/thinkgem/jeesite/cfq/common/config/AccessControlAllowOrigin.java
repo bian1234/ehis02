@@ -3,7 +3,12 @@ package com.thinkgem.jeesite.cfq.common.config;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ *@Author:      ykbian
+ *@date_time:   2018/8/28 11:20
+ *@Description:
+ *@param:
+*/
 public class AccessControlAllowOrigin implements Filter {
 
     @Override

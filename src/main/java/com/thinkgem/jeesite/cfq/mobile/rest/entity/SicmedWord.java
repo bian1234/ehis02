@@ -1,11 +1,11 @@
 package com.thinkgem.jeesite.cfq.mobile.rest.entity;
 
 import com.thinkgem.jeesite.cfq.mobile.rest.bean.DataEntity;
-import com.thinkgem.jeesite.cfq.mobile.rest.entity.SicmedPatient;
 import org.hibernate.validator.constraints.Length;
 
 
-public class SicmedWord extends DataEntity<SicmedWord> {
+
+public class  SicmedWord extends DataEntity<SicmedWord> {
 
     private static final long serialVersionUID = 1L;
 
