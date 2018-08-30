@@ -18,6 +18,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
@@ -36,6 +37,7 @@ import redis.clients.jedis.Jedis;
  * @author ThinkGem
  * @version 2014-7-20
  */
+@Primary     //@Primary 告诉spring 在犹豫的时候优先选择哪一个具体的实现。
 @Service
 public class JedisSessionDAO extends AbstractSessionDAO implements SessionDAO {
 

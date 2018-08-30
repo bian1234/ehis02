@@ -34,10 +34,12 @@ public class PrescriptionArea extends TreeEntity<PrescriptionArea> {
 
     //	@JsonBackReference
 //	@NotNull
+    @Override
     public PrescriptionArea getParent() {
         return parent;
     }
 
+    @Override
     public void setParent(PrescriptionArea parent) {
         this.parent = parent;
     }
@@ -51,12 +53,14 @@ public class PrescriptionArea extends TreeEntity<PrescriptionArea> {
 //	public void setParentIds(String parentIds) {
 //		this.parentIds = parentIds;
 //	}
-//	
+//
+    @Override
     @Length(min = 1, max = 100)
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

@@ -19,6 +19,42 @@
 	</parent>
 
 	<properties>
+
+		<validator.version>5.1.1.Final</validator.version>
+		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis-spring.version>1.2.2</mybatis-spring.version>
+		<druid.version>1.0.11</druid.version>
+		<ehcache.version>2.6.9</ehcache.version>
+		<ehcache-web.version>2.0.4</ehcache-web.version>
+		<shiro.version>1.2.3</shiro.version>
+		<sitemesh.version>2.4.2</sitemesh.version>
+		<activiti.version>5.15.1</activiti.version>
+
+		<!-- tools version setting -->
+		<slf4j.version>1.7.7</slf4j.version>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-codec.version>1.9</commons-codec.version>
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<commons-beanutils.version>1.9.1</commons-beanutils.version>
+		<jackson.version>2.2.3</jackson.version>
+		<fastjson.version>1.1.40</fastjson.version>
+		<xstream.version>1.4.7</xstream.version>
+		<guava.version>17.0</guava.version>
+		<dozer.version>5.5.1</dozer.version>
+		<poi.version>3.9</poi.version>
+		<freemarker.version>2.3.20</freemarker.version>
+
+		<!-- jdbc driver setting -->
+		<mysql.driver.version>5.1.30</mysql.driver.version>
+		<oracle.driver.version>10.2.0.4.0</oracle.driver.version>
+		<mssql.driver.version>1.3.1</mssql.driver.version>
+
+		<!-- environment setting -->
+		<jdk.version>1.6</jdk.version>
+		<tomcat.version>2.2</tomcat.version>
+		<jetty.version>7.6.14.v20131031</jetty.version>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -28,29 +64,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!--mybatis-->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -58,80 +77,46 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+
+
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.4.4</version>
 		</dependency>
+
+
 		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>2.2.3</version>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
-<!--================================开始===============================-->
-		<!--&lt;!&ndash; SPRING begin &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-core</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<groupId>commons-logging</groupId>-->
-					<!--<artifactId>commons-logging</artifactId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-beans</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-context</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-context-support</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-aop</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<groupId>commons-logging</groupId>-->
-					<!--<artifactId>commons-logging</artifactId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-tx</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
-<!--=================================结束===============================================-->
-		<!--&lt;!&ndash; spring orm &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-orm</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-jdbc</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
-		<!--</dependency>-->
 
-		<!-- bean validate -->
+
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.1.Final</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
-		<!-- SPRING end -->
+
+		<!-- ali druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.9</version>
+		</dependency>
+
 
 		<!-- AOP begin -->
 		<dependency>
@@ -153,55 +138,66 @@
 
 		<!-- PERSISTENCE begin -->
 
-
-		<!--<dependency>-->
-			<!--<groupId>org.mybatis</groupId>-->
-			<!--<artifactId>mybatis-spring</artifactId>-->
-			<!--<version>1.2.2</version>-->
-		<!--</dependency>-->
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
 
 		<!-- connection pool -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.0.11</version>
+			<version>${druid.version}</version>
 		</dependency>
 
-
-		<!--<dependency>-->
-			<!--<groupId>com.oracle</groupId>-->
-			<!--<artifactId>ojdbc14</artifactId>-->
-			<!--<version>10.2.0.4.0</version>-->
-			<!--<scope>runtime</scope>-->
-		<!--</dependency>-->
+		<!-- jdbc driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>${oracle.driver.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
-			<version>1.3.1</version>
+			<version>${mssql.driver.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- PERSISTENCE end -->
 
 		<!-- WEB begin -->
 		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-web</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
+		<!--<groupId>org.springframework</groupId>-->
+		<!--<artifactId>spring-web</artifactId>-->
+		<!--<version>${spring.version}</version>-->
 		<!--</dependency>-->
 		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-webmvc</artifactId>-->
-			<!--<version>4.0.8.RELEASE</version>-->
+		<!--<groupId>org.springframework</groupId>-->
+		<!--<artifactId>spring-webmvc</artifactId>-->
+		<!--<version>${spring.version}</version>-->
 		<!--</dependency>-->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>4.0.8.RELEASE</version>
-		</dependency>
+		<!--<dependency>-->
+		<!--<groupId>org.springframework</groupId>-->
+		<!--<artifactId>spring-oxm</artifactId>-->
+		<!--<version>${spring.version}</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
-			<version>2.4.2</version>
+			<version>${sitemesh.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -232,12 +228,12 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
-			<version>2.6.9</version>
+			<version>${ehcache.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-web</artifactId>
-			<version>2.0.4</version>
+			<version>${ehcache-web.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -250,17 +246,17 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
-			<version>1.2.3</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.2.3</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-cas</artifactId>
-			<version>1.2.3</version>
+			<version>${shiro.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -271,12 +267,12 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>1.2.3</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
-			<version>1.2.3</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<!-- SECURITY end -->
 
@@ -284,17 +280,17 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
-			<version>5.15.1</version>
+			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring</artifactId>
-			<version>5.15.1</version>
+			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
-			<version>5.15.1</version>
+			<version>${activiti.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>vaadin</artifactId>
@@ -313,12 +309,12 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-modeler</artifactId>
-			<version>5.15.1</version>
+			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-diagram-rest</artifactId>
-			<version>5.15.1</version>
+			<version>${activiti.version}</version>
 		</dependency>
 
 		<!-- 支持activiti缓存 -->
@@ -329,24 +325,24 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- common-logging 实际调用slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.7</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- java.util.logging 实际调用slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
-			<version>1.7.7</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<!-- LOGGING end -->
 
@@ -354,27 +350,27 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.3.2</version>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>${commons-io.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
+			<version>${commons-codec.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
+			<version>${commons-fileupload.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.1</version>
+			<version>${commons-beanutils.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -387,50 +383,50 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>17.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<!-- jackson json -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.9.6</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.6</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.9.6</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
-			<version>2.9.6</version>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- xstream xml -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.7</version>
+			<version>${xstream.version}</version>
 		</dependency>
 
 		<!-- pojo copy -->
 		<dependency>
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
-			<version>5.5.1</version>
+			<version>${dozer.version}</version>
 		</dependency>
 
 		<!-- freemarker engine -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<version>2.3.20</version>
+			<version>${freemarker.version}</version>
 		</dependency>
 
 		<!-- email -->
@@ -449,17 +445,17 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.9</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.9</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.9</version>
+			<version>${poi.version}</version>
 		</dependency>
 
 		<!-- image util -->
@@ -481,34 +477,13 @@
 			<version>2.2</version>
 		</dependency>
 
-
-		<!--&lt;!&ndash; CKFinder begin &ndash;&gt;-->
+		<!-- 中文分词 -->
 		<!--<dependency>-->
-			<!--<groupId>net.coobird</groupId>-->
-			<!--<artifactId>thumbnailator</artifactId>-->
-			<!--<version>0.4.2</version>-->
+		<!--<groupId>org.wltea</groupId>-->
+		<!--<artifactId>analyzer</artifactId>-->
+		<!--<version>2012_u6</version>-->
 		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.ckfinder</groupId>-->
-			<!--<artifactId>apache-ant-zip</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.ckfinder</groupId>-->
-			<!--<artifactId>ckfinder</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.ckfinder</groupId>-->
-			<!--<artifactId>ckfinderplugin-fileeditor</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.ckfinder</groupId>-->
-			<!--<artifactId>ckfinderplugin-imageresize</artifactId>-->
-			<!--<version>2.3</version>-->
-		<!--</dependency>-->
-		<!--&lt;!&ndash; CKFinder end &ndash;&gt;-->
+		<!-- GENERAL UTILS end -->
 		<!-- velocity begin -->
 		<dependency>
 			<groupId>velocity</groupId>
@@ -535,48 +510,50 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>4.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<!-- TEST end -->
+
+		<!-- User Agent -->
+		<!--<dependency>-->
+		<!--<groupId>bitwalker</groupId>-->
+		<!--<artifactId>UserAgentUtils</artifactId>-->
+		<!--<version>1.12</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>net.sf.jacob-project</groupId>
 			<artifactId>jacob</artifactId>
 			<version>1.14.3</version>
 		</dependency>
+
+
+
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
 			</plugin>
-			<!-- mybatis generator 自动生成代码插件 ========================暂时不需要生成代码 -->
 			<!--<plugin>-->
-				<!--<groupId>org.mybatis.generator</groupId>-->
-				<!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
-				<!--<version>1.3.6</version>-->
-				<!--<configuration>-->
-					<!--<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>-->
-					<!--<overwrite>true</overwrite>-->
-					<!--<verbose>true</verbose>-->
-				<!--</configuration>-->
+			<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--<artifactId>maven-jar-plugin</artifactId>-->
+			<!--<configuration>-->
+			<!--<archive>-->
+			<!--<manifest>-->
+			<!--<addClasspath>true</addClasspath>-->
+			<!--<mainClass>com.prostate.stata.StataApplication</mainClass>-->
+			<!--<classpathPrefix>lib/</classpathPrefix>-->
+			<!--</manifest>-->
+			<!--</archive>-->
+			<!--</configuration>-->
 			<!--</plugin>-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.thinkgem.jeesite.EhisApplication</mainClass>
-							<classpathPrefix>lib/</classpathPrefix>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
+
 
 
 </project>

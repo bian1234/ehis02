@@ -3,16 +3,16 @@
  */
 package com.thinkgem.jeesite.cfq.sys.service;
 
-import java.util.List;
-
-import com.thinkgem.jeesite.cfq.sys.dao.PrescriptionAreaDao;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.thinkgem.jeesite.cfq.common.service.TreeService;
 import com.thinkgem.jeesite.cfq.sys.dao.PrescriptionAreaDao;
 import com.thinkgem.jeesite.cfq.sys.entity.PrescriptionArea;
 import com.thinkgem.jeesite.cfq.sys.utils.PrescriptionUserUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+
 
 /**
  * 区域Service
