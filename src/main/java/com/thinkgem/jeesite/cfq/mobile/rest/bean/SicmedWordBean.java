@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.mobile.rest.bean;
+package com.thinkgem.jeesite.cfq.mobile.rest.bean;//package com.thinkgem.jeesite.cfq.mobile.rest.bean;
 //
 //public class SicmedWordBean extends BaseBean {
 //

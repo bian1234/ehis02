@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.mobile.rest.dao;
+package com.thinkgem.jeesite.cfq.mobile.rest.dao;//package com.thinkgem.jeesite.cfq.mobile.rest.dao;
 //
 //
 //import com.thinkgem.jeesite.cfq.common.persistence.CrudDao;

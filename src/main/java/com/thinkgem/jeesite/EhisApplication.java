@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={WebMvcAutoConfiguration.class})
 //@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-//@ComponentScan(basePackages = "com.thinkgem.jeesite.cfq.mobile.rest.dao")
+@ComponentScan(basePackages = {"com.thinkgem.jeesite.cfq.mobile.rest.dao","com.thinkgem.jeesite.cfq.sys.dao"})
 public class EhisApplication {
 
 	public static void main(String[] args) {

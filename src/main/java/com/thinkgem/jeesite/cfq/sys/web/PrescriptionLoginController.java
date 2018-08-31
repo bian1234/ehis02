@@ -30,6 +30,7 @@ import com.thinkgem.jeesite.cfq.common.utils.StringUtils;
 import com.thinkgem.jeesite.cfq.sys.security.PrescriptionFormAuthenticationFilter;
 import com.thinkgem.jeesite.cfq.sys.security.PrescriptionSystemAuthorizingRealm.PrescriptionPrincipal;
 import com.thinkgem.jeesite.cfq.sys.utils.PrescriptionUserUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 登录Controller
@@ -47,7 +48,9 @@ public class PrescriptionLoginController extends BaseController {
      * 管理登录
      */
     @RequestMapping(value = "${adminPath}/login", method = RequestMethod.GET)
+    @ResponseBody
     public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
+        logger.info("==============有人在登录====================");
         PrescriptionPrincipal principal = PrescriptionUserUtils.getPrescriptionPrincipal();
 
 //		// 默认页签模式

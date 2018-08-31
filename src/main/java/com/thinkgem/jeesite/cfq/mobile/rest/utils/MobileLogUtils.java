@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.modules.cfq.mobile.rest.utils;
+package com.thinkgem.jeesite.cfq.mobile.rest.utils;//package com.thinkgem.jeesite.modules.cfq.mobile.rest.utils;
 //
 //import java.lang.reflect.Method;
 //import java.util.List;

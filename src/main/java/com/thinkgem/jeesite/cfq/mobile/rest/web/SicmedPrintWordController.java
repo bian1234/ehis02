@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.mobile.rest.web;
+package com.thinkgem.jeesite.cfq.mobile.rest.web;//package com.thinkgem.jeesite.cfq.mobile.rest.web;
 //
 //import com.thinkgem.jeesite.cfq.common.web.BaseController;
 //import org.springframework.beans.factory.annotation.Autowired;

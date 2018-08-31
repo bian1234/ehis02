@@ -46,6 +46,7 @@ import com.thinkgem.jeesite.cfq.sys.utils.PrescriptionUserUtils;
  */
 @Service
 @Transactional(readOnly = true)
+//@Import(org.activiti.engine.IdentityService.class)
 public class PrescriptionSystemService extends BaseService implements InitializingBean {
 
     public static final String HASH_ALGORITHM = "SHA-1";
@@ -65,7 +66,7 @@ public class PrescriptionSystemService extends BaseService implements Initializi
     public SessionDAO getSessionDao() {
         return sessionDao;
     }
-
+//
     @Autowired
     private IdentityService identityService;
 
@@ -296,6 +297,8 @@ public class PrescriptionSystemService extends BaseService implements Initializi
 //		systemRealm.clearAllCachedAuthorizationInfo();
     }
 
+
+
     @Transactional(readOnly = false)
     public void deleteRole(PrescriptionRole prescriptionRole) {
         prescriptionRoleDao.delete(prescriptionRole);
@@ -415,10 +418,10 @@ public class PrescriptionSystemService extends BaseService implements Initializi
         return true;
     }
 
-    ///////////////// Synchronized to the Activiti //////////////////
-
-    // 已废弃，同步见：ActGroupEntityServiceFactory.java、ActUserEntityServiceFactory.java
-
+//    ///////////////// Synchronized to the Activiti //////////////////
+//
+//    // 已废弃，同步见：ActGroupEntityServiceFactory.java、ActUserEntityServiceFactory.java
+//
     /**
      * 是需要同步Activiti数据，如果从未同步过，则同步数据。
      */

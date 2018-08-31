@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.common.servlet;
+package com.thinkgem.jeesite.cfq.common.servlet;//package com.thinkgem.jeesite.cfq.common.servlet;
 //
 //import com.thinkgem.jeesite.cfq.common.config.Global;
 //import com.thinkgem.jeesite.common.config.Global;

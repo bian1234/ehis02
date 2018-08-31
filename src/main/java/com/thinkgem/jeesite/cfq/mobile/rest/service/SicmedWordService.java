@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.mobile.rest.service;
+package com.thinkgem.jeesite.cfq.mobile.rest.service;//package com.thinkgem.jeesite.cfq.mobile.rest.service;
 //
 //import java.util.List;
 //

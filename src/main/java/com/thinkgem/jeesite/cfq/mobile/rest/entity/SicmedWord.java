@@ -1,4 +1,4 @@
-//package com.thinkgem.jeesite.cfq.mobile.rest.entity;
+package com.thinkgem.jeesite.cfq.mobile.rest.entity;//package com.thinkgem.jeesite.cfq.mobile.rest.entity;
 //
 //import com.thinkgem.jeesite.cfq.mobile.rest.bean.DataEntity;
 //import org.hibernate.validator.constraints.Length;
