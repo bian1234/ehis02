@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedMedicalWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedMedical">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="medical_frdate" jdbcType="TIMESTAMP" property="medicalFrdate" />
+    <result column="medical_todate" jdbcType="TIMESTAMP" property="medicalTodate" />
+    <result column="medical_code" jdbcType="VARCHAR" property="medicalCode" />
+    <result column="medical_group" jdbcType="CHAR" property="medicalGroup" />
+    <result column="medical_name_china" jdbcType="VARCHAR" property="medicalNameChina" />
+    <result column="medical_name_pinyin" jdbcType="VARCHAR" property="medicalNamePinyin" />
+    <result column="medical_name_english" jdbcType="VARCHAR" property="medicalNameEnglish" />
+    <result column="medical_price_id" jdbcType="VARCHAR" property="medicalPriceId" />
+    <result column="medical_use_number" jdbcType="VARCHAR" property="medicalUseNumber" />
+    <result column="medical_measure" jdbcType="VARCHAR" property="medicalMeasure" />
+    <result column="medical_use" jdbcType="VARCHAR" property="medicalUse" />
+    <result column="medical_company" jdbcType="VARCHAR" property="medicalCompany" />
+    <result column="medical_detail" jdbcType="VARCHAR" property="medicalDetail" />
+    <result column="medical_stand" jdbcType="VARCHAR" property="medicalStand" />
+    <result column="medical_class_id_one" jdbcType="VARCHAR" property="medicalClassIdOne" />
+    <result column="medical_class_id_two" jdbcType="VARCHAR" property="medicalClassIdTwo" />
+    <result column="medical_class_id_three" jdbcType="VARCHAR" property="medicalClassIdThree" />
+    <result column="unit1" jdbcType="VARCHAR" property="unit1" />
+    <result column="unit2" jdbcType="VARCHAR" property="unit2" />
+    <result column="medical_ingredient" jdbcType="VARCHAR" property="medicalIngredient" />
+    <result column="medical_traits" jdbcType="VARCHAR" property="medicalTraits" />
+    <result column="medical_indications" jdbcType="VARCHAR" property="medicalIndications" />
+    <result column="medical_specification" jdbcType="VARCHAR" property="medicalSpecification" />
+    <result column="medical_dosage_usage" jdbcType="VARCHAR" property="medicalDosageUsage" />
+    <result column="medical_adverse_reactions" jdbcType="VARCHAR" property="medicalAdverseReactions" />
+    <result column="medical_taboo" jdbcType="VARCHAR" property="medicalTaboo" />
+    <result column="medical_precautions" jdbcType="VARCHAR" property="medicalPrecautions" />
+    <result column="medical_pregnant_women_lactating_women" jdbcType="VARCHAR" property="medicalPregnantWomenLactatingWomen" />
+    <result column="medical_pediatric_use" jdbcType="VARCHAR" property="medicalPediatricUse" />
+    <result column="medical_elderly_medication" jdbcType="VARCHAR" property="medicalElderlyMedication" />
+    <result column="medical_medicine_interactions" jdbcType="VARCHAR" property="medicalMedicineInteractions" />
+    <result column="medical_drug_overdose" jdbcType="VARCHAR" property="medicalDrugOverdose" />
+    <result column="medical_clinical_trials" jdbcType="VARCHAR" property="medicalClinicalTrials" />
+    <result column="medical_pharmacology_toxicology" jdbcType="VARCHAR" property="medicalPharmacologyToxicology" />
+    <result column="medical_pharmacokinetics" jdbcType="VARCHAR" property="medicalPharmacokinetics" />
+    <result column="medical_package" jdbcType="VARCHAR" property="medicalPackage" />
+    <result column="medical_period_validity" jdbcType="VARCHAR" property="medicalPeriodValidity" />
+    <result column="medical_implementation_standards" jdbcType="VARCHAR" property="medicalImplementationStandards" />
+    <result column="medical_approval_number" jdbcType="VARCHAR" property="medicalApprovalNumber" />
+    <result column="medical_manufacturer" jdbcType="VARCHAR" property="medicalManufacturer" />
+    <result column="medical_storage" jdbcType="VARCHAR" property="medicalStorage" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, medical_frdate, medical_todate, medical_code, medical_group, medical_name_china, 
+    medical_name_pinyin, medical_name_english, medical_price_id, medical_use_number, 
+    medical_measure, medical_use, medical_company, medical_detail, medical_stand, medical_class_id_one, 
+    medical_class_id_two, medical_class_id_three, unit1, unit2, medical_ingredient, medical_traits, 
+    medical_indications, medical_specification, medical_dosage_usage, medical_adverse_reactions, 
+    medical_taboo, medical_precautions, medical_pregnant_women_lactating_women, medical_pediatric_use, 
+    medical_elderly_medication, medical_medicine_interactions, medical_drug_overdose, 
+    medical_clinical_trials, medical_pharmacology_toxicology, medical_pharmacokinetics, 
+    medical_package, medical_period_validity, medical_implementation_standards, medical_approval_number, 
+    medical_manufacturer, medical_storage, create_by, create_date, update_by, update_date, 
+    remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_medical
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_medical
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedMedical">
+    insert into sicmed_medical (id, medical_frdate, medical_todate, 
+      medical_code, medical_group, medical_name_china, 
+      medical_name_pinyin, medical_name_english, 
+      medical_price_id, medical_use_number, medical_measure, 
+      medical_use, medical_company, medical_detail, 
+      medical_stand, medical_class_id_one, medical_class_id_two, 
+      medical_class_id_three, unit1, unit2, 
+      medical_ingredient, medical_traits, medical_indications, 
+      medical_specification, medical_dosage_usage, 
+      medical_adverse_reactions, medical_taboo, 
+      medical_precautions, medical_pregnant_women_lactating_women, 
+      medical_pediatric_use, medical_elderly_medication, 
+      medical_medicine_interactions, medical_drug_overdose, 
+      medical_clinical_trials, medical_pharmacology_toxicology, 
+      medical_pharmacokinetics, medical_package, 
+      medical_period_validity, medical_implementation_standards, 
+      medical_approval_number, medical_manufacturer, 
+      medical_storage, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{medicalFrdate,jdbcType=TIMESTAMP}, #{medicalTodate,jdbcType=TIMESTAMP}, 
+      #{medicalCode,jdbcType=VARCHAR}, #{medicalGroup,jdbcType=CHAR}, #{medicalNameChina,jdbcType=VARCHAR}, 
+      #{medicalNamePinyin,jdbcType=VARCHAR}, #{medicalNameEnglish,jdbcType=VARCHAR}, 
+      #{medicalPriceId,jdbcType=VARCHAR}, #{medicalUseNumber,jdbcType=VARCHAR}, #{medicalMeasure,jdbcType=VARCHAR}, 
+      #{medicalUse,jdbcType=VARCHAR}, #{medicalCompany,jdbcType=VARCHAR}, #{medicalDetail,jdbcType=VARCHAR}, 
+      #{medicalStand,jdbcType=VARCHAR}, #{medicalClassIdOne,jdbcType=VARCHAR}, #{medicalClassIdTwo,jdbcType=VARCHAR}, 
+      #{medicalClassIdThree,jdbcType=VARCHAR}, #{unit1,jdbcType=VARCHAR}, #{unit2,jdbcType=VARCHAR}, 
+      #{medicalIngredient,jdbcType=VARCHAR}, #{medicalTraits,jdbcType=VARCHAR}, #{medicalIndications,jdbcType=VARCHAR}, 
+      #{medicalSpecification,jdbcType=VARCHAR}, #{medicalDosageUsage,jdbcType=VARCHAR}, 
+      #{medicalAdverseReactions,jdbcType=VARCHAR}, #{medicalTaboo,jdbcType=VARCHAR}, 
+      #{medicalPrecautions,jdbcType=VARCHAR}, #{medicalPregnantWomenLactatingWomen,jdbcType=VARCHAR}, 
+      #{medicalPediatricUse,jdbcType=VARCHAR}, #{medicalElderlyMedication,jdbcType=VARCHAR}, 
+      #{medicalMedicineInteractions,jdbcType=VARCHAR}, #{medicalDrugOverdose,jdbcType=VARCHAR}, 
+      #{medicalClinicalTrials,jdbcType=VARCHAR}, #{medicalPharmacologyToxicology,jdbcType=VARCHAR}, 
+      #{medicalPharmacokinetics,jdbcType=VARCHAR}, #{medicalPackage,jdbcType=VARCHAR}, 
+      #{medicalPeriodValidity,jdbcType=VARCHAR}, #{medicalImplementationStandards,jdbcType=VARCHAR}, 
+      #{medicalApprovalNumber,jdbcType=VARCHAR}, #{medicalManufacturer,jdbcType=VARCHAR}, 
+      #{medicalStorage,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedMedical">
+    insert into sicmed_medical
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="medicalFrdate != null">
+        medical_frdate,
+      </if>
+      <if test="medicalTodate != null">
+        medical_todate,
+      </if>
+      <if test="medicalCode != null">
+        medical_code,
+      </if>
+      <if test="medicalGroup != null">
+        medical_group,
+      </if>
+      <if test="medicalNameChina != null">
+        medical_name_china,
+      </if>
+      <if test="medicalNamePinyin != null">
+        medical_name_pinyin,
+      </if>
+      <if test="medicalNameEnglish != null">
+        medical_name_english,
+      </if>
+      <if test="medicalPriceId != null">
+        medical_price_id,
+      </if>
+      <if test="medicalUseNumber != null">
+        medical_use_number,
+      </if>
+      <if test="medicalMeasure != null">
+        medical_measure,
+      </if>
+      <if test="medicalUse != null">
+        medical_use,
+      </if>
+      <if test="medicalCompany != null">
+        medical_company,
+      </if>
+      <if test="medicalDetail != null">
+        medical_detail,
+      </if>
+      <if test="medicalStand != null">
+        medical_stand,
+      </if>
+      <if test="medicalClassIdOne != null">
+        medical_class_id_one,
+      </if>
+      <if test="medicalClassIdTwo != null">
+        medical_class_id_two,
+      </if>
+      <if test="medicalClassIdThree != null">
+        medical_class_id_three,
+      </if>
+      <if test="unit1 != null">
+        unit1,
+      </if>
+      <if test="unit2 != null">
+        unit2,
+      </if>
+      <if test="medicalIngredient != null">
+        medical_ingredient,
+      </if>
+      <if test="medicalTraits != null">
+        medical_traits,
+      </if>
+      <if test="medicalIndications != null">
+        medical_indications,
+      </if>
+      <if test="medicalSpecification != null">
+        medical_specification,
+      </if>
+      <if test="medicalDosageUsage != null">
+        medical_dosage_usage,
+      </if>
+      <if test="medicalAdverseReactions != null">
+        medical_adverse_reactions,
+      </if>
+      <if test="medicalTaboo != null">
+        medical_taboo,
+      </if>
+      <if test="medicalPrecautions != null">
+        medical_precautions,
+      </if>
+      <if test="medicalPregnantWomenLactatingWomen != null">
+        medical_pregnant_women_lactating_women,
+      </if>
+      <if test="medicalPediatricUse != null">
+        medical_pediatric_use,
+      </if>
+      <if test="medicalElderlyMedication != null">
+        medical_elderly_medication,
+      </if>
+      <if test="medicalMedicineInteractions != null">
+        medical_medicine_interactions,
+      </if>
+      <if test="medicalDrugOverdose != null">
+        medical_drug_overdose,
+      </if>
+      <if test="medicalClinicalTrials != null">
+        medical_clinical_trials,
+      </if>
+      <if test="medicalPharmacologyToxicology != null">
+        medical_pharmacology_toxicology,
+      </if>
+      <if test="medicalPharmacokinetics != null">
+        medical_pharmacokinetics,
+      </if>
+      <if test="medicalPackage != null">
+        medical_package,
+      </if>
+      <if test="medicalPeriodValidity != null">
+        medical_period_validity,
+      </if>
+      <if test="medicalImplementationStandards != null">
+        medical_implementation_standards,
+      </if>
+      <if test="medicalApprovalNumber != null">
+        medical_approval_number,
+      </if>
+      <if test="medicalManufacturer != null">
+        medical_manufacturer,
+      </if>
+      <if test="medicalStorage != null">
+        medical_storage,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalFrdate != null">
+        #{medicalFrdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicalTodate != null">
+        #{medicalTodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicalCode != null">
+        #{medicalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalGroup != null">
+        #{medicalGroup,jdbcType=CHAR},
+      </if>
+      <if test="medicalNameChina != null">
+        #{medicalNameChina,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalNamePinyin != null">
+        #{medicalNamePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalNameEnglish != null">
+        #{medicalNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPriceId != null">
+        #{medicalPriceId,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUseNumber != null">
+        #{medicalUseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalMeasure != null">
+        #{medicalMeasure,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUse != null">
+        #{medicalUse,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalCompany != null">
+        #{medicalCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDetail != null">
+        #{medicalDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalStand != null">
+        #{medicalStand,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdOne != null">
+        #{medicalClassIdOne,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdTwo != null">
+        #{medicalClassIdTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdThree != null">
+        #{medicalClassIdThree,jdbcType=VARCHAR},
+      </if>
+      <if test="unit1 != null">
+        #{unit1,jdbcType=VARCHAR},
+      </if>
+      <if test="unit2 != null">
+        #{unit2,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalIngredient != null">
+        #{medicalIngredient,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalTraits != null">
+        #{medicalTraits,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalIndications != null">
+        #{medicalIndications,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalSpecification != null">
+        #{medicalSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDosageUsage != null">
+        #{medicalDosageUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalAdverseReactions != null">
+        #{medicalAdverseReactions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalTaboo != null">
+        #{medicalTaboo,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPrecautions != null">
+        #{medicalPrecautions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPregnantWomenLactatingWomen != null">
+        #{medicalPregnantWomenLactatingWomen,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPediatricUse != null">
+        #{medicalPediatricUse,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalElderlyMedication != null">
+        #{medicalElderlyMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalMedicineInteractions != null">
+        #{medicalMedicineInteractions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDrugOverdose != null">
+        #{medicalDrugOverdose,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClinicalTrials != null">
+        #{medicalClinicalTrials,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPharmacologyToxicology != null">
+        #{medicalPharmacologyToxicology,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPharmacokinetics != null">
+        #{medicalPharmacokinetics,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPackage != null">
+        #{medicalPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPeriodValidity != null">
+        #{medicalPeriodValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalImplementationStandards != null">
+        #{medicalImplementationStandards,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalApprovalNumber != null">
+        #{medicalApprovalNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalManufacturer != null">
+        #{medicalManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalStorage != null">
+        #{medicalStorage,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedMedical">
+    update sicmed_medical
+    <set>
+      <if test="medicalFrdate != null">
+        medical_frdate = #{medicalFrdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicalTodate != null">
+        medical_todate = #{medicalTodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicalCode != null">
+        medical_code = #{medicalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalGroup != null">
+        medical_group = #{medicalGroup,jdbcType=CHAR},
+      </if>
+      <if test="medicalNameChina != null">
+        medical_name_china = #{medicalNameChina,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalNamePinyin != null">
+        medical_name_pinyin = #{medicalNamePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalNameEnglish != null">
+        medical_name_english = #{medicalNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPriceId != null">
+        medical_price_id = #{medicalPriceId,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUseNumber != null">
+        medical_use_number = #{medicalUseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalMeasure != null">
+        medical_measure = #{medicalMeasure,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUse != null">
+        medical_use = #{medicalUse,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalCompany != null">
+        medical_company = #{medicalCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDetail != null">
+        medical_detail = #{medicalDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalStand != null">
+        medical_stand = #{medicalStand,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdOne != null">
+        medical_class_id_one = #{medicalClassIdOne,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdTwo != null">
+        medical_class_id_two = #{medicalClassIdTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClassIdThree != null">
+        medical_class_id_three = #{medicalClassIdThree,jdbcType=VARCHAR},
+      </if>
+      <if test="unit1 != null">
+        unit1 = #{unit1,jdbcType=VARCHAR},
+      </if>
+      <if test="unit2 != null">
+        unit2 = #{unit2,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalIngredient != null">
+        medical_ingredient = #{medicalIngredient,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalTraits != null">
+        medical_traits = #{medicalTraits,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalIndications != null">
+        medical_indications = #{medicalIndications,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalSpecification != null">
+        medical_specification = #{medicalSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDosageUsage != null">
+        medical_dosage_usage = #{medicalDosageUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalAdverseReactions != null">
+        medical_adverse_reactions = #{medicalAdverseReactions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalTaboo != null">
+        medical_taboo = #{medicalTaboo,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPrecautions != null">
+        medical_precautions = #{medicalPrecautions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPregnantWomenLactatingWomen != null">
+        medical_pregnant_women_lactating_women = #{medicalPregnantWomenLactatingWomen,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPediatricUse != null">
+        medical_pediatric_use = #{medicalPediatricUse,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalElderlyMedication != null">
+        medical_elderly_medication = #{medicalElderlyMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalMedicineInteractions != null">
+        medical_medicine_interactions = #{medicalMedicineInteractions,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalDrugOverdose != null">
+        medical_drug_overdose = #{medicalDrugOverdose,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalClinicalTrials != null">
+        medical_clinical_trials = #{medicalClinicalTrials,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPharmacologyToxicology != null">
+        medical_pharmacology_toxicology = #{medicalPharmacologyToxicology,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPharmacokinetics != null">
+        medical_pharmacokinetics = #{medicalPharmacokinetics,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPackage != null">
+        medical_package = #{medicalPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalPeriodValidity != null">
+        medical_period_validity = #{medicalPeriodValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalImplementationStandards != null">
+        medical_implementation_standards = #{medicalImplementationStandards,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalApprovalNumber != null">
+        medical_approval_number = #{medicalApprovalNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalManufacturer != null">
+        medical_manufacturer = #{medicalManufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalStorage != null">
+        medical_storage = #{medicalStorage,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedMedical">
+    update sicmed_medical
+    set medical_frdate = #{medicalFrdate,jdbcType=TIMESTAMP},
+      medical_todate = #{medicalTodate,jdbcType=TIMESTAMP},
+      medical_code = #{medicalCode,jdbcType=VARCHAR},
+      medical_group = #{medicalGroup,jdbcType=CHAR},
+      medical_name_china = #{medicalNameChina,jdbcType=VARCHAR},
+      medical_name_pinyin = #{medicalNamePinyin,jdbcType=VARCHAR},
+      medical_name_english = #{medicalNameEnglish,jdbcType=VARCHAR},
+      medical_price_id = #{medicalPriceId,jdbcType=VARCHAR},
+      medical_use_number = #{medicalUseNumber,jdbcType=VARCHAR},
+      medical_measure = #{medicalMeasure,jdbcType=VARCHAR},
+      medical_use = #{medicalUse,jdbcType=VARCHAR},
+      medical_company = #{medicalCompany,jdbcType=VARCHAR},
+      medical_detail = #{medicalDetail,jdbcType=VARCHAR},
+      medical_stand = #{medicalStand,jdbcType=VARCHAR},
+      medical_class_id_one = #{medicalClassIdOne,jdbcType=VARCHAR},
+      medical_class_id_two = #{medicalClassIdTwo,jdbcType=VARCHAR},
+      medical_class_id_three = #{medicalClassIdThree,jdbcType=VARCHAR},
+      unit1 = #{unit1,jdbcType=VARCHAR},
+      unit2 = #{unit2,jdbcType=VARCHAR},
+      medical_ingredient = #{medicalIngredient,jdbcType=VARCHAR},
+      medical_traits = #{medicalTraits,jdbcType=VARCHAR},
+      medical_indications = #{medicalIndications,jdbcType=VARCHAR},
+      medical_specification = #{medicalSpecification,jdbcType=VARCHAR},
+      medical_dosage_usage = #{medicalDosageUsage,jdbcType=VARCHAR},
+      medical_adverse_reactions = #{medicalAdverseReactions,jdbcType=VARCHAR},
+      medical_taboo = #{medicalTaboo,jdbcType=VARCHAR},
+      medical_precautions = #{medicalPrecautions,jdbcType=VARCHAR},
+      medical_pregnant_women_lactating_women = #{medicalPregnantWomenLactatingWomen,jdbcType=VARCHAR},
+      medical_pediatric_use = #{medicalPediatricUse,jdbcType=VARCHAR},
+      medical_elderly_medication = #{medicalElderlyMedication,jdbcType=VARCHAR},
+      medical_medicine_interactions = #{medicalMedicineInteractions,jdbcType=VARCHAR},
+      medical_drug_overdose = #{medicalDrugOverdose,jdbcType=VARCHAR},
+      medical_clinical_trials = #{medicalClinicalTrials,jdbcType=VARCHAR},
+      medical_pharmacology_toxicology = #{medicalPharmacologyToxicology,jdbcType=VARCHAR},
+      medical_pharmacokinetics = #{medicalPharmacokinetics,jdbcType=VARCHAR},
+      medical_package = #{medicalPackage,jdbcType=VARCHAR},
+      medical_period_validity = #{medicalPeriodValidity,jdbcType=VARCHAR},
+      medical_implementation_standards = #{medicalImplementationStandards,jdbcType=VARCHAR},
+      medical_approval_number = #{medicalApprovalNumber,jdbcType=VARCHAR},
+      medical_manufacturer = #{medicalManufacturer,jdbcType=VARCHAR},
+      medical_storage = #{medicalStorage,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

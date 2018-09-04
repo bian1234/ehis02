@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedDeptReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedDept">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dept_number" jdbcType="CHAR" property="deptNumber" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_pmpa" jdbcType="CHAR" property="deptPmpa" />
+    <result column="dept_code" jdbcType="CHAR" property="deptCode" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dept_number, dept_name, dept_pmpa, dept_code, create_by, create_date, update_by, 
+    update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedDept">
+    insert into sicmed_dept (id, dept_number, dept_name, 
+      dept_pmpa, dept_code, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{deptNumber,jdbcType=CHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{deptPmpa,jdbcType=CHAR}, #{deptCode,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedDept">
+    insert into sicmed_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deptNumber != null">
+        dept_number,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="deptPmpa != null">
+        dept_pmpa,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNumber != null">
+        #{deptNumber,jdbcType=CHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptPmpa != null">
+        #{deptPmpa,jdbcType=CHAR},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedDept">
+    update sicmed_dept
+    <set>
+      <if test="deptNumber != null">
+        dept_number = #{deptNumber,jdbcType=CHAR},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptPmpa != null">
+        dept_pmpa = #{deptPmpa,jdbcType=CHAR},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedDept">
+    update sicmed_dept
+    set dept_number = #{deptNumber,jdbcType=CHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_pmpa = #{deptPmpa,jdbcType=CHAR},
+      dept_code = #{deptCode,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

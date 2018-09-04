@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedBranchReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedBranch">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="branch_code" jdbcType="CHAR" property="branchCode" />
+    <result column="branch_number" jdbcType="VARCHAR" property="branchNumber" />
+    <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+    <result column="branch_name_english" jdbcType="VARCHAR" property="branchNameEnglish" />
+    <result column="branch_location" jdbcType="VARCHAR" property="branchLocation" />
+    <result column="branch_registered" jdbcType="CHAR" property="branchRegistered" />
+    <result column="branch_registered_am" jdbcType="INTEGER" property="branchRegisteredAm" />
+    <result column="branch_registered_pm" jdbcType="INTEGER" property="branchRegisteredPm" />
+    <result column="branch_IPD" jdbcType="CHAR" property="branchIpd" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, branch_code, branch_number, branch_name, branch_name_english, branch_location, 
+    branch_registered, branch_registered_am, branch_registered_pm, branch_IPD, create_by, 
+    create_date, update_by, update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_branch
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sicmed_branch
+    where id = #{id,jdbcType=VARCHAR} AND del_flag = '0'
+  </select>
+
+
+  <!--根据部分信息查询数据列表-->
+  <select id="selectALLByParams" resultType="SicmedBranch">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_branch
+    <where>
+      <if test="id != null and id != ''">
+        AND id = #{id}
+      </if>
+      <if test="branchCode != null and branchCode != ''">
+        AND branch_code = #{branchCode}
+      </if>
+      <if test="branchNumber != null and branchNumber != ''">
+        AND branch_number = #{branchNumber}
+      </if>
+      <if test="branchName != null and branchName != ''">
+        AND branch_name = #{branchName}
+      </if>
+      <if test="branchNameEnglish != null and branchNameEnglish != ''">
+        AND branch_name_english = #{branchNameEnglish}
+      </if>
+      <if test="branchLocation != null and branchLocation != ''">
+        AND branch_location = #{branchLocation}
+      </if>
+      <if test="branchRegistered != null and branchRegistered != ''">
+        AND branch_registered = #{branchRegistered}
+      </if>
+      <if test="branchIpd != null and branchIpd != ''">
+        AND branch_ipd = #{branchIpd}
+      </if>
+      <if test="branchIpd != null and branchIpd != ''">
+        AND del_flag = #{delFlag}
+      </if>
+    </where>
+        ORDER BY create_date
+
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <!--查询所有可以挂号的科室信息-->
+  <select id="selectRegistered" resultType="SicmedBranch">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_branch WHERE branch_registered = '1' AND del_flag = '0' ORDER BY create_date
+
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+
+</mapper>

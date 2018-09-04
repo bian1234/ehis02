@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedCureCheckWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedCureCheck">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cure_code" jdbcType="CHAR" property="cureCode" />
+    <result column="cure_name" jdbcType="VARCHAR" property="cureName" />
+    <result column="cure_name_py" jdbcType="VARCHAR" property="cureNamePy" />
+    <result column="check_price_code" jdbcType="VARCHAR" property="checkPriceCode" />
+    <result column="cure_class_code" jdbcType="VARCHAR" property="cureClassCode" />
+    <result column="cure_detail" jdbcType="VARCHAR" property="cureDetail" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedCureCheck">
+    insert into sicmed_cure_check (id, cure_code, cure_name, 
+      cure_name_py, check_price_code, cure_class_code, 
+      cure_detail, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{cureCode,jdbcType=CHAR}, #{cureName,jdbcType=VARCHAR}, 
+      #{cureNamePy,jdbcType=VARCHAR}, #{checkPriceCode,jdbcType=VARCHAR}, #{cureClassCode,jdbcType=VARCHAR}, 
+      #{cureDetail,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedCureCheck">
+    insert into sicmed_cure_check
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cureCode != null">
+        cure_code,
+      </if>
+      <if test="cureName != null">
+        cure_name,
+      </if>
+      <if test="cureNamePy != null">
+        cure_name_py,
+      </if>
+      <if test="checkPriceCode != null">
+        check_price_code,
+      </if>
+      <if test="cureClassCode != null">
+        cure_class_code,
+      </if>
+      <if test="cureDetail != null">
+        cure_detail,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cureCode != null">
+        #{cureCode,jdbcType=CHAR},
+      </if>
+      <if test="cureName != null">
+        #{cureName,jdbcType=VARCHAR},
+      </if>
+      <if test="cureNamePy != null">
+        #{cureNamePy,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPriceCode != null">
+        #{checkPriceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cureClassCode != null">
+        #{cureClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cureDetail != null">
+        #{cureDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

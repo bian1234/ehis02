@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedCaseReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedCase">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_code" jdbcType="VARCHAR" property="patientCode" />
+    <result column="case_tell" jdbcType="VARCHAR" property="caseTell" />
+    <result column="case_history" jdbcType="VARCHAR" property="caseHistory" />
+    <result column="case_allergy" jdbcType="VARCHAR" property="caseAllergy" />
+    <result column="case_diagnosis" jdbcType="VARCHAR" property="caseDiagnosis" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="asked_code" jdbcType="VARCHAR" property="askedCode" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="past_history" jdbcType="VARCHAR" property="pastHistory" />
+    <result column="family_allergy" jdbcType="VARCHAR" property="familyAllergy" />
+    <result column="diagnosis_disease_initial" jdbcType="VARCHAR" property="diagnosisDiseaseInitial" />
+    <result column="diagnosis_disease_sure" jdbcType="VARCHAR" property="diagnosisDiseaseSure" />
+    <result column="check_code_body" jdbcType="VARCHAR" property="checkCodeBody" />
+    <result column="check_code_aid" jdbcType="VARCHAR" property="checkCodeAid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_code, case_tell, case_history, case_allergy, case_diagnosis, update_user, 
+    create_user, asked_code, create_by, create_date, update_by, update_date, remarks, 
+    del_flag, past_history, family_allergy, diagnosis_disease_initial, diagnosis_disease_sure, 
+    check_code_body, check_code_aid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_case
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_case
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedCase">
+    insert into sicmed_case (id, patient_code, case_tell, 
+      case_history, case_allergy, case_diagnosis, 
+      update_user, create_user, asked_code, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag, 
+      past_history, family_allergy, diagnosis_disease_initial, 
+      diagnosis_disease_sure, check_code_body, check_code_aid
+      )
+    values (#{id,jdbcType=VARCHAR}, #{patientCode,jdbcType=VARCHAR}, #{caseTell,jdbcType=VARCHAR}, 
+      #{caseHistory,jdbcType=VARCHAR}, #{caseAllergy,jdbcType=VARCHAR}, #{caseDiagnosis,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{askedCode,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{pastHistory,jdbcType=VARCHAR}, #{familyAllergy,jdbcType=VARCHAR}, #{diagnosisDiseaseInitial,jdbcType=VARCHAR}, 
+      #{diagnosisDiseaseSure,jdbcType=VARCHAR}, #{checkCodeBody,jdbcType=VARCHAR}, #{checkCodeAid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedCase">
+    insert into sicmed_case
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientCode != null">
+        patient_code,
+      </if>
+      <if test="caseTell != null">
+        case_tell,
+      </if>
+      <if test="caseHistory != null">
+        case_history,
+      </if>
+      <if test="caseAllergy != null">
+        case_allergy,
+      </if>
+      <if test="caseDiagnosis != null">
+        case_diagnosis,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="askedCode != null">
+        asked_code,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="pastHistory != null">
+        past_history,
+      </if>
+      <if test="familyAllergy != null">
+        family_allergy,
+      </if>
+      <if test="diagnosisDiseaseInitial != null">
+        diagnosis_disease_initial,
+      </if>
+      <if test="diagnosisDiseaseSure != null">
+        diagnosis_disease_sure,
+      </if>
+      <if test="checkCodeBody != null">
+        check_code_body,
+      </if>
+      <if test="checkCodeAid != null">
+        check_code_aid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientCode != null">
+        #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTell != null">
+        #{caseTell,jdbcType=VARCHAR},
+      </if>
+      <if test="caseHistory != null">
+        #{caseHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="caseAllergy != null">
+        #{caseAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDiagnosis != null">
+        #{caseDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCode != null">
+        #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="pastHistory != null">
+        #{pastHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="familyAllergy != null">
+        #{familyAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisDiseaseInitial != null">
+        #{diagnosisDiseaseInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisDiseaseSure != null">
+        #{diagnosisDiseaseSure,jdbcType=VARCHAR},
+      </if>
+      <if test="checkCodeBody != null">
+        #{checkCodeBody,jdbcType=VARCHAR},
+      </if>
+      <if test="checkCodeAid != null">
+        #{checkCodeAid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedCase">
+    update sicmed_case
+    <set>
+      <if test="patientCode != null">
+        patient_code = #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTell != null">
+        case_tell = #{caseTell,jdbcType=VARCHAR},
+      </if>
+      <if test="caseHistory != null">
+        case_history = #{caseHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="caseAllergy != null">
+        case_allergy = #{caseAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDiagnosis != null">
+        case_diagnosis = #{caseDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCode != null">
+        asked_code = #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="pastHistory != null">
+        past_history = #{pastHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="familyAllergy != null">
+        family_allergy = #{familyAllergy,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisDiseaseInitial != null">
+        diagnosis_disease_initial = #{diagnosisDiseaseInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="diagnosisDiseaseSure != null">
+        diagnosis_disease_sure = #{diagnosisDiseaseSure,jdbcType=VARCHAR},
+      </if>
+      <if test="checkCodeBody != null">
+        check_code_body = #{checkCodeBody,jdbcType=VARCHAR},
+      </if>
+      <if test="checkCodeAid != null">
+        check_code_aid = #{checkCodeAid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedCase">
+    update sicmed_case
+    set patient_code = #{patientCode,jdbcType=VARCHAR},
+      case_tell = #{caseTell,jdbcType=VARCHAR},
+      case_history = #{caseHistory,jdbcType=VARCHAR},
+      case_allergy = #{caseAllergy,jdbcType=VARCHAR},
+      case_diagnosis = #{caseDiagnosis,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      asked_code = #{askedCode,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      past_history = #{pastHistory,jdbcType=VARCHAR},
+      family_allergy = #{familyAllergy,jdbcType=VARCHAR},
+      diagnosis_disease_initial = #{diagnosisDiseaseInitial,jdbcType=VARCHAR},
+      diagnosis_disease_sure = #{diagnosisDiseaseSure,jdbcType=VARCHAR},
+      check_code_body = #{checkCodeBody,jdbcType=VARCHAR},
+      check_code_aid = #{checkCodeAid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

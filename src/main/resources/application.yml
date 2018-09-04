@@ -1,94 +1,18 @@
-#数据库配置
 server:
-  port: 9001
+  port: 9000
 
 
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
+#    name: druidDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://www.sicmed.cn:3306/jeesite?characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
     username: admin
     password: 123456
-    name: druid
-    # 下面为连接池的补充设置，应用到上面所有数据源中
-    # 初始化大小，最小，最大
-    druid:
-      initial-size: 1
-      min-idle: 3
-      max-active: 5
-      #最大等待时间
-      max-wait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      time-between-eviction-runs-millis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 'x' FROM DUAL
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      filter: stat
-  mvc:
-    view:
-      prefix: /WEB-INF/views
-      suffix: .jsp
-      index: /a              #这是什么意思？详见源码jeesite.properties文件
-#关闭默认模板引擎
-  thymeleaf:
-    cache: false
-    enabled: false
-  redis:
-    host: localhost
-    port: 6379
-    password:
-    # 连接超时时间（毫秒）
-    timeout: 10000
-    pool:
-      # 连接池中的最大空闲连接
-#      max-idle: 300
-      maxTotal: 60000
-      testOnBorrow: true
 
 mybatis:
-  mapper-locations: mappings/**/*Dao.xml
-  typeAliasesPackage: com.thinkgem.jeesite.cfq.**.**.entity
   configuration:
     map-underscore-to-camel-case: true
-
-
-
-
-
-#  ========================================================来自jeesite.properties文件
-
-productName: \u0045\u0048\u0049\u0053\u002d\u95e8\u8bca\u5e94\u6025\u7cfb\u7edf
-version: V1.0.0
-#\u6f14\u793a\u6a21\u5f0f: \u4e0d\u80fd\u64cd\u4f5c\u548c\u4fdd\u5b58\u7684\u6a21\u5757\uff1a sys: area/office/user/role/menu/dict, cms: site/category
-demoMode: false
-#\u7ba1\u7406\u57fa\u7840\u8def\u5f84, \u9700\u540c\u6b65\u4fee\u6539\uff1aweb.xml
-adminPath: /a
-#\u524d\u7aef\u57fa\u7840\u8def\u5f84
-frontPath: /f
-#\u7f51\u7ad9URL\u540e\u7f00
-urlSuffix: .html
-#\u662f\u5426\u4e0d\u5141\u8bb8\u5237\u65b0\u4e3b\u9875\uff0c\u4e0d\u5141\u8bb8\u60c5\u51b5\u4e0b\uff0c\u5237\u65b0\u4e3b\u9875\u4f1a\u5bfc\u81f4\u91cd\u65b0\u767b\u5f55
-notAllowRefreshIndex: false
-#\u662f\u5426\u5141\u8bb8\u591a\u8d26\u53f7\u540c\u65f6\u767b\u5f55
-user.multiAccountLogin: true
-#\u5206\u9875\u914d\u7f6e
-page.pageSize: 30
-#\u7855\u6b63\u7ec4\u4ef6\u662f\u5426\u4f7f\u7528\u7f13\u5b58
-supcan.useCache: false
-#\u901a\u77e5\u95f4\u9694\u65f6\u95f4\u8bbe\u7f6e, \u5355\u4f4d\uff1a\u6beb\u79d2, 30s=30000ms, 60s=60000ms
-oa.notify.remind.interval: 60000
-#
-#web.view.index: /a
-#
-##\u89c6\u56fe\u6587\u4ef6\u5b58\u653e\u8def\u5f84
-#web.view.prefix: /WEB-INF/views/
-#web.view.suffix: .jsp
-
-web.staticFile: .css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk
-activiti.isSynActivitiIndetit: false
-#此处的地址是自己设置的
-activiti.export.diagram.path: E:\test
+  mapper-locations: mapping/**/*Mapper.xml
+  typeAliasesPackage: com.sicmed.ehis.entity

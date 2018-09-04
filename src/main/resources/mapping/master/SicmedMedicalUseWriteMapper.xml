@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedMedicalUseWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedMedicalUse">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="asked_code" jdbcType="VARCHAR" property="askedCode" />
+    <result column="use_group" jdbcType="VARCHAR" property="useGroup" />
+    <result column="use_name" jdbcType="VARCHAR" property="useName" />
+    <result column="use_bun" jdbcType="VARCHAR" property="useBun" />
+    <result column="use_unit" jdbcType="VARCHAR" property="useUnit" />
+    <result column="use_amount" jdbcType="INTEGER" property="useAmount" />
+    <result column="use_day" jdbcType="INTEGER" property="useDay" />
+    <result column="use_bout" jdbcType="INTEGER" property="useBout" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, asked_code, use_group, use_name, use_bun, use_unit, use_amount, use_day, use_bout, 
+    create_user, update_user, create_by, create_date, update_by, update_date, remarks, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_medical_use
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_medical_use
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedMedicalUse">
+    insert into sicmed_medical_use (id, asked_code, use_group, 
+      use_name, use_bun, use_unit, 
+      use_amount, use_day, use_bout, 
+      create_user, update_user, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{askedCode,jdbcType=VARCHAR}, #{useGroup,jdbcType=VARCHAR}, 
+      #{useName,jdbcType=VARCHAR}, #{useBun,jdbcType=VARCHAR}, #{useUnit,jdbcType=VARCHAR}, 
+      #{useAmount,jdbcType=INTEGER}, #{useDay,jdbcType=INTEGER}, #{useBout,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedMedicalUse">
+    insert into sicmed_medical_use
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="askedCode != null">
+        asked_code,
+      </if>
+      <if test="useGroup != null">
+        use_group,
+      </if>
+      <if test="useName != null">
+        use_name,
+      </if>
+      <if test="useBun != null">
+        use_bun,
+      </if>
+      <if test="useUnit != null">
+        use_unit,
+      </if>
+      <if test="useAmount != null">
+        use_amount,
+      </if>
+      <if test="useDay != null">
+        use_day,
+      </if>
+      <if test="useBout != null">
+        use_bout,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCode != null">
+        #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="useGroup != null">
+        #{useGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="useName != null">
+        #{useName,jdbcType=VARCHAR},
+      </if>
+      <if test="useBun != null">
+        #{useBun,jdbcType=VARCHAR},
+      </if>
+      <if test="useUnit != null">
+        #{useUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="useAmount != null">
+        #{useAmount,jdbcType=INTEGER},
+      </if>
+      <if test="useDay != null">
+        #{useDay,jdbcType=INTEGER},
+      </if>
+      <if test="useBout != null">
+        #{useBout,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedMedicalUse">
+    update sicmed_medical_use
+    <set>
+      <if test="askedCode != null">
+        asked_code = #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="useGroup != null">
+        use_group = #{useGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="useName != null">
+        use_name = #{useName,jdbcType=VARCHAR},
+      </if>
+      <if test="useBun != null">
+        use_bun = #{useBun,jdbcType=VARCHAR},
+      </if>
+      <if test="useUnit != null">
+        use_unit = #{useUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="useAmount != null">
+        use_amount = #{useAmount,jdbcType=INTEGER},
+      </if>
+      <if test="useDay != null">
+        use_day = #{useDay,jdbcType=INTEGER},
+      </if>
+      <if test="useBout != null">
+        use_bout = #{useBout,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedMedicalUse">
+    update sicmed_medical_use
+    set asked_code = #{askedCode,jdbcType=VARCHAR},
+      use_group = #{useGroup,jdbcType=VARCHAR},
+      use_name = #{useName,jdbcType=VARCHAR},
+      use_bun = #{useBun,jdbcType=VARCHAR},
+      use_unit = #{useUnit,jdbcType=VARCHAR},
+      use_amount = #{useAmount,jdbcType=INTEGER},
+      use_day = #{useDay,jdbcType=INTEGER},
+      use_bout = #{useBout,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

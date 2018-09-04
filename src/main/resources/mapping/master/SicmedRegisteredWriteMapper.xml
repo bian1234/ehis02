@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedRegisteredWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedRegistered">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_code" jdbcType="VARCHAR" property="patientCode" />
+    <result column="branch_code" jdbcType="VARCHAR" property="branchCode" />
+    <result column="sicmed_registration_type" jdbcType="VARCHAR" property="sicmedRegistrationType" />
+    <result column="registered_status" jdbcType="VARCHAR" property="registeredStatus" />
+    <result column="registered_pric" jdbcType="VARCHAR" property="registeredPric" />
+    <result column="pric_status" jdbcType="VARCHAR" property="pricStatus" />
+    <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="delete_user" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="registered_begin_date" jdbcType="TIMESTAMP" property="registeredBeginDate" />
+    <result column="registered_end_date" jdbcType="TIMESTAMP" property="registeredEndDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_code, branch_code, sicmed_registration_type, registered_status, registered_pric, 
+    pric_status, doctor_code, update_user, create_user, delete_user, registered_begin_date, 
+    registered_end_date, create_by, create_date, update_by, update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_registered
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_registered
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedRegistered">
+    insert into sicmed_registered (id, patient_code, branch_code, 
+      sicmed_registration_type, registered_status, 
+      registered_pric, pric_status, doctor_code, 
+      update_user, create_user, delete_user, 
+      registered_begin_date, registered_end_date, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{patientCode,jdbcType=VARCHAR}, #{branchCode,jdbcType=VARCHAR}, 
+      #{sicmedRegistrationType,jdbcType=VARCHAR}, #{registeredStatus,jdbcType=VARCHAR}, 
+      #{registeredPric,jdbcType=VARCHAR}, #{pricStatus,jdbcType=VARCHAR}, #{doctorCode,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{deleteUser,jdbcType=VARCHAR}, 
+      #{registeredBeginDate,jdbcType=TIMESTAMP}, #{registeredEndDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedRegistered">
+    insert into sicmed_registered
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientCode != null">
+        patient_code,
+      </if>
+      <if test="branchCode != null">
+        branch_code,
+      </if>
+      <if test="sicmedRegistrationType != null">
+        sicmed_registration_type,
+      </if>
+      <if test="registeredStatus != null">
+        registered_status,
+      </if>
+      <if test="registeredPric != null">
+        registered_pric,
+      </if>
+      <if test="pricStatus != null">
+        pric_status,
+      </if>
+      <if test="doctorCode != null">
+        doctor_code,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="deleteUser != null">
+        delete_user,
+      </if>
+      <if test="registeredBeginDate != null">
+        registered_begin_date,
+      </if>
+      <if test="registeredEndDate != null">
+        registered_end_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientCode != null">
+        #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sicmedRegistrationType != null">
+        #{sicmedRegistrationType,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredStatus != null">
+        #{registeredStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredPric != null">
+        #{registeredPric,jdbcType=VARCHAR},
+      </if>
+      <if test="pricStatus != null">
+        #{pricStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorCode != null">
+        #{doctorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteUser != null">
+        #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredBeginDate != null">
+        #{registeredBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredEndDate != null">
+        #{registeredEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedRegistered">
+    update sicmed_registered
+    <set>
+      <if test="patientCode != null">
+        patient_code = #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        branch_code = #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sicmedRegistrationType != null">
+        sicmed_registration_type = #{sicmedRegistrationType,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredStatus != null">
+        registered_status = #{registeredStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredPric != null">
+        registered_pric = #{registeredPric,jdbcType=VARCHAR},
+      </if>
+      <if test="pricStatus != null">
+        pric_status = #{pricStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorCode != null">
+        doctor_code = #{doctorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteUser != null">
+        delete_user = #{deleteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredBeginDate != null">
+        registered_begin_date = #{registeredBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredEndDate != null">
+        registered_end_date = #{registeredEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedRegistered">
+    update sicmed_registered
+    set patient_code = #{patientCode,jdbcType=VARCHAR},
+      branch_code = #{branchCode,jdbcType=VARCHAR},
+      sicmed_registration_type = #{sicmedRegistrationType,jdbcType=VARCHAR},
+      registered_status = #{registeredStatus,jdbcType=VARCHAR},
+      registered_pric = #{registeredPric,jdbcType=VARCHAR},
+      pric_status = #{pricStatus,jdbcType=VARCHAR},
+      doctor_code = #{doctorCode,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      delete_user = #{deleteUser,jdbcType=VARCHAR},
+      registered_begin_date = #{registeredBeginDate,jdbcType=TIMESTAMP},
+      registered_end_date = #{registeredEndDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

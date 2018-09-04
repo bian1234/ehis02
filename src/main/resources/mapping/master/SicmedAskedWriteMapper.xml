@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedAskedWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedAsked">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="asked_class_code" jdbcType="VARCHAR" property="askedClassCode" />
+    <result column="asked_code" jdbcType="VARCHAR" property="askedCode" />
+    <result column="asked_name" jdbcType="VARCHAR" property="askedName" />
+    <result column="patient_price" jdbcType="VARCHAR" property="patientPrice" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="medical_use_code" jdbcType="VARCHAR" property="medicalUseCode" />
+    <result column="asked_name_extand" jdbcType="VARCHAR" property="askedNameExtand" />
+    <result column="asked_case_code" jdbcType="VARCHAR" property="askedCaseCode" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="print_type" jdbcType="VARCHAR" property="printType" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, asked_class_code, asked_code, asked_name, patient_price, order_code, medical_use_code,
+    asked_name_extand, asked_case_code, create_by, create_date, update_by, update_date,
+    remarks, print_type, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sicmed_asked
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_asked
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedAsked">
+    insert into sicmed_asked (id, asked_class_code, asked_code,
+      asked_name, patient_price, order_code,
+      medical_use_code, asked_name_extand, asked_case_code,
+      create_by, create_date, update_by,
+      update_date, remarks, print_type,
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{askedClassCode,jdbcType=VARCHAR}, #{askedCode,jdbcType=VARCHAR},
+      #{askedName,jdbcType=VARCHAR}, #{patientPrice,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR},
+      #{medicalUseCode,jdbcType=VARCHAR}, #{askedNameExtand,jdbcType=VARCHAR}, #{askedCaseCode,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{printType,jdbcType=VARCHAR},
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedAsked">
+    insert into sicmed_asked
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="askedClassCode != null">
+        asked_class_code,
+      </if>
+      <if test="askedCode != null">
+        asked_code,
+      </if>
+      <if test="askedName != null">
+        asked_name,
+      </if>
+      <if test="patientPrice != null">
+        patient_price,
+      </if>
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="medicalUseCode != null">
+        medical_use_code,
+      </if>
+      <if test="askedNameExtand != null">
+        asked_name_extand,
+      </if>
+      <if test="askedCaseCode != null">
+        asked_case_code,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="printType != null">
+        print_type,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="askedClassCode != null">
+        #{askedClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCode != null">
+        #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedName != null">
+        #{askedName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientPrice != null">
+        #{patientPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUseCode != null">
+        #{medicalUseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedNameExtand != null">
+        #{askedNameExtand,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCaseCode != null">
+        #{askedCaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="printType != null">
+        #{printType,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedAsked">
+    update sicmed_asked
+    <set>
+      <if test="askedClassCode != null">
+        asked_class_code = #{askedClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCode != null">
+        asked_code = #{askedCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedName != null">
+        asked_name = #{askedName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientPrice != null">
+        patient_price = #{patientPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalUseCode != null">
+        medical_use_code = #{medicalUseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="askedNameExtand != null">
+        asked_name_extand = #{askedNameExtand,jdbcType=VARCHAR},
+      </if>
+      <if test="askedCaseCode != null">
+        asked_case_code = #{askedCaseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="printType != null">
+        print_type = #{printType,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedAsked">
+    update sicmed_asked
+    set asked_class_code = #{askedClassCode,jdbcType=VARCHAR},
+      asked_code = #{askedCode,jdbcType=VARCHAR},
+      asked_name = #{askedName,jdbcType=VARCHAR},
+      patient_price = #{patientPrice,jdbcType=VARCHAR},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      medical_use_code = #{medicalUseCode,jdbcType=VARCHAR},
+      asked_name_extand = #{askedNameExtand,jdbcType=VARCHAR},
+      asked_case_code = #{askedCaseCode,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      print_type = #{printType,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

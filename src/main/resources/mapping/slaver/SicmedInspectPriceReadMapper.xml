@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedInspectPriceReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedInspectPrice">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="inspect_code" jdbcType="CHAR" property="inspectCode" />
+    <result column="price_code" jdbcType="VARCHAR" property="priceCode" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="price_cutoff_date" jdbcType="TIMESTAMP" property="priceCutoffDate" />
+    <result column="price_insert_date" jdbcType="TIMESTAMP" property="priceInsertDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, inspect_code, price_code, price, price_cutoff_date, price_insert_date, create_by, 
+    create_date, update_by, update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_inspect_price
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_inspect_price
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedInspectPrice">
+    insert into sicmed_inspect_price (id, inspect_code, price_code, 
+      price, price_cutoff_date, price_insert_date, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{inspectCode,jdbcType=CHAR}, #{priceCode,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{priceCutoffDate,jdbcType=TIMESTAMP}, #{priceInsertDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedInspectPrice">
+    insert into sicmed_inspect_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inspectCode != null">
+        inspect_code,
+      </if>
+      <if test="priceCode != null">
+        price_code,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="priceCutoffDate != null">
+        price_cutoff_date,
+      </if>
+      <if test="priceInsertDate != null">
+        price_insert_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectCode != null">
+        #{inspectCode,jdbcType=CHAR},
+      </if>
+      <if test="priceCode != null">
+        #{priceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceCutoffDate != null">
+        #{priceCutoffDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceInsertDate != null">
+        #{priceInsertDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedInspectPrice">
+    update sicmed_inspect_price
+    <set>
+      <if test="inspectCode != null">
+        inspect_code = #{inspectCode,jdbcType=CHAR},
+      </if>
+      <if test="priceCode != null">
+        price_code = #{priceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceCutoffDate != null">
+        price_cutoff_date = #{priceCutoffDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceInsertDate != null">
+        price_insert_date = #{priceInsertDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedInspectPrice">
+    update sicmed_inspect_price
+    set inspect_code = #{inspectCode,jdbcType=CHAR},
+      price_code = #{priceCode,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      price_cutoff_date = #{priceCutoffDate,jdbcType=TIMESTAMP},
+      price_insert_date = #{priceInsertDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

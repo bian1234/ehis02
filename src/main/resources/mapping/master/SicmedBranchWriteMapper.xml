@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.master.SicmedBranchWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedBranch">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="branch_code" jdbcType="CHAR" property="branchCode" />
+    <result column="branch_number" jdbcType="VARCHAR" property="branchNumber" />
+    <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+    <result column="branch_name_english" jdbcType="VARCHAR" property="branchNameEnglish" />
+    <result column="branch_location" jdbcType="VARCHAR" property="branchLocation" />
+    <result column="branch_registered" jdbcType="CHAR" property="branchRegistered" />
+    <result column="branch_registered_am" jdbcType="INTEGER" property="branchRegisteredAm" />
+    <result column="branch_registered_pm" jdbcType="INTEGER" property="branchRegisteredPm" />
+    <result column="branch_IPD" jdbcType="CHAR" property="branchIpd" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, branch_code, branch_number, branch_name, branch_name_english, branch_location, 
+    branch_registered, branch_registered_am, branch_registered_pm, branch_IPD, create_by, 
+    create_date, update_by, update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_branch
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_branch
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedBranch">
+    insert into sicmed_branch (id, branch_code, branch_number, 
+      branch_name, branch_name_english, branch_location, 
+      branch_registered, branch_registered_am, branch_registered_pm, 
+      branch_IPD, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{branchCode,jdbcType=CHAR}, #{branchNumber,jdbcType=VARCHAR}, 
+      #{branchName,jdbcType=VARCHAR}, #{branchNameEnglish,jdbcType=VARCHAR}, #{branchLocation,jdbcType=VARCHAR}, 
+      #{branchRegistered,jdbcType=CHAR}, #{branchRegisteredAm,jdbcType=INTEGER}, #{branchRegisteredPm,jdbcType=INTEGER}, 
+      #{branchIpd,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedBranch">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
+    insert into sicmed_branch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="branchCode != null">
+        branch_code,
+      </if>
+      <if test="branchNumber != null">
+        branch_number,
+      </if>
+      <if test="branchName != null">
+        branch_name,
+      </if>
+      <if test="branchNameEnglish != null">
+        branch_name_english,
+      </if>
+      <if test="branchLocation != null">
+        branch_location,
+      </if>
+      <if test="branchRegistered != null">
+        branch_registered,
+      </if>
+      <if test="branchRegisteredAm != null">
+        branch_registered_am,
+      </if>
+      <if test="branchRegisteredPm != null">
+        branch_registered_pm,
+      </if>
+      <if test="branchIpd != null">
+        branch_IPD,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null">
+        #{branchCode,jdbcType=CHAR},
+      </if>
+      <if test="branchNumber != null">
+        #{branchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null">
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchNameEnglish != null">
+        #{branchNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="branchLocation != null">
+        #{branchLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="branchRegistered != null">
+        #{branchRegistered,jdbcType=CHAR},
+      </if>
+      <if test="branchRegisteredAm != null">
+        #{branchRegisteredAm,jdbcType=INTEGER},
+      </if>
+      <if test="branchRegisteredPm != null">
+        #{branchRegisteredPm,jdbcType=INTEGER},
+      </if>
+      <if test="branchIpd != null">
+        #{branchIpd,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedBranch">
+    update sicmed_branch
+    <set>
+      <if test="branchCode != null">
+        branch_code = #{branchCode,jdbcType=CHAR},
+      </if>
+      <if test="branchNumber != null">
+        branch_number = #{branchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null">
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchNameEnglish != null">
+        branch_name_english = #{branchNameEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="branchLocation != null">
+        branch_location = #{branchLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="branchRegistered != null">
+        branch_registered = #{branchRegistered,jdbcType=CHAR},
+      </if>
+      <if test="branchRegisteredAm != null">
+        branch_registered_am = #{branchRegisteredAm,jdbcType=INTEGER},
+      </if>
+      <if test="branchRegisteredPm != null">
+        branch_registered_pm = #{branchRegisteredPm,jdbcType=INTEGER},
+      </if>
+      <if test="branchIpd != null">
+        branch_IPD = #{branchIpd,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedBranch">
+    update sicmed_branch
+    set branch_code = #{branchCode,jdbcType=CHAR},
+      branch_number = #{branchNumber,jdbcType=VARCHAR},
+      branch_name = #{branchName,jdbcType=VARCHAR},
+      branch_name_english = #{branchNameEnglish,jdbcType=VARCHAR},
+      branch_location = #{branchLocation,jdbcType=VARCHAR},
+      branch_registered = #{branchRegistered,jdbcType=CHAR},
+      branch_registered_am = #{branchRegisteredAm,jdbcType=INTEGER},
+      branch_registered_pm = #{branchRegisteredPm,jdbcType=INTEGER},
+      branch_IPD = #{branchIpd,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

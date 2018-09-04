@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedUserReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_number" jdbcType="CHAR" property="userNumber" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_fodate" jdbcType="TIMESTAMP" property="userFodate" />
+    <result column="user_todate" jdbcType="TIMESTAMP" property="userTodate" />
+    <result column="user_job_group" jdbcType="VARCHAR" property="userJobGroup" />
+    <result column="user_job_grade" jdbcType="VARCHAR" property="userJobGrade" />
+    <result column="user_branch" jdbcType="VARCHAR" property="userBranch" />
+    <result column="doctor_code" jdbcType="CHAR" property="doctorCode" />
+    <result column="doctor_grade" jdbcType="CHAR" property="doctorGrade" />
+    <result column="printranking" jdbcType="INTEGER" property="printranking" />
+    <result column="doctor_registered_am" jdbcType="INTEGER" property="doctorRegisteredAm" />
+    <result column="doctor_registered_pm" jdbcType="INTEGER" property="doctorRegisteredPm" />
+    <result column="doctor_registered" jdbcType="CHAR" property="doctorRegistered" />
+    <result column="registered_difference" jdbcType="CHAR" property="registeredDifference" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="license" jdbcType="VARCHAR" property="license" />
+    <result column="license_spc" jdbcType="VARCHAR" property="licenseSpc" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_status" jdbcType="CHAR" property="userStatus" />
+    <result column="change_fdate" jdbcType="TIMESTAMP" property="changeFdate" />
+    <result column="change_odate" jdbcType="TIMESTAMP" property="changeOdate" />
+    <result column="doctor_branch1" jdbcType="CHAR" property="doctorBranch1" />
+    <result column="doctor_branch2" jdbcType="CHAR" property="doctorBranch2" />
+    <result column="doctor_branch3" jdbcType="CHAR" property="doctorBranch3" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sicmed.ehis.entity.SicmedUser">
+    <result column="user_dept" jdbcType="VARBINARY" property="userDept" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_number, user_name, password, user_fodate, user_todate, user_job_group, user_job_grade, 
+    user_branch, doctor_code, doctor_grade, printranking, doctor_registered_am, doctor_registered_pm, 
+    doctor_registered, registered_difference, login_date, license, license_spc, user_tel, 
+    user_email, user_status, change_fdate, change_odate, doctor_branch1, doctor_branch2, 
+    doctor_branch3, create_by, create_date, update_by, update_date, remarks, del_flag
+  </sql>
+  <sql id="Blob_Column_List">
+    user_dept
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sicmed_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedUser">
+    insert into sicmed_user (id, user_number, user_name, 
+      password, user_fodate, user_todate, 
+      user_job_group, user_job_grade, user_branch, 
+      doctor_code, doctor_grade, printranking, 
+      doctor_registered_am, doctor_registered_pm, 
+      doctor_registered, registered_difference, login_date, 
+      license, license_spc, user_tel, 
+      user_email, user_status, change_fdate, 
+      change_odate, doctor_branch1, doctor_branch2, 
+      doctor_branch3, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag, user_dept)
+    values (#{id,jdbcType=VARCHAR}, #{userNumber,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userFodate,jdbcType=TIMESTAMP}, #{userTodate,jdbcType=TIMESTAMP}, 
+      #{userJobGroup,jdbcType=VARCHAR}, #{userJobGrade,jdbcType=VARCHAR}, #{userBranch,jdbcType=VARCHAR}, 
+      #{doctorCode,jdbcType=CHAR}, #{doctorGrade,jdbcType=CHAR}, #{printranking,jdbcType=INTEGER}, 
+      #{doctorRegisteredAm,jdbcType=INTEGER}, #{doctorRegisteredPm,jdbcType=INTEGER}, 
+      #{doctorRegistered,jdbcType=CHAR}, #{registeredDifference,jdbcType=CHAR}, #{loginDate,jdbcType=TIMESTAMP}, 
+      #{license,jdbcType=VARCHAR}, #{licenseSpc,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userStatus,jdbcType=CHAR}, #{changeFdate,jdbcType=TIMESTAMP}, 
+      #{changeOdate,jdbcType=TIMESTAMP}, #{doctorBranch1,jdbcType=CHAR}, #{doctorBranch2,jdbcType=CHAR}, 
+      #{doctorBranch3,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{userDept,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedUser">
+    insert into sicmed_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNumber != null">
+        user_number,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="userFodate != null">
+        user_fodate,
+      </if>
+      <if test="userTodate != null">
+        user_todate,
+      </if>
+      <if test="userJobGroup != null">
+        user_job_group,
+      </if>
+      <if test="userJobGrade != null">
+        user_job_grade,
+      </if>
+      <if test="userBranch != null">
+        user_branch,
+      </if>
+      <if test="doctorCode != null">
+        doctor_code,
+      </if>
+      <if test="doctorGrade != null">
+        doctor_grade,
+      </if>
+      <if test="printranking != null">
+        printranking,
+      </if>
+      <if test="doctorRegisteredAm != null">
+        doctor_registered_am,
+      </if>
+      <if test="doctorRegisteredPm != null">
+        doctor_registered_pm,
+      </if>
+      <if test="doctorRegistered != null">
+        doctor_registered,
+      </if>
+      <if test="registeredDifference != null">
+        registered_difference,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="license != null">
+        license,
+      </if>
+      <if test="licenseSpc != null">
+        license_spc,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="changeFdate != null">
+        change_fdate,
+      </if>
+      <if test="changeOdate != null">
+        change_odate,
+      </if>
+      <if test="doctorBranch1 != null">
+        doctor_branch1,
+      </if>
+      <if test="doctorBranch2 != null">
+        doctor_branch2,
+      </if>
+      <if test="doctorBranch3 != null">
+        doctor_branch3,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="userDept != null">
+        user_dept,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNumber != null">
+        #{userNumber,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userFodate != null">
+        #{userFodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userTodate != null">
+        #{userTodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userJobGroup != null">
+        #{userJobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="userJobGrade != null">
+        #{userJobGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="userBranch != null">
+        #{userBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorCode != null">
+        #{doctorCode,jdbcType=CHAR},
+      </if>
+      <if test="doctorGrade != null">
+        #{doctorGrade,jdbcType=CHAR},
+      </if>
+      <if test="printranking != null">
+        #{printranking,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegisteredAm != null">
+        #{doctorRegisteredAm,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegisteredPm != null">
+        #{doctorRegisteredPm,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegistered != null">
+        #{doctorRegistered,jdbcType=CHAR},
+      </if>
+      <if test="registeredDifference != null">
+        #{registeredDifference,jdbcType=CHAR},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="license != null">
+        #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseSpc != null">
+        #{licenseSpc,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="changeFdate != null">
+        #{changeFdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeOdate != null">
+        #{changeOdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doctorBranch1 != null">
+        #{doctorBranch1,jdbcType=CHAR},
+      </if>
+      <if test="doctorBranch2 != null">
+        #{doctorBranch2,jdbcType=CHAR},
+      </if>
+      <if test="doctorBranch3 != null">
+        #{doctorBranch3,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="userDept != null">
+        #{userDept,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedUser">
+    update sicmed_user
+    <set>
+      <if test="userNumber != null">
+        user_number = #{userNumber,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userFodate != null">
+        user_fodate = #{userFodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userTodate != null">
+        user_todate = #{userTodate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userJobGroup != null">
+        user_job_group = #{userJobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="userJobGrade != null">
+        user_job_grade = #{userJobGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="userBranch != null">
+        user_branch = #{userBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorCode != null">
+        doctor_code = #{doctorCode,jdbcType=CHAR},
+      </if>
+      <if test="doctorGrade != null">
+        doctor_grade = #{doctorGrade,jdbcType=CHAR},
+      </if>
+      <if test="printranking != null">
+        printranking = #{printranking,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegisteredAm != null">
+        doctor_registered_am = #{doctorRegisteredAm,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegisteredPm != null">
+        doctor_registered_pm = #{doctorRegisteredPm,jdbcType=INTEGER},
+      </if>
+      <if test="doctorRegistered != null">
+        doctor_registered = #{doctorRegistered,jdbcType=CHAR},
+      </if>
+      <if test="registeredDifference != null">
+        registered_difference = #{registeredDifference,jdbcType=CHAR},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="license != null">
+        license = #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseSpc != null">
+        license_spc = #{licenseSpc,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=CHAR},
+      </if>
+      <if test="changeFdate != null">
+        change_fdate = #{changeFdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeOdate != null">
+        change_odate = #{changeOdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doctorBranch1 != null">
+        doctor_branch1 = #{doctorBranch1,jdbcType=CHAR},
+      </if>
+      <if test="doctorBranch2 != null">
+        doctor_branch2 = #{doctorBranch2,jdbcType=CHAR},
+      </if>
+      <if test="doctorBranch3 != null">
+        doctor_branch3 = #{doctorBranch3,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="userDept != null">
+        user_dept = #{userDept,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sicmed.ehis.entity.SicmedUser">
+    update sicmed_user
+    set user_number = #{userNumber,jdbcType=CHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_fodate = #{userFodate,jdbcType=TIMESTAMP},
+      user_todate = #{userTodate,jdbcType=TIMESTAMP},
+      user_job_group = #{userJobGroup,jdbcType=VARCHAR},
+      user_job_grade = #{userJobGrade,jdbcType=VARCHAR},
+      user_branch = #{userBranch,jdbcType=VARCHAR},
+      doctor_code = #{doctorCode,jdbcType=CHAR},
+      doctor_grade = #{doctorGrade,jdbcType=CHAR},
+      printranking = #{printranking,jdbcType=INTEGER},
+      doctor_registered_am = #{doctorRegisteredAm,jdbcType=INTEGER},
+      doctor_registered_pm = #{doctorRegisteredPm,jdbcType=INTEGER},
+      doctor_registered = #{doctorRegistered,jdbcType=CHAR},
+      registered_difference = #{registeredDifference,jdbcType=CHAR},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      license = #{license,jdbcType=VARCHAR},
+      license_spc = #{licenseSpc,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=CHAR},
+      change_fdate = #{changeFdate,jdbcType=TIMESTAMP},
+      change_odate = #{changeOdate,jdbcType=TIMESTAMP},
+      doctor_branch1 = #{doctorBranch1,jdbcType=CHAR},
+      doctor_branch2 = #{doctorBranch2,jdbcType=CHAR},
+      doctor_branch3 = #{doctorBranch3,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      user_dept = #{userDept,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedUser">
+    update sicmed_user
+    set user_number = #{userNumber,jdbcType=CHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_fodate = #{userFodate,jdbcType=TIMESTAMP},
+      user_todate = #{userTodate,jdbcType=TIMESTAMP},
+      user_job_group = #{userJobGroup,jdbcType=VARCHAR},
+      user_job_grade = #{userJobGrade,jdbcType=VARCHAR},
+      user_branch = #{userBranch,jdbcType=VARCHAR},
+      doctor_code = #{doctorCode,jdbcType=CHAR},
+      doctor_grade = #{doctorGrade,jdbcType=CHAR},
+      printranking = #{printranking,jdbcType=INTEGER},
+      doctor_registered_am = #{doctorRegisteredAm,jdbcType=INTEGER},
+      doctor_registered_pm = #{doctorRegisteredPm,jdbcType=INTEGER},
+      doctor_registered = #{doctorRegistered,jdbcType=CHAR},
+      registered_difference = #{registeredDifference,jdbcType=CHAR},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      license = #{license,jdbcType=VARCHAR},
+      license_spc = #{licenseSpc,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=CHAR},
+      change_fdate = #{changeFdate,jdbcType=TIMESTAMP},
+      change_odate = #{changeOdate,jdbcType=TIMESTAMP},
+      doctor_branch1 = #{doctorBranch1,jdbcType=CHAR},
+      doctor_branch2 = #{doctorBranch2,jdbcType=CHAR},
+      doctor_branch3 = #{doctorBranch3,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedPatientPriceReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedPatientPrice">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="patient_code" jdbcType="VARCHAR" property="patientCode" />
+    <result column="price_class_type" jdbcType="CHAR" property="priceClassType" />
+    <result column="price_code" jdbcType="VARCHAR" property="priceCode" />
+    <result column="isPay" jdbcType="VARCHAR" property="ispay" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="doctor_id" jdbcType="VARCHAR" property="doctorId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, number, patient_code, price_class_type, price_code, isPay, create_user, update_user, 
+    create_by, create_date, update_by, update_date, remarks, del_flag, doctor_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_patient_price
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sicmed_patient_price
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedPatientPrice">
+    insert into sicmed_patient_price (id, number, patient_code, 
+      price_class_type, price_code, isPay, 
+      create_user, update_user, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag, doctor_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{patientCode,jdbcType=VARCHAR}, 
+      #{priceClassType,jdbcType=CHAR}, #{priceCode,jdbcType=VARCHAR}, #{ispay,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{doctorId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedPatientPrice">
+    insert into sicmed_patient_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="patientCode != null">
+        patient_code,
+      </if>
+      <if test="priceClassType != null">
+        price_class_type,
+      </if>
+      <if test="priceCode != null">
+        price_code,
+      </if>
+      <if test="ispay != null">
+        isPay,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="doctorId != null">
+        doctor_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="patientCode != null">
+        #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="priceClassType != null">
+        #{priceClassType,jdbcType=CHAR},
+      </if>
+      <if test="priceCode != null">
+        #{priceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedPatientPrice">
+    update sicmed_patient_price
+    <set>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="patientCode != null">
+        patient_code = #{patientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="priceClassType != null">
+        price_class_type = #{priceClassType,jdbcType=CHAR},
+      </if>
+      <if test="priceCode != null">
+        price_code = #{priceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ispay != null">
+        isPay = #{ispay,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="doctorId != null">
+        doctor_id = #{doctorId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedPatientPrice">
+    update sicmed_patient_price
+    set number = #{number,jdbcType=INTEGER},
+      patient_code = #{patientCode,jdbcType=VARCHAR},
+      price_class_type = #{priceClassType,jdbcType=CHAR},
+      price_code = #{priceCode,jdbcType=VARCHAR},
+      isPay = #{ispay,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      doctor_id = #{doctorId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
