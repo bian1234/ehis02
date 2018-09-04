@@ -39,6 +39,9 @@
       #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedDept">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
     insert into sicmed_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
