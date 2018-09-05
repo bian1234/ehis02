@@ -1,17 +1,24 @@
 package com.sicmed.ehis.mapper.master;
 
+import com.sicmed.ehis.base.BaseWriteMapper;
 import com.sicmed.ehis.entity.SicmedInspectClass;
+import org.springframework.stereotype.Repository;
 
-public interface SicmedInspectClassWriteMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(SicmedInspectClass record);
+@Repository
+public interface SicmedInspectClassWriteMapper extends BaseWriteMapper<SicmedInspectClass>{
+    @Override
+    int insertSelective(SicmedInspectClass sicmedInspectClass);
 
-    int insertSelective(SicmedInspectClass record);
+    @Override
+    int insert(SicmedInspectClass entity);
 
-    SicmedInspectClass selectByPrimaryKey(String id);
+    @Override
+    int updateSelective(SicmedInspectClass entity);
 
-    int updateByPrimaryKeySelective(SicmedInspectClass record);
+    @Override
+    int deleteById(String id);
 
-    int updateByPrimaryKey(SicmedInspectClass record);
+    @Override
+    int logicDelete(String id);
 }
