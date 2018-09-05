@@ -1,17 +1,23 @@
 package com.sicmed.ehis.mapper.master;
 
+import com.sicmed.ehis.base.BaseWriteMapper;
 import com.sicmed.ehis.entity.SicmedBranchAsked;
+import org.springframework.stereotype.Repository;
 
-public interface SicmedBranchAskedWriteMapper {
-    int deleteByPrimaryKey(String id);
+@Repository
+public interface SicmedBranchAskedWriteMapper extends BaseWriteMapper<SicmedBranchAsked>{
+    @Override
+    int insertSelective(SicmedBranchAsked sicmedBranchAsked);
 
-    int insert(SicmedBranchAsked record);
+    @Override
+    int insert(SicmedBranchAsked entity);
 
-    int insertSelective(SicmedBranchAsked record);
+    @Override
+    int updateSelective(SicmedBranchAsked entity);
 
-    SicmedBranchAsked selectByPrimaryKey(String id);
+    @Override
+    int deleteById(String id);
 
-    int updateByPrimaryKeySelective(SicmedBranchAsked record);
-
-    int updateByPrimaryKey(SicmedBranchAsked record);
+    @Override
+    int logicDelete(String id);
 }

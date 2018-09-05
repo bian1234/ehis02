@@ -1,17 +1,25 @@
 package com.sicmed.ehis.mapper.slaver;
 
+import com.sicmed.ehis.base.BaseReadMapper;
+import com.sicmed.ehis.base.Query;
 import com.sicmed.ehis.entity.SicmedBranchAsked;
+import org.springframework.stereotype.Repository;
 
-public interface SicmedBranchAskedReadMapper {
-    int deleteByPrimaryKey(String id);
+import java.util.List;
 
-    int insert(SicmedBranchAsked record);
+@Repository
+public interface SicmedBranchAskedReadMapper extends BaseReadMapper<SicmedBranchAsked>{
 
-    int insertSelective(SicmedBranchAsked record);
 
-    SicmedBranchAsked selectByPrimaryKey(String id);
+    @Override
+    SicmedBranchAsked selectById(String id);
 
-    int updateByPrimaryKeySelective(SicmedBranchAsked record);
+    @Override
+    SicmedBranchAsked selectOneByParams(SicmedBranchAsked entity);
 
-    int updateByPrimaryKey(SicmedBranchAsked record);
+    @Override
+    List<SicmedBranchAsked> findAllList(Query query);
+
+    @Override
+    List<SicmedBranchAsked> selectALLByParams(SicmedBranchAsked e, Query query);
 }
