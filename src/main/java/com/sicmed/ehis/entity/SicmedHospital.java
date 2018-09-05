@@ -3,7 +3,7 @@ package com.sicmed.ehis.entity;
 import java.util.Date;
 
 public class SicmedHospital {
-    private Short hospitalId;
+    private String hospitalId;
 
     private String hospitalName;
 
@@ -11,7 +11,7 @@ public class SicmedHospital {
 
     private String hospitalAdd;
 
-    private Short cityCode;
+    private String cityCode;
 
     private String createBy;
 
@@ -25,11 +25,11 @@ public class SicmedHospital {
 
     private String delFlag;
 
-    public Short getHospitalId() {
+    public String getHospitalId() {
         return hospitalId;
     }
 
-    public void setHospitalId(Short hospitalId) {
+    public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
     }
 
@@ -57,11 +57,11 @@ public class SicmedHospital {
         this.hospitalAdd = hospitalAdd == null ? null : hospitalAdd.trim();
     }
 
-    public Short getCityCode() {
+    public String getCityCode() {
         return cityCode;
     }
 
-    public void setCityCode(Short cityCode) {
+    public void setCityCode(String cityCode) {
         this.cityCode = cityCode;
     }
 

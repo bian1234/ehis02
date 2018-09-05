@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sicmed.ehis.mapper.master.SicmedHospitalWriteMapper">
   <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedHospital">
-    <id column="hospital_id" jdbcType="SMALLINT" property="hospitalId" />
+    <id column="hospital_id" jdbcType="VARCHAR" property="hospitalId" />
     <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
     <result column="hospital_grade" jdbcType="VARCHAR" property="hospitalGrade" />
     <result column="hospital_add" jdbcType="VARCHAR" property="hospitalAdd" />
-    <result column="city_code" jdbcType="SMALLINT" property="cityCode" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
@@ -22,19 +22,19 @@
     select 
     <include refid="Base_Column_List" />
     from sicmed_hospital
-    where hospital_id = #{hospitalId,jdbcType=SMALLINT}
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
     delete from sicmed_hospital
-    where hospital_id = #{hospitalId,jdbcType=SMALLINT}
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedHospital">
     insert into sicmed_hospital (hospital_id, hospital_name, hospital_grade, 
       hospital_add, city_code, create_by, 
       create_date, update_by, update_date, 
       remarks, del_flag)
-    values (#{hospitalId,jdbcType=SMALLINT}, #{hospitalName,jdbcType=VARCHAR}, #{hospitalGrade,jdbcType=VARCHAR}, 
-      #{hospitalAdd,jdbcType=VARCHAR}, #{cityCode,jdbcType=SMALLINT}, #{createBy,jdbcType=VARCHAR}, 
+    values (#{hospitalId,jdbcType=VARCHAR}, #{hospitalName,jdbcType=VARCHAR}, #{hospitalGrade,jdbcType=VARCHAR}, 
+      #{hospitalAdd,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
@@ -77,7 +77,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="hospitalId != null">
-        #{hospitalId,jdbcType=SMALLINT},
+        #{hospitalId,jdbcType=VARCHAR},
       </if>
       <if test="hospitalName != null">
         #{hospitalName,jdbcType=VARCHAR},
@@ -89,7 +89,7 @@
         #{hospitalAdd,jdbcType=VARCHAR},
       </if>
       <if test="cityCode != null">
-        #{cityCode,jdbcType=SMALLINT},
+        #{cityCode,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null">
         #{createBy,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
         hospital_add = #{hospitalAdd,jdbcType=VARCHAR},
       </if>
       <if test="cityCode != null">
-        city_code = #{cityCode,jdbcType=SMALLINT},
+        city_code = #{cityCode,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null">
         create_by = #{createBy,jdbcType=VARCHAR},
@@ -145,20 +145,20 @@
         del_flag = #{delFlag,jdbcType=CHAR},
       </if>
     </set>
-    where hospital_id = #{hospitalId,jdbcType=SMALLINT}
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedHospital">
     update sicmed_hospital
     set hospital_name = #{hospitalName,jdbcType=VARCHAR},
       hospital_grade = #{hospitalGrade,jdbcType=VARCHAR},
       hospital_add = #{hospitalAdd,jdbcType=VARCHAR},
-      city_code = #{cityCode,jdbcType=SMALLINT},
+      city_code = #{cityCode,jdbcType=VARCHAR},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_by = #{updateBy,jdbcType=VARCHAR},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       remarks = #{remarks,jdbcType=VARCHAR},
       del_flag = #{delFlag,jdbcType=CHAR}
-    where hospital_id = #{hospitalId,jdbcType=SMALLINT}
+    where hospital_id = #{hospitalId,jdbcType=VARCHAR}
   </update>
 </mapper>
