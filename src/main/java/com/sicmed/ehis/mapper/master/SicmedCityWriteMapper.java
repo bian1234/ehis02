@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.master;
 
 import com.sicmed.ehis.entity.SicmedCity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedCityWriteMapper {
     int deleteByPrimaryKey(Short cityId);
 

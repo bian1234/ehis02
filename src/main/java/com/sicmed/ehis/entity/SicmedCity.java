@@ -3,9 +3,9 @@ package com.sicmed.ehis.entity;
 import java.util.Date;
 
 public class SicmedCity {
-    private Short cityId;
+    private String cityId;
 
-    private Short cityParentId;
+    private String cityParentId;
 
     private String cityName;
 
@@ -23,19 +23,19 @@ public class SicmedCity {
 
     private String delFlag;
 
-    public Short getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(Short cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 
-    public Short getCityParentId() {
+    public String getCityParentId() {
         return cityParentId;
     }
 
-    public void setCityParentId(Short cityParentId) {
+    public void setCityParentId(String cityParentId) {
         this.cityParentId = cityParentId;
     }
 

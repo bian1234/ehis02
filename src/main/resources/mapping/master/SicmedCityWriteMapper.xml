@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sicmed.ehis.mapper.master.SicmedCityWriteMapper">
   <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedCity">
-    <id column="city_id" jdbcType="SMALLINT" property="cityId" />
-    <result column="city_parent_id" jdbcType="SMALLINT" property="cityParentId" />
+    <id column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="city_parent_id" jdbcType="VARCHAR" property="cityParentId" />
     <result column="city_name" jdbcType="VARCHAR" property="cityName" />
     <result column="city_type" jdbcType="BIT" property="cityType" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -17,137 +17,11 @@
     city_id, city_parent_id, city_name, city_type, create_by, create_date, update_by, 
     update_date, remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sicmed_city
-    where city_id = #{cityId,jdbcType=SMALLINT}
+    where city_id = #{cityId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-    delete from sicmed_city
-    where city_id = #{cityId,jdbcType=SMALLINT}
-  </delete>
-  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedCity">
-    insert into sicmed_city (city_id, city_parent_id, city_name, 
-      city_type, create_by, create_date, 
-      update_by, update_date, remarks, 
-      del_flag)
-    values (#{cityId,jdbcType=SMALLINT}, #{cityParentId,jdbcType=SMALLINT}, #{cityName,jdbcType=VARCHAR}, 
-      #{cityType,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedCity">
-    insert into sicmed_city
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="cityId != null">
-        city_id,
-      </if>
-      <if test="cityParentId != null">
-        city_parent_id,
-      </if>
-      <if test="cityName != null">
-        city_name,
-      </if>
-      <if test="cityType != null">
-        city_type,
-      </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="delFlag != null">
-        del_flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="cityId != null">
-        #{cityId,jdbcType=SMALLINT},
-      </if>
-      <if test="cityParentId != null">
-        #{cityParentId,jdbcType=SMALLINT},
-      </if>
-      <if test="cityName != null">
-        #{cityName,jdbcType=VARCHAR},
-      </if>
-      <if test="cityType != null">
-        #{cityType,jdbcType=BIT},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        #{delFlag,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedCity">
-    update sicmed_city
-    <set>
-      <if test="cityParentId != null">
-        city_parent_id = #{cityParentId,jdbcType=SMALLINT},
-      </if>
-      <if test="cityName != null">
-        city_name = #{cityName,jdbcType=VARCHAR},
-      </if>
-      <if test="cityType != null">
-        city_type = #{cityType,jdbcType=BIT},
-      </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=CHAR},
-      </if>
-    </set>
-    where city_id = #{cityId,jdbcType=SMALLINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedCity">
-    update sicmed_city
-    set city_parent_id = #{cityParentId,jdbcType=SMALLINT},
-      city_name = #{cityName,jdbcType=VARCHAR},
-      city_type = #{cityType,jdbcType=BIT},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=CHAR}
-    where city_id = #{cityId,jdbcType=SMALLINT}
-  </update>
+
 </mapper>
