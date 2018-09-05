@@ -2,10 +2,9 @@ package com.sicmed.ehis.controller;
 
 import com.sicmed.ehis.base.BaseController;
 import com.sicmed.ehis.base.Constant;
-import com.sicmed.ehis.entity.GroupID;
 import com.sicmed.ehis.entity.GroupWithoutId;
 import com.sicmed.ehis.entity.SicmedDept;
-import com.sicmed.ehis.service.impl.SicmedDeptService;
+import com.sicmed.ehis.service.SicmedDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;

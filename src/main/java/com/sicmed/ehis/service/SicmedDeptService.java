@@ -1,4 +1,4 @@
-package com.sicmed.ehis.service.impl;
+package com.sicmed.ehis.service;
 
 import com.sicmed.ehis.base.BaseService;
 import com.sicmed.ehis.base.Query;

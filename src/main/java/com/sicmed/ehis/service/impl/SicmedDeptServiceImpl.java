@@ -5,6 +5,7 @@ import com.sicmed.ehis.base.util.Page;
 import com.sicmed.ehis.entity.SicmedDept;
 import com.sicmed.ehis.mapper.master.SicmedDeptWriteMapper;
 import com.sicmed.ehis.mapper.slaver.SicmedDeptReadMapper;
+import com.sicmed.ehis.service.SicmedDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
