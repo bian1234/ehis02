@@ -1,17 +1,23 @@
 package com.sicmed.ehis.mapper.slaver;
 
+import com.sicmed.ehis.base.BaseReadMapper;
+import com.sicmed.ehis.base.Query;
 import com.sicmed.ehis.entity.SicmedCureClass;
+import org.springframework.stereotype.Repository;
 
-public interface SicmedCureClassReadMapper {
-    int deleteByPrimaryKey(String id);
+import java.util.List;
 
-    int insert(SicmedCureClass record);
+@Repository
+public interface SicmedCureClassReadMapper   extends BaseReadMapper<SicmedCureClass>{
+    @Override
+    SicmedCureClass selectById(String id);
 
-    int insertSelective(SicmedCureClass record);
+    @Override
+    SicmedCureClass selectOneByParams(SicmedCureClass entity);
 
-    SicmedCureClass selectByPrimaryKey(String id);
+    @Override
+    List<SicmedCureClass> findAllList(Query query);
 
-    int updateByPrimaryKeySelective(SicmedCureClass record);
-
-    int updateByPrimaryKey(SicmedCureClass record);
+    @Override
+    List<SicmedCureClass> selectALLByParams(SicmedCureClass e, Query query);
 }
