@@ -1,15 +1,28 @@
 package com.sicmed.ehis.mapper.master;
 
+import com.sicmed.ehis.base.BaseWriteMapper;
 import com.sicmed.ehis.entity.SicmedTwxrayClass;
+import org.springframework.stereotype.Service;
 
-public interface SicmedTwxrayClassWriteMapper {
+
+@Service
+public interface SicmedTwxrayClassWriteMapper extends BaseWriteMapper<SicmedTwxrayClass>{
+
+    @Override
+    int updateSelective(SicmedTwxrayClass entity);
+
+    @Override
+    int deleteById(String id);
+
+    @Override
+    int logicDelete(String id);
+
     int deleteByPrimaryKey(String id);
 
     int insert(SicmedTwxrayClass record);
 
     int insertSelective(SicmedTwxrayClass record);
 
-    SicmedTwxrayClass selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SicmedTwxrayClass record);
 
