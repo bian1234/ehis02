@@ -1,12 +1,21 @@
 package com.sicmed.ehis.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class SicmedDiseaseClass {
+
+    @NotNull(message = "id不能为空",groups = GroupID.class)
+    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "id必须是32位字符串",groups = GroupID.class)
     private String id;
 
-    private String diseaseClassName;
 
+    @Length(min=0, max=50, message="疾病类别名称长度必须介于 0 和 50 之间",groups = GroupWithoutId.class)
+    private String diseaseClassName;
+    @Length(min=0, max=50, message="疾病类别编号长度必须介于 0 和 50 之间",groups = GroupWithoutId.class)
     private String diseaseClassCode;
 
     private String createBy;

@@ -16,12 +16,6 @@
     id, disease_class_name, disease_class_code, create_by, create_date, update_by, update_date, 
     remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sicmed_disease_class
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sicmed_disease_class
     where id = #{id,jdbcType=VARCHAR}
@@ -37,6 +31,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedDiseaseClass">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
     insert into sicmed_disease_class
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
