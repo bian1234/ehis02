@@ -23,7 +23,7 @@
     select 
     <include refid="Base_Column_List" />
     from sicmed_inspect_price
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}  AND del_flag = '0'
   </select>
 
 </mapper>
