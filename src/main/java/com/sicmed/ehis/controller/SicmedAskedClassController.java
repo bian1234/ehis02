@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,7 +61,11 @@ public class SicmedAskedClassController extends BaseController{
     @ResponseBody
     @GetMapping("findAllList")
     public Map findAllList(Query query){
-        return querySuccessResponse(sicmedAskedClassService.findAllList(query));
+        List<SicmedAskedClass> sicmedAskedClasses = sicmedAskedClassService.findAllList(query);
+        if (sicmedAskedClasses.isEmpty()){
+            return queryEmptyResponse();
+        }
+        return querySuccessResponse(sicmedAskedClasses);
     }
 
 
