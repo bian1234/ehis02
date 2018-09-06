@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.SicmedMedicalClass;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedMedicalClassReadMapper {
     int deleteByPrimaryKey(String id);
 

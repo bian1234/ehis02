@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.SicmedInviteNumber;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedInviteNumberReadMapper {
     int deleteByPrimaryKey(String id);
 

@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.SicmedUser;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedUserReadMapper {
     int deleteByPrimaryKey(String id);
 

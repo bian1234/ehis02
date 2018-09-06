@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.Sno;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SnoReadMapper {
     int deleteByPrimaryKey(Integer id);
 

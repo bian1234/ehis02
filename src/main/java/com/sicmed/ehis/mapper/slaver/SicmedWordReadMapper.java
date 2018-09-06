@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.SicmedWord;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedWordReadMapper {
     int deleteByPrimaryKey(String id);
 

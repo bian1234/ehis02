@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.master;
 
 import com.sicmed.ehis.entity.SicmedAskedBranch;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedAskedBranchWriteMapper {
     int deleteByPrimaryKey(String id);
 

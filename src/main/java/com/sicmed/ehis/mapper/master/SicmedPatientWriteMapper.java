@@ -1,7 +1,9 @@
 package com.sicmed.ehis.mapper.master;
 
 import com.sicmed.ehis.entity.SicmedPatient;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SicmedPatientWriteMapper {
     int deleteByPrimaryKey(String id);
 
