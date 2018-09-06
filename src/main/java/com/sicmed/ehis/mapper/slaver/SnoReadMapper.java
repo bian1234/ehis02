@@ -11,7 +11,7 @@ public interface SnoReadMapper {
 
     int insertSelective(Sno record);
 
-    Sno selectByPrimaryKey(Integer id);
+    Sno selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Sno record);
 
