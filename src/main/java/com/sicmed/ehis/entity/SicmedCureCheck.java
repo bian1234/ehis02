@@ -29,6 +29,29 @@ public class SicmedCureCheck {
 
     private String delFlag;
 
+
+    /**
+     *  增加治疗价格和治疗分类属性
+     */
+    private SicmedCurePrice sicmedCurePrice;
+    private SicmedCureClass sicmedCureClass;
+
+    public SicmedCurePrice getSicmedCurePrice() {
+        return sicmedCurePrice;
+    }
+
+    public void setSicmedCurePrice(SicmedCurePrice sicmedCurePrice) {
+        this.sicmedCurePrice = sicmedCurePrice;
+    }
+
+    public SicmedCureClass getSicmedCureClass() {
+        return sicmedCureClass;
+    }
+
+    public void setSicmedCureClass(SicmedCureClass sicmedCureClass) {
+        this.sicmedCureClass = sicmedCureClass;
+    }
+
     public String getId() {
         return id;
     }
@@ -131,5 +154,26 @@ public class SicmedCureCheck {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SicmedCureCheck{" +
+                "id='" + id + '\'' +
+                ", cureCode='" + cureCode + '\'' +
+                ", cureName='" + cureName + '\'' +
+                ", cureNamePy='" + cureNamePy + '\'' +
+                ", checkPriceCode='" + checkPriceCode + '\'' +
+                ", cureClassCode='" + cureClassCode + '\'' +
+                ", cureDetail='" + cureDetail + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", sicmedCurePrice=" + sicmedCurePrice +
+                ", sicmedCureClass=" + sicmedCureClass +
+                '}';
     }
 }

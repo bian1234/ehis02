@@ -112,4 +112,21 @@ public class SicmedCureClass {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+
+    @Override
+    public String toString() {
+        return "SicmedCureClass{" +
+                "id='" + id + '\'' +
+                ", classCode='" + classCode + '\'' +
+                ", className='" + className + '\'' +
+                ", pacsClass='" + pacsClass + '\'' +
+                ", sort=" + sort +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                '}';
+    }
 }
