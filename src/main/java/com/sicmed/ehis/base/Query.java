@@ -13,8 +13,11 @@ public class Query{
     // 每页条数
     private int limit;
 
+    /**
+     * 此处的 offset是前一页的页码，比如查看第一页，起始页是 0。
+     */
     public Query(int offset, int limit) {
-        this.offset = offset;
+            this.offset = offset - 1;
         this.limit = limit;
     }
 
@@ -32,6 +35,14 @@ public class Query{
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    @Override
+    public String toString() {
+        return "Query{" +
+                "offset=" + offset +
+                ", limit=" + limit +
+                '}';
     }
 }
 //public class Query extends LinkedHashMap<String, Object> {

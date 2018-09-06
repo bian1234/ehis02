@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * @Author: ykbian
  * @Date: 2018/9/4 11:15
- * @Todo:
+ * @Todo:  参数验证类
  */
 
 public class AppParameterSimulation {
