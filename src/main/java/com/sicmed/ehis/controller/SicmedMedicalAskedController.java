@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @Author: ykbian
  * @Date: 2018/9/6 14:18
- * @Todo:   医嘱个药品中间表
+ * @Todo:   医嘱和药品中间表
  */
 @Controller
 @RequestMapping("/rest/sicmedMedicalAsked")
