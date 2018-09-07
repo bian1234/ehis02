@@ -21,133 +21,26 @@
     select 
     <include refid="Base_Column_List" />
     from sicmed_disease_branch
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}  AND del_flag = '0'
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from sicmed_disease_branch
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedDiseaseBranch">
-    insert into sicmed_disease_branch (id, branch_code, disease_class_code, 
-      disease_code, create_by, create_date, 
-      update_by, update_date, remarks, 
-      del_flag)
-    values (#{id,jdbcType=VARCHAR}, #{branchCode,jdbcType=VARCHAR}, #{diseaseClassCode,jdbcType=VARCHAR}, 
-      #{diseaseCode,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedDiseaseBranch">
-    insert into sicmed_disease_branch
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="branchCode != null">
-        branch_code,
-      </if>
-      <if test="diseaseClassCode != null">
-        disease_class_code,
-      </if>
-      <if test="diseaseCode != null">
-        disease_code,
-      </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="delFlag != null">
-        del_flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="branchCode != null">
-        #{branchCode,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseClassCode != null">
-        #{diseaseClassCode,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseCode != null">
-        #{diseaseCode,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        #{delFlag,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedDiseaseBranch">
-    update sicmed_disease_branch
-    <set>
-      <if test="branchCode != null">
-        branch_code = #{branchCode,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseClassCode != null">
-        disease_class_code = #{diseaseClassCode,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseCode != null">
-        disease_code = #{diseaseCode,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedDiseaseBranch">
-    update sicmed_disease_branch
-    set branch_code = #{branchCode,jdbcType=VARCHAR},
-      disease_class_code = #{diseaseClassCode,jdbcType=VARCHAR},
-      disease_code = #{diseaseCode,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=CHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+
+
+  <!--findByBranch   根据科室id查询疾病信息-->
+  <select id="selectByBranch" resultType="SicmedAskedClass">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_disease_branch
+    <where>
+      del_flag = '0'  and  branch_code = #{sicmedDiseaseBranch.branchCode}
+    </where>
+    <choose>
+      <otherwise>
+        ORDER BY create_date DESC
+      </otherwise>
+    </choose>
+    <if test="query != null">
+      limit #{query.offset}, #{query.limit}
+    </if>
+  </select>
+
 </mapper>
