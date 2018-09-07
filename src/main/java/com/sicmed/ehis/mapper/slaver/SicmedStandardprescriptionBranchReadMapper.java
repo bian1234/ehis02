@@ -1,7 +1,10 @@
 package com.sicmed.ehis.mapper.slaver;
 
 import com.sicmed.ehis.entity.SicmedStandardprescriptionBranch;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface SicmedStandardprescriptionBranchReadMapper {
@@ -16,4 +19,6 @@ public interface SicmedStandardprescriptionBranchReadMapper {
     int updateByPrimaryKeySelective(SicmedStandardprescriptionBranch record);
 
     int updateByPrimaryKey(SicmedStandardprescriptionBranch record);
+
+    List<SicmedStandardprescriptionBranch> findStandardPrescriptionBranch(@Param("branchCode") String branchCode, @Param("askedCode") String askedCode);
 }
