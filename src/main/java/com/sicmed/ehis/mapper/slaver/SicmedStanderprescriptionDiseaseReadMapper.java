@@ -1,19 +1,27 @@
 package com.sicmed.ehis.mapper.slaver;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.sicmed.ehis.base.BaseReadMapper;
+import com.sicmed.ehis.base.Query;
 import com.sicmed.ehis.entity.SicmedStanderprescriptionDisease;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface SicmedStanderprescriptionDiseaseReadMapper {
-    int deleteByPrimaryKey(String id);
+public interface SicmedStanderprescriptionDiseaseReadMapper extends BaseReadMapper<SicmedStanderprescriptionDisease>{
 
-    int insert(SicmedStanderprescriptionDisease record);
+    List<SicmedStanderprescriptionDisease> selectByName(String prescriptionName);
 
-    int insertSelective(SicmedStanderprescriptionDisease record);
+    @Override
+    SicmedStanderprescriptionDisease selectById(String id);
 
-    SicmedStanderprescriptionDisease selectByPrimaryKey(String id);
+    @Override
+    SicmedStanderprescriptionDisease selectOneByParams(SicmedStanderprescriptionDisease entity);
 
-    int updateByPrimaryKeySelective(SicmedStanderprescriptionDisease record);
+    @Override
+    List<SicmedStanderprescriptionDisease> findAllList(Query query);
 
-    int updateByPrimaryKey(SicmedStanderprescriptionDisease record);
+    @Override
+    List<SicmedStanderprescriptionDisease> selectALLByParams(SicmedStanderprescriptionDisease e, Query query);
 }

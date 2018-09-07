@@ -19,12 +19,6 @@
     id, prescription_name, prescription_name_ex, disease_code, create_user, update_user, 
     create_by, create_date, update_by, update_date, remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sicmed_standerprescription_disease
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sicmed_standerprescription_disease
     where id = #{id,jdbcType=VARCHAR}
@@ -42,6 +36,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedStanderprescriptionDisease">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
     insert into sicmed_standerprescription_disease
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -159,7 +156,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedStanderprescriptionDisease">
+  <update id="updateSelective" parameterType="com.sicmed.ehis.entity.SicmedStanderprescriptionDisease">
     update sicmed_standerprescription_disease
     set prescription_name = #{prescriptionName,jdbcType=VARCHAR},
       prescription_name_ex = #{prescriptionNameEx,jdbcType=VARCHAR},

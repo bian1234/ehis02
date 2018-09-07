@@ -122,4 +122,23 @@ public class SicmedStanderprescriptionDisease {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+
+
+    @Override
+    public String toString() {
+        return "SicmedStanderprescriptionDisease{" +
+                "id='" + id + '\'' +
+                ", prescriptionName='" + prescriptionName + '\'' +
+                ", prescriptionNameEx='" + prescriptionNameEx + '\'' +
+                ", diseaseCode='" + diseaseCode + '\'' +
+                ", createUser='" + createUser + '\'' +
+                ", updateUser='" + updateUser + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                '}';
+    }
 }
