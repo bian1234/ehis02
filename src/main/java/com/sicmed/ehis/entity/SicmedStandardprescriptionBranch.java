@@ -5,17 +5,37 @@ import java.util.Date;
 public class SicmedStandardprescriptionBranch {
     private String id;
 
-    private String branchCode;
+    private String branchCode;   //部门编码
 
-    private String prescriptionName;
+    private String prescriptionName;   //处方名称
 
-    private String prescriptionNameEx;
+    private String prescriptionNameEx;   //处方扩展名
 
-    private String askedCode;
+    private String askedCode;    //医嘱类型编码
 
-    private String standerprescriptionAskedCode;
+    private String standerprescriptionAskedCode;   //标准处方中医嘱编号(对应标准处方中医嘱表)
 
-    private String standerprescriptionDiseaseCode;
+    private String standerprescriptionDiseaseCode;   //标准处方中的疾病编码(对应标准处方中的疾病表)
+
+    private SicmedBranch sicmedBranch;   //部门信息
+
+    private SicmedAskedClass sicmedAskedClass;   //医嘱类别信息
+
+    public SicmedBranch getSicmedBranch() {
+        return sicmedBranch;
+    }
+
+    public void setSicmedBranch(SicmedBranch sicmedBranch) {
+        this.sicmedBranch = sicmedBranch;
+    }
+
+    public SicmedAskedClass getSicmedAskedClass() {
+        return sicmedAskedClass;
+    }
+
+    public void setSicmedAskedClass(SicmedAskedClass sicmedAskedClass) {
+        this.sicmedAskedClass = sicmedAskedClass;
+    }
 
     private String createBy;
 

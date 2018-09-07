@@ -27,4 +27,9 @@ public class Constant {
      */
     public static String Branch_Registered_NO = "0";
 
+    /**
+     *   分页查询配置 ，如果前端配置了分页信息，这个配置不起作用
+     */
+    public static  int PAGE_NO = 1;   //默认要显示的页码
+    public static  int PAGE_SIZE = 10;  //默认每页显示的数据量
 }

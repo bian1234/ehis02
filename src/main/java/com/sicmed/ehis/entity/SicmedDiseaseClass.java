@@ -1,10 +1,12 @@
 package com.sicmed.ehis.entity;
 
+import com.google.common.collect.Lists;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.List;
 
 public class SicmedDiseaseClass {
 
@@ -29,6 +31,26 @@ public class SicmedDiseaseClass {
     private String remarks;
 
     private String delFlag;
+
+    private SicmedDiseaseClass parentDiseaseClass; //父类别
+
+    private List<SicmedDisease> diseaseList = Lists.newArrayList(); // 拥有疾病
+
+    public SicmedDiseaseClass getParentDiseaseClass() {
+        return parentDiseaseClass;
+    }
+
+    public void setParentDiseaseClass(SicmedDiseaseClass parentDiseaseClass) {
+        this.parentDiseaseClass = parentDiseaseClass;
+    }
+
+    public List<SicmedDisease> getDiseaseList() {
+        return diseaseList;
+    }
+
+    public void setDiseaseList(List<SicmedDisease> diseaseList) {
+        this.diseaseList = diseaseList;
+    }
 
     public String getId() {
         return id;

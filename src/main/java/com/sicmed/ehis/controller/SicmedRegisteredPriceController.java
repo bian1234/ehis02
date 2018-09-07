@@ -26,7 +26,7 @@ public class SicmedRegisteredPriceController extends BaseController{
     /**
      *@Author:      ykbian
      *@date_time:   2018/9/5 18:32
-     *@Description:   新增按照id查询-----------源码无这个接口
+     *@Description:   新增按照id查询-----------源码没有这个接口
      *@param:
     */
     @ResponseBody

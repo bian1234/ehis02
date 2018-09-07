@@ -18,12 +18,6 @@
     id, dept_number, dept_name, dept_pmpa, dept_code, create_by, create_date, update_by, 
     update_date, remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sicmed_dept
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sicmed_dept
     where id = #{id,jdbcType=VARCHAR}

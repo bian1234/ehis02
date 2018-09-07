@@ -33,6 +33,7 @@ public interface SicmedDiseaseClassService  extends BaseService<SicmedDiseaseCla
     @Override
     SicmedDiseaseClass selectById(String id);
 
+
     @Override
     SicmedDiseaseClass selectOneByParams(SicmedDiseaseClass entity);
 
@@ -44,4 +45,6 @@ public interface SicmedDiseaseClassService  extends BaseService<SicmedDiseaseCla
 
     @Override
     Page<SicmedDiseaseClass> findPage(Page<SicmedDiseaseClass> page, SicmedDiseaseClass entity);
+
+
 }

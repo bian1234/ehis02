@@ -176,4 +176,15 @@ public class BaseController {
         resultMap.put("result",null);
         return resultMap;
     }
+
+    /**
+     *  打印成功
+     */
+    public Map printSuccess(){
+        resultMap = new LinkedHashMap<>();
+        resultMap.put("code","20000");
+        resultMap.put("msg","PRINT_SUCCESS");
+        resultMap.put("result",null);
+        return resultMap;
+    }
 }

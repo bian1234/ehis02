@@ -25,6 +25,7 @@ public class SicmedDisease {
 
     private String delFlag;
 
+
     public String getId() {
         return id;
     }

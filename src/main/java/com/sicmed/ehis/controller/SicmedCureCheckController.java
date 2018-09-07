@@ -59,15 +59,12 @@ public class SicmedCureCheckController extends BaseController{
         if(AppParameterSimulation.isNotEmpty(classId)){
             sicmedCureCheck.setCureClassCode(classId);
         }
-        /**
-         *   此处需要增加 CureClass信息
-         */
+
         if(AppParameterSimulation.isNotEmpty(classId)){
             cc = sicmedCureClassService.selectById(classId);
         }
         map.put("sicmedCureCheck",sicmedCureCheck);
         map.put("query",query);
-        System.out.println("======================="+sicmedCureCheck);
         // 根据查询条件 查询
         List<SicmedCureCheck> sicmedCureChecks = sicmedCureCheckService.searchCure(map);
         for (SicmedCureCheck sicmedCureCheck1:sicmedCureChecks) {

@@ -102,4 +102,20 @@ public class SicmedDiseaseBranch {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+
+    @Override
+    public String toString() {
+        return "SicmedDiseaseBranch{" +
+                "id='" + id + '\'' +
+                ", branchCode='" + branchCode + '\'' +
+                ", diseaseClassCode='" + diseaseClassCode + '\'' +
+                ", diseaseCode='" + diseaseCode + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                '}';
+    }
 }

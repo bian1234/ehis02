@@ -26,7 +26,7 @@ public class SicmedMedicalAskedServiceImpl  implements SicmedMedicalAskedService
 
     @Override
     public SicmedMedicalAsked selectById(String id) {
-        return sicmedMedicalAskedReadMapper.selectByPrimaryKey(id);
+        return sicmedMedicalAskedReadMapper.selectById(id);
     }
 
     @Override

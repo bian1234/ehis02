@@ -16,4 +16,5 @@ public interface SicmedDiseaseReadMapper {
     int updateByPrimaryKeySelective(SicmedDisease record);
 
     int updateByPrimaryKey(SicmedDisease record);
+
 }
