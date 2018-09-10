@@ -58,11 +58,11 @@ public class SicmedDiseaseDoctorController extends BaseController{
     }
 
     /**
-     * 根据ID查询医生个人常用疾病
-     *
-     * @param diseaseBranchId
-     * @return
-     */
+     *@Author:      ykbian
+     *@date_time:   2018/9/10 11:05
+     *@Description:  根据ID查询医生个人常用疾病
+     *@param:
+    */
     @ResponseBody
     @GetMapping(value = "getById")
     public Map getById(String diseaseDoctorId) {
@@ -74,11 +74,11 @@ public class SicmedDiseaseDoctorController extends BaseController{
     }
 
     /**
-     * 根据医生查询医生个人常用疾病
-     *
-     * @param doctorId
-     * @return
-     */
+     *@Author:      ykbian
+     *@date_time:   2018/9/10 11:06
+     *@Description: 根据医生信息查询常用疾病信息
+     *@param:
+    */
 
     @ResponseBody
     @GetMapping(value = "findByDoctor")
