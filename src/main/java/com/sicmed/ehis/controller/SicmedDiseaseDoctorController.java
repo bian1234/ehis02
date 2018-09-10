@@ -42,7 +42,9 @@ public class SicmedDiseaseDoctorController extends BaseController{
     @PostMapping(value = "add")
     public Map add(SicmedDiseaseDoctor sicmedDiseaseDoctor) {
         sicmedDiseaseDoctor.setDelFlag(Constant.DEL_FLAG_USABLE);
-
+/**
+ *   创建者信息
+ */
         try {
             //根据疾病id查询到疾病分类id,存入sicmedDiseaseDoctor
             SicmedDisease sicmedDisease = sicmedDiseaseService.selectById(sicmedDiseaseDoctor.getDiseaseCode());
