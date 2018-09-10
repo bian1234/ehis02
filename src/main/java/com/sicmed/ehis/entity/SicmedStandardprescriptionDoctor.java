@@ -2,16 +2,16 @@ package com.sicmed.ehis.entity;
 
 import java.util.Date;
 
-public class SicmedDtandardprescriptionDoctor {
+public class SicmedStandardprescriptionDoctor {
     private String id;
 
-    private String doctorCode;
+    private String doctorCode;  //医生信息表
 
     private String prescriptionName;
 
     private String prescriptionNameEx;
 
-    private String askedCode;
+    private String askedCode;   //医嘱类别表
 
     private String standerprescriptionAskedCode;
 

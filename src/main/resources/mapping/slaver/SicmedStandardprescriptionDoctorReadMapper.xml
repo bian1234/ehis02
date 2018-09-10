@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedStandardprescriptionDoctorReadMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+    <result column="prescription_name" jdbcType="VARCHAR" property="prescriptionName" />
+    <result column="prescription_name_ex" jdbcType="VARCHAR" property="prescriptionNameEx" />
+    <result column="asked_code" jdbcType="VARCHAR" property="askedCode" />
+    <result column="standerprescription_asked_code" jdbcType="VARCHAR" property="standerprescriptionAskedCode" />
+    <result column="standerprescription_disease_code" jdbcType="VARCHAR" property="standerprescriptionDiseaseCode" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctor_code, prescription_name, prescription_name_ex, asked_code, standerprescription_asked_code, 
+    standerprescription_disease_code, create_by, create_date, update_by, update_date, 
+    remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sicmed_standardprescription_doctor
+    where id = #{id,jdbcType=VARCHAR}  AND del_flag = '0'
+  </select>
+
+
+
+  <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sicmed_standardprescription_doctor
+    <where>
+      del_flag = '0'
+        AND doctor_code = #{doctorCode}
+        AND asked_code = #{askedCode}
+    </where>
+    ORDER BY create_date
+    <if test="query.offset != null and query.limit != null">
+      limit #{query.offset}, #{query.limit}
+    </if>
+  </select>
+</mapper>

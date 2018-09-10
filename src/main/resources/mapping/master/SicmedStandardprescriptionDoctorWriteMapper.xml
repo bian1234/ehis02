@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sicmed.ehis.mapper.master.SicmedDtandardprescriptionDoctorWriteMapper">
-  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedDtandardprescriptionDoctor">
+<mapper namespace="com.sicmed.ehis.mapper.slaver.SicmedStandardprescriptionDoctorWriteMapper">
+  <resultMap id="BaseResultMap" type="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
     <result column="prescription_name" jdbcType="VARCHAR" property="prescriptionName" />
@@ -31,7 +31,7 @@
     delete from sicmed_standardprescription_doctor
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedDtandardprescriptionDoctor">
+  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
     insert into sicmed_standardprescription_doctor (id, doctor_code, prescription_name, 
       prescription_name_ex, asked_code, standerprescription_asked_code, 
       standerprescription_disease_code, create_by, 
@@ -43,7 +43,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedDtandardprescriptionDoctor">
+  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
     insert into sicmed_standardprescription_doctor
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,7 +128,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedDtandardprescriptionDoctor">
+  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
     update sicmed_standardprescription_doctor
     <set>
       <if test="doctorCode != null">
@@ -170,7 +170,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedDtandardprescriptionDoctor">
+  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedStandardprescriptionDoctor">
     update sicmed_standardprescription_doctor
     set doctor_code = #{doctorCode,jdbcType=VARCHAR},
       prescription_name = #{prescriptionName,jdbcType=VARCHAR},
