@@ -5,7 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name_china" jdbcType="VARCHAR" property="nameChina" />
     <result column="name_english" jdbcType="VARCHAR" property="nameEnglish" />
-    <result column="code_grades" jdbcType="INTEGER" property="codeGrades" />
+    <result column="code_grades" jdbcType="VARCHAR" property="codeGrades" />
     <result column="price_id" jdbcType="VARCHAR" property="priceId" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -25,4 +25,12 @@
     where id = #{id,jdbcType=VARCHAR}  AND del_flag = '0'
   </select>
 
+
+  <!--selectByGrades  科室等级查询挂号信息-->
+  <select id="selectByGrades" parameterType="java.lang.String" resultType="SicmedRegisteredType">
+    select
+    <include refid="Base_Column_List" />
+    from sicmed_registered_type
+    where code_grades = #{codeGrades,jdbcType=VARCHAR}  AND del_flag = '0'
+  </select>
 </mapper>

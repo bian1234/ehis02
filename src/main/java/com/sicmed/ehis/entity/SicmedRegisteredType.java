@@ -9,7 +9,7 @@ public class SicmedRegisteredType {
 
     private String nameEnglish;
 
-    private Integer codeGrades;
+    private String codeGrades;
 
     private String priceId;
 
@@ -24,6 +24,17 @@ public class SicmedRegisteredType {
     private String remarks;
 
     private String delFlag;
+
+
+    private SicmedRegisteredPrice sicmedRegisteredPrice;
+
+    public SicmedRegisteredPrice getSicmedRegisteredPrice() {
+        return sicmedRegisteredPrice;
+    }
+
+    public void setSicmedRegisteredPrice(SicmedRegisteredPrice sicmedRegisteredPrice) {
+        this.sicmedRegisteredPrice = sicmedRegisteredPrice;
+    }
 
     public String getId() {
         return id;
@@ -49,11 +60,11 @@ public class SicmedRegisteredType {
         this.nameEnglish = nameEnglish == null ? null : nameEnglish.trim();
     }
 
-    public Integer getCodeGrades() {
+    public String getCodeGrades() {
         return codeGrades;
     }
 
-    public void setCodeGrades(Integer codeGrades) {
+    public void setCodeGrades(String codeGrades) {
         this.codeGrades = codeGrades;
     }
 
@@ -111,5 +122,23 @@ public class SicmedRegisteredType {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SicmedRegisteredType{" +
+                "id='" + id + '\'' +
+                ", nameChina='" + nameChina + '\'' +
+                ", nameEnglish='" + nameEnglish + '\'' +
+                ", codeGrades='" + codeGrades + '\'' +
+                ", priceId='" + priceId + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", sicmedRegisteredPrice=" + sicmedRegisteredPrice +
+                '}';
     }
 }

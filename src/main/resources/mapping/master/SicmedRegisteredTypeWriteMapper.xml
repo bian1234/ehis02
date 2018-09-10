@@ -5,7 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name_china" jdbcType="VARCHAR" property="nameChina" />
     <result column="name_english" jdbcType="VARCHAR" property="nameEnglish" />
-    <result column="code_grades" jdbcType="INTEGER" property="codeGrades" />
+    <result column="code_grades" jdbcType="VARCHAR" property="codeGrades" />
     <result column="price_id" jdbcType="VARCHAR" property="priceId" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -34,7 +34,7 @@
       create_date, update_by, update_date, 
       remarks, del_flag)
     values (#{id,jdbcType=VARCHAR}, #{nameChina,jdbcType=VARCHAR}, #{nameEnglish,jdbcType=VARCHAR}, 
-      #{codeGrades,jdbcType=INTEGER}, #{priceId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{codeGrades,jdbcType=VARCHAR}, #{priceId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
@@ -86,7 +86,7 @@
         #{nameEnglish,jdbcType=VARCHAR},
       </if>
       <if test="codeGrades != null">
-        #{codeGrades,jdbcType=INTEGER},
+        #{codeGrades,jdbcType=VARCHAR},
       </if>
       <if test="priceId != null">
         #{priceId,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
         name_english = #{nameEnglish,jdbcType=VARCHAR},
       </if>
       <if test="codeGrades != null">
-        code_grades = #{codeGrades,jdbcType=INTEGER},
+        code_grades = #{codeGrades,jdbcType=VARCHAR},
       </if>
       <if test="priceId != null">
         price_id = #{priceId,jdbcType=VARCHAR},
@@ -151,7 +151,7 @@
     update sicmed_registered_type
     set name_china = #{nameChina,jdbcType=VARCHAR},
       name_english = #{nameEnglish,jdbcType=VARCHAR},
-      code_grades = #{codeGrades,jdbcType=INTEGER},
+      code_grades = #{codeGrades,jdbcType=VARCHAR},
       price_id = #{priceId,jdbcType=VARCHAR},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
