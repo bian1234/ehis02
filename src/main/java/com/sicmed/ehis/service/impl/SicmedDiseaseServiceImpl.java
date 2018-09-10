@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: ykbian
@@ -25,6 +26,16 @@ public class SicmedDiseaseServiceImpl  implements SicmedDiseaseService {
     private SicmedDiseaseReadMapper sicmedDiseaseReadMapper;
 
 
+    @Override
+    public List<SicmedDisease> getByClass(Map map) {
+        return sicmedDiseaseReadMapper.getByClass(map);
+    }
+
+
+    @Override
+    public List<SicmedDisease> searchDisease(Map map) {
+        return sicmedDiseaseReadMapper.searchDisease(map);
+    }
 
     @Override
     public int insertSelective(SicmedDisease sicmedDisease) {

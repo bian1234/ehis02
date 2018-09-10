@@ -16,15 +16,6 @@ public class Query{
     private Integer limit;
 
 
-    private Object object;   //查询的其他条件
-
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
 
     /**
      * 此处的 offset是前一页的页码，比如查看第一页，起始页是 0。
@@ -67,7 +58,6 @@ public class Query{
         return "Query{" +
                 "offset=" + offset +
                 ", limit=" + limit +
-                ", object=" + object +
                 '}';
     }
 }

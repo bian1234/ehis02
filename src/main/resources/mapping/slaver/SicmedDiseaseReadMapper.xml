@@ -26,4 +26,56 @@
     where id = #{id,jdbcType=VARCHAR}   AND del_flag = '0'
   </select>
 
+<!--根据疾病类别查询疾病信息-->
+  <select id="getByClass" resultType="SicmedDisease">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_disease
+    <where>
+      disease_class_code = #{diseaseClassCode,jdbcType=VARCHAR}  AND del_flag = '0'
+    </where>
+    <choose>
+      <!--<when test="page !=null and page.orderBy != null and page.orderBy != ''">-->
+      <!--ORDER BY ${page.orderBy}-->
+      <!--</when>-->
+      <otherwise>
+        ORDER BY create_date DESC
+      </otherwise>
+    </choose>
+    <if test="query.offset != null and query.limit != null">
+      limit #{query.offset}, #{query.limit}
+    </if>
+  </select>
+
+  <!--searchDisease 模糊搜索-->
+  <select id="searchDisease" resultType="SicmedDisease">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sicmed_disease a
+    <where>
+      a.del_flag = '0'
+      <if test="sicmedDisease.diseaseName != null and sicmedDisease.diseaseName != ''">
+        AND a.disease_name like CONCAT('%','${sicmedDisease.diseaseName}','%')
+      </if>
+      <if test="sicmedDisease.diseaseCode != null and sicmedDisease.diseaseCode != ''">
+        AND a.disease_name_english like CONCAT('%','${sicmedDisease.diseaseCode}','%')
+      </if>
+      <if test="sicmedDisease.diseaseNamePmpa != null and sicmedDisease.diseaseNamePmpa != ''">
+        AND a.disease_name_pmpa like CONCAT('%','${sicmedDisease.diseaseNamePmpa}','%')
+      </if>
+      <if test="sicmedDisease.diseaseClassCode != null and sicmedDisease.diseaseClassCode != ''">
+        AND a.disease_class_code like CONCAT('%','${sicmedDisease.diseaseClassCode}','%')
+      </if>
+    </where>
+
+    <choose>
+      <otherwise>
+        ORDER BY a.create_date DESC
+      </otherwise>
+    </choose>
+    <if test="query.offset != null and query.limit != null">
+      limit #{query.offset}, #{query.limit}
+    </if>
+  </select>
+
 </mapper>
