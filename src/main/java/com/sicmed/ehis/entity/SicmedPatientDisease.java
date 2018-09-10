@@ -1,16 +1,28 @@
 package com.sicmed.ehis.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class SicmedPatientDisease {
+
+    //主键
+    @NotNull(message = "id不能为空",groups = GroupID.class)
+    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "id必须是32位字符串",groups = GroupID.class)
     private String id;
+
+
 
     private String patientCode;
 
+    @NotNull(message = "疾病编号不能为空",groups = GroupWithoutId.class)
+    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "疾病id必须是32位字符串",groups = GroupWithoutId.class)
     private String diseaseCode;
 
     private String branchCode;
 
+    @NotNull(message = "病历id不能为空",groups = GroupWithoutId.class)
+    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "病历id必须是32位字符串",groups = GroupWithoutId.class)
     private String caseCode;
 
     private String createBy;

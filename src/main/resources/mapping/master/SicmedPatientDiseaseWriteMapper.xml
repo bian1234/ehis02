@@ -18,16 +18,20 @@
     id, patient_code, disease_code, branch_code, case_code, create_by, create_date, update_by, 
     update_date, remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sicmed_patient_disease
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sicmed_patient_disease
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <!--logicDelete 逻辑删除-->
+
+  <update id="logicDelete" parameterType="java.lang.String">
+    update sicmed_patient_disease
+    set del_flag = '1'
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
   <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedPatientDisease">
     insert into sicmed_patient_disease (id, patient_code, disease_code, 
       branch_code, case_code, create_by, 
@@ -39,6 +43,9 @@
       #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedPatientDisease">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
     insert into sicmed_patient_disease
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

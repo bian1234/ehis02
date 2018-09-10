@@ -16,4 +16,6 @@ public interface SicmedPatientDiseaseWriteMapper {
     int updateByPrimaryKeySelective(SicmedPatientDisease record);
 
     int updateByPrimaryKey(SicmedPatientDisease record);
+
+    int logicDelete(String id);
 }
