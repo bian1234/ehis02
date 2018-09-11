@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: ykbian
@@ -56,7 +57,7 @@ public class SicmedInspectServiceImpl  implements SicmedInspectService {
     }
 
     @Override
-    public SicmedInspect selectOneByParams(SicmedInspect entity) {
+    public List<SicmedInspect> selectOneByParams(SicmedInspect entity) {
         return null;
     }
 
@@ -73,5 +74,10 @@ public class SicmedInspectServiceImpl  implements SicmedInspectService {
     @Override
     public Page<SicmedInspect> findPage(Page<SicmedInspect> page, SicmedInspect entity) {
         return null;
+    }
+
+    @Override
+    public List<SicmedInspect> findListLike(Map map) {
+        return sicmedInspectReadMapper.findListLike(map);
     }
 }

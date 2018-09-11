@@ -4,8 +4,10 @@ import com.sicmed.ehis.base.BaseService;
 import com.sicmed.ehis.base.Query;
 import com.sicmed.ehis.base.util.Page;
 import com.sicmed.ehis.entity.SicmedInspect;
+import org.apache.ibatis.ognl.ASTSequence;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: ykbian
@@ -34,8 +36,7 @@ public interface SicmedInspectService  extends BaseService<SicmedInspect> {
     @Override
     SicmedInspect selectById(String id);
 
-    @Override
-    SicmedInspect selectOneByParams(SicmedInspect entity);
+
 
     @Override
     List<SicmedInspect> findAllList(Query query);
@@ -45,4 +46,10 @@ public interface SicmedInspectService  extends BaseService<SicmedInspect> {
 
     @Override
     Page<SicmedInspect> findPage(Page<SicmedInspect> page, SicmedInspect entity);
+
+
+    /**
+     * 模糊查询
+     */
+    List<SicmedInspect>  findListLike(Map map);
 }

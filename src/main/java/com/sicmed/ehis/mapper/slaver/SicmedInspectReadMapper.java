@@ -6,6 +6,7 @@ import com.sicmed.ehis.entity.SicmedInspect;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -21,4 +22,11 @@ public interface SicmedInspectReadMapper   extends BaseReadMapper{
 
     @Override
     List selectALLByParams(Object e, Query query);
+
+
+
+    /**
+     * 模糊查询
+     */
+    List<SicmedInspect>  findListLike(Map map);
 }
