@@ -20,169 +20,64 @@
     ID, code, name, sort, pace, create_by, create_date, update_by, update_date, remarks, 
     del_flag, parent_id, parent_ids
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sicmed_medical_class
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}  AND del_flag = '0'
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from sicmed_medical_class
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.sicmed.ehis.entity.SicmedMedicalClass">
-    insert into sicmed_medical_class (ID, code, name, 
-      sort, pace, create_by, 
-      create_date, update_by, update_date, 
-      remarks, del_flag, parent_id, 
-      parent_ids)
-    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=VARCHAR}, #{pace,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{parentId,jdbcType=VARCHAR}, 
-      #{parentIds,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedMedicalClass">
-    insert into sicmed_medical_class
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="code != null">
-        code,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="pace != null">
-        pace,
-      </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="delFlag != null">
-        del_flag,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="parentIds != null">
-        parent_ids,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=VARCHAR},
-      </if>
-      <if test="pace != null">
-        #{pace,jdbcType=CHAR},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        #{delFlag,jdbcType=CHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="parentIds != null">
-        #{parentIds,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sicmed.ehis.entity.SicmedMedicalClass">
-    update sicmed_medical_class
-    <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=VARCHAR},
-      </if>
-      <if test="pace != null">
-        pace = #{pace,jdbcType=CHAR},
-      </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=CHAR},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="parentIds != null">
-        parent_ids = #{parentIds,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.sicmed.ehis.entity.SicmedMedicalClass">
-    update sicmed_medical_class
-    set code = #{code,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=VARCHAR},
-      pace = #{pace,jdbcType=CHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=CHAR},
-      parent_id = #{parentId,jdbcType=VARCHAR},
-      parent_ids = #{parentIds,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
-  </update>
+
+  <select id="findAllList" resultType="SicmedMedicalClass">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_medical_class
+    <where>
+      del_flag = '0'
+    </where>
+    <choose>
+
+      <otherwise>
+        ORDER BY create_date DESC
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+<!--查找一级分类-->
+  <select id="firstClassification" resultType="SicmedMedicalClass">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_medical_class
+    <where>
+      del_flag = '0'  AND parent_id = #{parentId,jdbcType=VARCHAR}
+    </where>
+    <choose>
+
+      <otherwise>
+        ORDER BY create_date DESC
+      </otherwise>
+    </choose>
+  </select>
+
+
+  <!--根据父ID查询-->
+  <select id="findChild" resultType="SicmedMedicalClass">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sicmed_medical_class
+    <where>
+      del_flag = '0'  AND parent_id = #{parentId}
+    </where>
+    <choose>
+
+      <otherwise>
+        ORDER BY create_date DESC
+      </otherwise>
+    </choose>
+    <if test="query.offset != null and query.limit != null">
+      limit #{query.offset}, #{query.limit}
+    </if>
+  </select>
 </mapper>

@@ -132,4 +132,23 @@ public class SicmedMedicalClass {
     public void setParentIds(String parentIds) {
         this.parentIds = parentIds == null ? null : parentIds.trim();
     }
+
+    @Override
+    public String toString() {
+        return "SicmedMedicalClass{" +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", sort='" + sort + '\'' +
+                ", pace='" + pace + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", parentIds='" + parentIds + '\'' +
+                '}';
+    }
 }

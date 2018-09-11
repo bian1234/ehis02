@@ -1,15 +1,20 @@
-package com.sicmed.ehis.mapper.slaver;
+package com.sicmed.ehis.service;
 
-import com.sicmed.ehis.base.BaseReadMapper;
+import com.sicmed.ehis.base.BaseService;
 import com.sicmed.ehis.base.Query;
 import com.sicmed.ehis.entity.SicmedMedicalClass;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public interface SicmedMedicalClassReadMapper extends BaseReadMapper<SicmedMedicalClass>{
+/**
+ * @Author: ykbian
+ * @Date: 2018/9/10 18:54
+ * @Todo:   药片分类服务
+ */
+
+public interface SicmedMedicalClassService  extends BaseService<SicmedMedicalClass> {
+
 
 
     @Override
@@ -25,6 +30,5 @@ public interface SicmedMedicalClassReadMapper extends BaseReadMapper<SicmedMedic
      */
     List<SicmedMedicalClass> findChild(Map map);
 
-    @Override
     SicmedMedicalClass selectById(String id);
 }
