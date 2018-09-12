@@ -9,10 +9,7 @@ import com.sicmed.ehis.service.SicmedStanderprescriptionDiseaseService;
 import com.sicmed.ehis.service.SicmedUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,13 +26,6 @@ public class SicmedStanderprescriptionDiseaseController  extends BaseController 
 
     @Autowired
     private SicmedStanderprescriptionDiseaseService sicmedStanderprescriptionDiseaseService;
-    @Autowired
-    private SicmedStanderprescriptionAskedService sicmedStanderprescriptionAskedService;
-    @Autowired
-    private SicmedDiseaseService sicmedDiseaseService;
-
-    @Autowired
-    private SicmedUserService sicmedUserService;
 
 
 
@@ -53,6 +43,7 @@ public class SicmedStanderprescriptionDiseaseController  extends BaseController 
         /**
          *   创建者信息
          */
+
       sicmedStanderprescriptionDisease.setDelFlag(Constant.DEL_FLAG_USABLE);
       if (sicmedStanderprescriptionDiseaseService.insertSelective(sicmedStanderprescriptionDisease) > 0){
           return insertSuccseeResponse();
@@ -63,37 +54,27 @@ public class SicmedStanderprescriptionDiseaseController  extends BaseController 
     /**
      *@Author:      ykbian
      *@date_time:   2018/9/7 18:25
-     *@Description:  根据创建者信息查询处方信息------------------------------创建者从token获取
+     *@Description:  根据创建者信息查询处方信息------
      *@param:
     */
-//    @ResponseBody
-//    @RequestMapping(value = "get")
-//    public BaseBean get(String createUser) {
-//
-//        SicmedStanderprescriptionDiseaseBeans sicmedStanderprescriptionDiseaseBeans = new SicmedStanderprescriptionDiseaseBeans();
-//
-//        SicmedStanderprescriptionDisease sicmedStanderprescriptionDisease = new SicmedStanderprescriptionDisease();
-//
-//        sicmedStanderprescriptionDisease.setCreateUser(sicmedUserService.get(SsidUtils.getSicmedUserId(ssid)));
-//
-//        List<SicmedStanderprescriptionDisease> a = sicmedStanderprescriptionDiseaseService
-//                .findList(sicmedStanderprescriptionDisease);
-//
-//        if (a.size() > 0) {
-//            for (SicmedStanderprescriptionDisease sicmedStanderprescriptionDisease2 : a) {
-//                SicmedStanderprescriptionDiseaseBean sicmedStanderprescriptionDiseaseBean = new SicmedStanderprescriptionDiseaseBean();
-//                sicmedStanderprescriptionDiseaseBean.setssdb(sicmedStanderprescriptionDisease2);
-//                sicmedStanderprescriptionDiseaseBeans.getSicmedStanderprescriptionDiseaseBeans()
-//                        .add(sicmedStanderprescriptionDiseaseBean);
-//            }
-//            sicmedStanderprescriptionDiseaseBeans.setError("0");
-//            sicmedStanderprescriptionDiseaseBeans.setErrorMessage("查询成功");
-//        } else {
-//            sicmedStanderprescriptionDiseaseBeans.setError("1");
-//            sicmedStanderprescriptionDiseaseBeans.setErrorMessage("查询结果为空");
-//        }
-//        return sicmedStanderprescriptionDiseaseBeans;
-//    }
+    @ResponseBody
+    @GetMapping(value = "getByCreate")
+    public Map getByCreate() {
+
+        /**
+         *    要么从token中获取创建者id，要么从session,或者redis中获取当前用户的信息
+         */
+        String createUser = "0e27768cb28811e89c1500163e000a60";
+
+        List<SicmedStanderprescriptionDisease> sicmedStanderprescriptionDiseases =
+                sicmedStanderprescriptionDiseaseService.selectByCreate(createUser);
+
+        if (sicmedStanderprescriptionDiseases.isEmpty()){
+            return queryEmptyResponse();
+        }
+        return querySuccessResponse(sicmedStanderprescriptionDiseases);
+
+    }
 
     /**
      * 删除标准处方

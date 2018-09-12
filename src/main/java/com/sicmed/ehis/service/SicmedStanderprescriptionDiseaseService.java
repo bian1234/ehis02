@@ -40,8 +40,7 @@ public interface SicmedStanderprescriptionDiseaseService  extends BaseService<Si
     @Override
     SicmedStanderprescriptionDisease selectById(String id);
 
-    @Override
-    SicmedStanderprescriptionDisease selectOneByParams(SicmedStanderprescriptionDisease entity);
+    List<SicmedStanderprescriptionDisease> selectByCreate(String createUser);
 
     @Override
     List<SicmedStanderprescriptionDisease> findAllList(Query query);

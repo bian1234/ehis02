@@ -28,6 +28,11 @@ public class SicmedStanderprescriptionDiseaseServiceImpl  implements SicmedStand
 
 
     @Override
+    public List<SicmedStanderprescriptionDisease> selectByCreate(String createUser) {
+        return sicmedStanderprescriptionDiseaseReadMapper.selectByCreate(createUser);
+    }
+
+    @Override
     public List<SicmedStanderprescriptionDisease> selectByName(String prescriptionName) {
         return sicmedStanderprescriptionDiseaseReadMapper.selectByName(prescriptionName);
     }
@@ -63,7 +68,7 @@ public class SicmedStanderprescriptionDiseaseServiceImpl  implements SicmedStand
     }
 
     @Override
-    public SicmedStanderprescriptionDisease selectOneByParams(SicmedStanderprescriptionDisease entity) {
+    public List<SicmedStanderprescriptionDisease> selectOneByParams(SicmedStanderprescriptionDisease entity) {
         return null;
     }
 
