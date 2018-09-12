@@ -16,12 +16,6 @@
     id, order_code, entrusted_asked, create_by, create_date, update_by, update_date, 
     remarks, del_flag
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sicmed_entrusted_asked
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sicmed_entrusted_asked
     where id = #{id,jdbcType=VARCHAR}
@@ -37,6 +31,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sicmed.ehis.entity.SicmedEntrustedAsked">
+    <selectKey keyProperty="id" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') as id from dual
+    </selectKey>
     insert into sicmed_entrusted_asked
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,4 +136,13 @@
       del_flag = #{delFlag,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <!--logicDelete  逻辑删除-->
+  <update id="logicDelete" parameterType="java.lang.String">
+    update sicmed_entrusted_asked
+    <set> del_flag = '1'
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

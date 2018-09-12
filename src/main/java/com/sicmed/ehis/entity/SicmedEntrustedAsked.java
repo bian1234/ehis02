@@ -1,12 +1,26 @@
 package com.sicmed.ehis.entity;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class SicmedEntrustedAsked {
+
+    //主键
+    @NotNull(message = "id不能为空",groups = GroupID.class)
+    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "id必须是32位字符串",groups = GroupID.class)
     private String id;
 
+//    @NotNull(message = "对应id不能为空",groups = GroupWithoutId.class)
+//    @Pattern(regexp = "^[A-Za-z0-9]{32}",message = "id必须是32位字符串",groups = GroupWithoutId.class)
     private String orderCode;
 
+    @NotBlank(message =" 嘱托医嘱信息不能为空，且长度必须大于0" ,groups = {GroupWithoutId.class})
+    @Length(min = 1,max= 200,message = "不能超过二百个字符。",groups = {GroupWithoutId.class})
     private String entrustedAsked;
 
     private String createBy;
