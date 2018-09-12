@@ -55,8 +55,9 @@ public class SicmedTwxrayClassServiceImpl  implements SicmedTwxrayClassService {
         return null;
     }
 
+
     @Override
-    public SicmedTwxrayClass selectOneByParams(SicmedTwxrayClass entity) {
+    public List<SicmedTwxrayClass> selectOneByParams(SicmedTwxrayClass entity) {
         return null;
     }
 

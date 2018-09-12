@@ -60,7 +60,7 @@ public class SicmedTwxrayCheckServiceImpl  implements SicmedTwxrayCheckService {
     }
 
     @Override
-    public SicmedTwxrayCheck selectOneByParams(SicmedTwxrayCheck entity) {
+    public List<SicmedTwxrayCheck> selectOneByParams(SicmedTwxrayCheck entity) {
         return null;
     }
 
@@ -71,7 +71,7 @@ public class SicmedTwxrayCheckServiceImpl  implements SicmedTwxrayCheckService {
 
     @Override
     public List<SicmedTwxrayCheck> selectALLByParams(SicmedTwxrayCheck sicmedTwxrayCheck, Query query) {
-        return null;
+        return sicmedTwxrayCheckReadMapper.selectALLByParams(sicmedTwxrayCheck,query);
     }
 
     @Override

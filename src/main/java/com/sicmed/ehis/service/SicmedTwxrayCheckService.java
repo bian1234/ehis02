@@ -33,8 +33,6 @@ public interface SicmedTwxrayCheckService  extends BaseService<SicmedTwxrayCheck
     @Override
     SicmedTwxrayCheck selectById(String id);
 
-    @Override
-    SicmedTwxrayCheck selectOneByParams(SicmedTwxrayCheck entity);
 
     @Override
     List<SicmedTwxrayCheck> findAllList(Query query);

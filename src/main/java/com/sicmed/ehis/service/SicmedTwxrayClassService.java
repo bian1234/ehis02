@@ -33,8 +33,7 @@ public interface SicmedTwxrayClassService   extends BaseService<SicmedTwxrayClas
     @Override
     SicmedTwxrayClass selectById(String id);
 
-    @Override
-    SicmedTwxrayClass selectOneByParams(SicmedTwxrayClass entity);
+
 
     @Override
     List<SicmedTwxrayClass> findAllList(Query query);
